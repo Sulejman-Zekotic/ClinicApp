@@ -41,13 +41,7 @@ namespace ClinicApp.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll(
-            [FromQuery] string? search,
-            [FromQuery] DateTime? fromDate,
-            [FromQuery] DateTime? toDate,
-            [FromQuery] int? userId,
-            [FromQuery] int? medicationId,
-            [FromQuery] string? reason)
+        public async Task<IActionResult> GetAll([FromQuery] ListMedicationHistoryRequestDto request, CancellationToken ct)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
@@ -55,8 +49,11 @@ namespace ClinicApp.API.Controllers
             if (string.IsNullOrWhiteSpace(userIdClaim) || !int.TryParse(userIdClaim, out int currentUserId))
                 return Unauthorized(new { message = "Invalid token." });
 
-            var history = _medicationHistoryService.GetAll(
-                search, fromDate, toDate, userId, medicationId, reason, currentUserId, userRole);
+            var history = await _medicationHistoryService.GetPagedAsync(
+                request,
+                currentUserId,
+                userRole,
+                ct);
 
             return Ok(history);
         }

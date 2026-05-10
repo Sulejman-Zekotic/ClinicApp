@@ -12,5 +12,9 @@ namespace ClinicApp.Domain.Entities
 
         public Medication Medication { get; set; } = null!;
         public User User { get; set; } = null!;
+        public int? MedicationTakeReasonId { get; set; }
+        public MedicationTakeReason? MedicationTakeReason { get; set; }
+
+        public string? ReasonText { get; set; }
     }
 }

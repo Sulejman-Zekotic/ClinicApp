@@ -17,16 +17,16 @@ namespace ClinicApp.Infrastructure
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true)
-                .AddUserSecrets<InfrastructureAssemblyMarker>(optional: true)
-                .AddEnvironmentVariables()
                 .Build();
 
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var connectionString = configuration.GetConnectionString("DefaultConnection")
+                ?? Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
+                ?? Environment.GetEnvironmentVariable("ConnectionStrings:DefaultConnection");
 
             if (string.IsNullOrWhiteSpace(connectionString))
             {
                 throw new InvalidOperationException(
-                    "Connection string 'DefaultConnection' was not found in user-secrets, appsettings, or environment variables."
+                    "Connection string 'DefaultConnection' was not found in appsettings or environment variables."
                 );
             }
 

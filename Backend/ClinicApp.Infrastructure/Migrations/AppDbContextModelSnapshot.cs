@@ -17,7 +17,7 @@ namespace ClinicApp.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.5")
+                .HasAnnotation("ProductVersion", "9.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -113,6 +113,15 @@ namespace ClinicApp.Infrastructure.Migrations
                     b.Property<string>("Manufacturer")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("MedicationCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MedicationManufacturerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MedicationUnitId")
+                        .HasColumnType("int");
+
                     b.Property<int>("MinimumStock")
                         .HasColumnType("int");
 
@@ -134,7 +143,41 @@ namespace ClinicApp.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MedicationCategoryId");
+
+                    b.HasIndex("MedicationManufacturerId");
+
+                    b.HasIndex("MedicationUnitId");
+
                     b.ToTable("Medications");
+                });
+
+            modelBuilder.Entity("ClinicApp.Domain.Entities.MedicationCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("MedicationCategories");
                 });
 
             modelBuilder.Entity("ClinicApp.Domain.Entities.MedicationHistory", b =>
@@ -148,12 +191,19 @@ namespace ClinicApp.Infrastructure.Migrations
                     b.Property<int>("MedicationId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("MedicationTakeReasonId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<string>("Reason")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReasonText")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<DateTime>("TakenAt")
                         .HasColumnType("datetime2");
@@ -165,9 +215,99 @@ namespace ClinicApp.Infrastructure.Migrations
 
                     b.HasIndex("MedicationId");
 
+                    b.HasIndex("MedicationTakeReasonId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("MedicationHistories");
+                });
+
+            modelBuilder.Entity("ClinicApp.Domain.Entities.MedicationManufacturer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("MedicationManufacturers");
+                });
+
+            modelBuilder.Entity("ClinicApp.Domain.Entities.MedicationTakeReason", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("MedicationTakeReasons");
+                });
+
+            modelBuilder.Entity("ClinicApp.Domain.Entities.MedicationUnit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("Symbol")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Symbol")
+                        .IsUnique();
+
+                    b.ToTable("MedicationUnits");
                 });
 
             modelBuilder.Entity("ClinicApp.Domain.Entities.Notification", b =>
@@ -317,6 +457,30 @@ namespace ClinicApp.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("ClinicApp.Domain.Entities.Medication", b =>
+                {
+                    b.HasOne("ClinicApp.Domain.Entities.MedicationCategory", "MedicationCategory")
+                        .WithMany("Medications")
+                        .HasForeignKey("MedicationCategoryId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("ClinicApp.Domain.Entities.MedicationManufacturer", "MedicationManufacturer")
+                        .WithMany("Medications")
+                        .HasForeignKey("MedicationManufacturerId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("ClinicApp.Domain.Entities.MedicationUnit", "MedicationUnit")
+                        .WithMany("Medications")
+                        .HasForeignKey("MedicationUnitId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("MedicationCategory");
+
+                    b.Navigation("MedicationManufacturer");
+
+                    b.Navigation("MedicationUnit");
+                });
+
             modelBuilder.Entity("ClinicApp.Domain.Entities.MedicationHistory", b =>
                 {
                     b.HasOne("ClinicApp.Domain.Entities.Medication", "Medication")
@@ -325,6 +489,11 @@ namespace ClinicApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ClinicApp.Domain.Entities.MedicationTakeReason", "MedicationTakeReason")
+                        .WithMany()
+                        .HasForeignKey("MedicationTakeReasonId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("ClinicApp.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -332,6 +501,8 @@ namespace ClinicApp.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Medication");
+
+                    b.Navigation("MedicationTakeReason");
 
                     b.Navigation("User");
                 });
@@ -356,6 +527,21 @@ namespace ClinicApp.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ClinicApp.Domain.Entities.MedicationCategory", b =>
+                {
+                    b.Navigation("Medications");
+                });
+
+            modelBuilder.Entity("ClinicApp.Domain.Entities.MedicationManufacturer", b =>
+                {
+                    b.Navigation("Medications");
+                });
+
+            modelBuilder.Entity("ClinicApp.Domain.Entities.MedicationUnit", b =>
+                {
+                    b.Navigation("Medications");
                 });
 #pragma warning restore 612, 618
         }

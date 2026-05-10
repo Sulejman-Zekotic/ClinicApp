@@ -11,5 +11,9 @@ namespace ClinicApp.Application.DTOs
 
         [Range(1, 1000, ErrorMessage = "Količina mora biti između 1 i 1000.")]
         public int Quantity { get; set; } = 1;
+        public int? MedicationTakeReasonId { get; set; }
+
+        public string? ReasonText { get; set; }
+
     }
 }

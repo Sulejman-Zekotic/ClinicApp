@@ -10,11 +10,13 @@ namespace ClinicApp.Application.Interfaces
         object GetMe(int userId);
 
         object AddUser(AddUserDto dto, string adminUsername);
-        object GetAllUsers();
-
+        Task<PagedResultDto<UserListItemDto>> GetPagedUsersAsync(
+     ListUsersRequestDto request,
+     CancellationToken ct = default);
         object ChangePassword(int userId, ChangePasswordDto dto);
 
         object RequestPasswordReset(RequestPasswordResetDto dto);
+
         object ConfirmPasswordReset(ConfirmPasswordResetDto dto);
 
         object ResetUserPassword(int userId, string adminUsername);

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-
+using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // ------------------------------------------------------
@@ -50,6 +50,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddHealthChecks();
 
+builder.Services.AddScoped<ILookupService, LookupService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IMedicationService, MedicationService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
@@ -79,7 +80,6 @@ builder.Services.AddCors(options =>
         }
         else
         {
-            // fallback for local development if config is missing
             policy
                 .WithOrigins("http://localhost:4200")
                 .AllowAnyHeader()
@@ -91,9 +91,46 @@ builder.Services.AddCors(options =>
 // ------------------------------------------------------
 // SWAGGER
 // ------------------------------------------------------
+// ------------------------------------------------------
+// SWAGGER
+// ------------------------------------------------------
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "ClinicApp.API",
+        Version = "v1"
+    });
+
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "Unesi JWT token ovako: Bearer {token}",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header
+            },
+            new List<string>()
+        }
+    });
+});
 // ------------------------------------------------------
 // AUTHENTICATION
 // ------------------------------------------------------
@@ -251,6 +288,13 @@ static void ApplyDatabaseMigrations(WebApplication app)
     db.Database.Migrate();
 }
 
+static void SeedDemoData(WebApplication app)
+{
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    AppDbSeeder.Seed(db, app.Configuration);
+}
+
 static void EnsureBootstrapAdmin(WebApplication app)
 {
     var enabled = app.Configuration.GetValue<bool>("BootstrapAdmin:Enabled");
@@ -339,7 +383,13 @@ static IResult LiveHealthResponse(HttpContext ctx)
 var app = builder.Build();
 
 ApplyDatabaseMigrations(app);
+SeedDemoData(app);
 EnsureBootstrapAdmin(app);
+
+if (app.Configuration.GetValue<bool>("SeedData:ExitAfterSeeding"))
+{
+    return;
+}
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
@@ -355,9 +405,6 @@ if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("Swagger
     app.UseSwaggerUI();
 }
 
-app.UseDefaultFiles();
-app.UseStaticFiles();
-
 app.UseCors(AngularCorsPolicy);
 
 app.UseRateLimiter();
@@ -365,10 +412,16 @@ app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapGet("/", () => Results.Json(new
+{
+    name = "ClinicApp API",
+    status = "ok",
+    environment = app.Environment.EnvironmentName
+}));
+
 app.MapGet("/health/live", (Delegate)LiveHealthResponse);
 app.MapGet("/health/ready", (Delegate)ReadyHealthResponse);
 
 app.MapControllers();
-app.MapFallbackToFile("index.html");
 
 app.Run();

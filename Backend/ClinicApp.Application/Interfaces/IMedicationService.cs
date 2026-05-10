@@ -14,7 +14,7 @@ namespace ClinicApp.Application.Interfaces
 
         MedicationImportPreviewResultDto PreviewImport(Stream fileStream, string fileName);
         MedicationImportResultDto Import(Stream fileStream, string fileName);
-
+        Task<PagedResultDto<MedicationListItemDto>> GetPagedAsync(ListMedicationsRequestDto request, CancellationToken ct = default);
         byte[] GenerateExcelTemplate();
     }
 }

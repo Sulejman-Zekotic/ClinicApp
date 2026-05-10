@@ -62,7 +62,7 @@ namespace ClinicApp.Infrastructure.Services.Implementations
     </p>
     <p>Ako dugme ne radi, kopirajte ovaj link u browser:</p>
     <p>{WebUtility.HtmlEncode(resetLink)}</p>
-    <p>Link važi 15 minuta i može se iskoristiti samo jednom.</p>
+   <p>Link važi 30 minuta i može se iskoristiti samo jednom.</p>
     <p>Ako niste vi tražili reset, slobodno zanemarite ovu poruku.</p>
 </body>
 </html>";

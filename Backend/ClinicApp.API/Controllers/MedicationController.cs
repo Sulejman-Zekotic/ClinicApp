@@ -11,12 +11,11 @@ public class MedicationController : ControllerBase
     {
         _medicationService = medicationService;
     }
-
     [HttpGet]
-    public IActionResult GetAll([FromQuery] string? search, [FromQuery] string? stockFilter)
+    public async Task<IActionResult> GetAll([FromQuery] ListMedicationsRequestDto request, CancellationToken ct)
     {
-        var medications = _medicationService.GetAll(search, stockFilter);
-        return Ok(medications);
+        var result = await _medicationService.GetPagedAsync(request, ct);
+        return Ok(result);
     }
 
     [HttpGet("{id}")]

@@ -53,14 +53,13 @@ namespace ClinicApp.API.Controllers
 
             return Ok(_userService.GetMe(userId));
         }
-
         [Authorize(Roles = "admin")]
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] ListUsersRequestDto request, CancellationToken ct)
         {
-            return Ok(_userService.GetAllUsers());
+            var result = await _userService.GetPagedUsersAsync(request, ct);
+            return Ok(result);
         }
-
         [Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult Add([FromBody] AddUserDto dto)

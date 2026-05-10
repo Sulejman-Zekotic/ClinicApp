@@ -89,13 +89,16 @@ namespace ClinicApp.Infrastructure.Services.Implementations
                     m.Name,
                     m.Code,
                     m.Description,
-                    m.Manufacturer,
+                    Manufacturer = m.MedicationManufacturer != null ? m.MedicationManufacturer.Name : m.Manufacturer,
+                    m.MedicationManufacturerId,
                     m.Strength,
-                    m.Unit,
                     m.Stock,
                     m.MinimumStock,
-                    m.Category,
-                    m.RequiresPrescription
+                    m.RequiresPrescription,
+                    m.MedicationCategoryId,
+                    Category = m.MedicationCategory != null ? m.MedicationCategory.Name : m.Category,
+                    m.MedicationUnitId,
+                    Unit = m.MedicationUnit != null ? m.MedicationUnit.Symbol : m.Unit
                 })
                 .FirstOrDefault();
         }
@@ -264,12 +267,15 @@ namespace ClinicApp.Infrastructure.Services.Implementations
                 Name = dto.Name.Trim(),
                 Code = dto.Code.Trim(),
                 Description = NormalizeOptional(dto.Description),
-                Manufacturer = NormalizeOptional(dto.Manufacturer),
+                MedicationManufacturerId = dto.MedicationManufacturerId,
+                Manufacturer = ResolveManufacturerName(dto.MedicationManufacturerId, dto.Manufacturer),
                 Strength = NormalizeOptional(dto.Strength),
-                Unit = NormalizeOptional(dto.Unit),
+                MedicationUnitId = dto.MedicationUnitId,
+                Unit = ResolveUnitSymbol(dto.MedicationUnitId, dto.Unit),
                 Stock = dto.Stock,
                 MinimumStock = dto.MinimumStock,
-                Category = NormalizeOptional(dto.Category),
+                MedicationCategoryId = dto.MedicationCategoryId,
+                Category = ResolveCategoryName(dto.MedicationCategoryId, dto.Category),
                 RequiresPrescription = dto.RequiresPrescription
             };
 
@@ -304,18 +310,22 @@ namespace ClinicApp.Infrastructure.Services.Implementations
             if (codeExists)
                 throw new InvalidOperationException("Medication code already exists.");
 
+            var resolvedManufacturer = ResolveManufacturerName(dto.MedicationManufacturerId, dto.Manufacturer);
             var oldState = $"Name='{medication.Name}', Code='{medication.Code}', Stock={medication.Stock}, MinimumStock={medication.MinimumStock}, Category='{medication.Category ?? "-"}', Manufacturer='{medication.Manufacturer ?? "-"}', Prescription={medication.RequiresPrescription}";
-            var newState = $"Name='{dto.Name.Trim()}', Code='{dto.Code.Trim()}', Stock={dto.Stock}, MinimumStock={dto.MinimumStock}, Category='{NormalizeOptional(dto.Category) ?? "-"}', Manufacturer='{NormalizeOptional(dto.Manufacturer) ?? "-"}', Prescription={dto.RequiresPrescription}";
+            var newState = $"Name='{dto.Name.Trim()}', Code='{dto.Code.Trim()}', Stock={dto.Stock}, MinimumStock={dto.MinimumStock}, Category='{ResolveCategoryName(dto.MedicationCategoryId, dto.Category) ?? "-"}', Manufacturer='{resolvedManufacturer ?? "-"}', Prescription={dto.RequiresPrescription}";
 
             medication.Name = dto.Name.Trim();
             medication.Code = dto.Code.Trim();
             medication.Description = NormalizeOptional(dto.Description);
-            medication.Manufacturer = NormalizeOptional(dto.Manufacturer);
+            medication.MedicationManufacturerId = dto.MedicationManufacturerId;
+            medication.Manufacturer = resolvedManufacturer;
             medication.Strength = NormalizeOptional(dto.Strength);
-            medication.Unit = NormalizeOptional(dto.Unit);
+            medication.MedicationUnitId = dto.MedicationUnitId;
+            medication.Unit = ResolveUnitSymbol(dto.MedicationUnitId, dto.Unit);
             medication.Stock = dto.Stock;
             medication.MinimumStock = dto.MinimumStock;
-            medication.Category = NormalizeOptional(dto.Category);
+            medication.MedicationCategoryId = dto.MedicationCategoryId;
+            medication.Category = ResolveCategoryName(dto.MedicationCategoryId, dto.Category);
             medication.RequiresPrescription = dto.RequiresPrescription;
 
             _context.SaveChanges();
@@ -414,13 +424,16 @@ namespace ClinicApp.Infrastructure.Services.Implementations
                     : DefaultMinimumStock;
 
                 var requiresPrescription = string.Equals(requiresPrescriptionText, "true", StringComparison.OrdinalIgnoreCase);
+                var manufacturerId = ResolveManufacturerId(manufacturer);
+                var manufacturerName = ResolveManufacturerName(manufacturerId, manufacturer);
 
                 if (existingByCode.TryGetValue(normalizedCode, out var medication))
                 {
                     medication.Name = name;
                     medication.Code = code.Trim();
                     medication.Description = NormalizeOptional(description);
-                    medication.Manufacturer = NormalizeOptional(manufacturer);
+                    medication.MedicationManufacturerId = manufacturerId;
+                    medication.Manufacturer = manufacturerName;
                     medication.Strength = NormalizeOptional(strength);
                     medication.Unit = NormalizeOptional(unit);
                     medication.Stock = row.NewStock.Value;
@@ -435,7 +448,8 @@ namespace ClinicApp.Infrastructure.Services.Implementations
                         Name = name,
                         Code = code.Trim(),
                         Description = NormalizeOptional(description),
-                        Manufacturer = NormalizeOptional(manufacturer),
+                        MedicationManufacturerId = manufacturerId,
+                        Manufacturer = manufacturerName,
                         Strength = NormalizeOptional(strength),
                         Unit = NormalizeOptional(unit),
                         Stock = row.NewStock.Value,
@@ -881,6 +895,149 @@ namespace ClinicApp.Infrastructure.Services.Implementations
             return string.IsNullOrWhiteSpace(trimmed) ? null : trimmed;
         }
 
+        private string? ResolveCategoryName(int? categoryId, string? fallback)
+        {
+            if (!categoryId.HasValue)
+            {
+                return NormalizeOptional(fallback);
+            }
+
+            var lookupName = _context.MedicationCategories
+                .Where(x => x.Id == categoryId.Value)
+                .Select(x => x.Name)
+                .FirstOrDefault();
+
+            return NormalizeOptional(lookupName) ?? NormalizeOptional(fallback);
+        }
+
+        private string? ResolveManufacturerName(int? manufacturerId, string? fallback)
+        {
+            if (!manufacturerId.HasValue)
+            {
+                return NormalizeOptional(fallback);
+            }
+
+            var lookupName = _context.MedicationManufacturers
+                .Where(x => x.Id == manufacturerId.Value)
+                .Select(x => x.Name)
+                .FirstOrDefault();
+
+            return NormalizeOptional(lookupName) ?? NormalizeOptional(fallback);
+        }
+
+        private int? ResolveManufacturerId(string? manufacturerName)
+        {
+            var normalizedName = NormalizeOptional(manufacturerName);
+
+            if (normalizedName == null)
+            {
+                return null;
+            }
+
+            return _context.MedicationManufacturers
+                .Where(x => x.Name == normalizedName)
+                .Select(x => (int?)x.Id)
+                .FirstOrDefault();
+        }
+
+        private string? ResolveUnitSymbol(int? unitId, string? fallback)
+        {
+            if (!unitId.HasValue)
+            {
+                return NormalizeOptional(fallback);
+            }
+
+            var lookupSymbol = _context.MedicationUnits
+                .Where(x => x.Id == unitId.Value)
+                .Select(x => x.Symbol)
+                .FirstOrDefault();
+
+            return NormalizeOptional(lookupSymbol) ?? NormalizeOptional(fallback);
+        }
+
+        public async Task<PagedResultDto<MedicationListItemDto>> GetPagedAsync(
+    ListMedicationsRequestDto request,
+    CancellationToken ct = default)
+        {
+            var page = request.Page < 1 ? 1 : request.Page;
+            var pageSize = request.PageSize is < 1 or > 100 ? 10 : request.PageSize;
+
+            var query = _context.Medications
+                .AsNoTracking()
+                .Include(x => x.MedicationCategory)
+                .Include(x => x.MedicationManufacturer)
+                .Include(x => x.MedicationUnit)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(request.Search))
+            {
+                var search = request.Search.Trim();
+
+                query = query.Where(x =>
+                    x.Name.Contains(search) ||
+                    x.Code.Contains(search) ||
+                    (x.Manufacturer != null && x.Manufacturer.Contains(search)));
+            }
+
+            if (request.CategoryId.HasValue)
+            {
+                query = query.Where(x => x.MedicationCategoryId == request.CategoryId.Value);
+            }
+
+            if (request.ManufacturerId.HasValue)
+            {
+                query = query.Where(x => x.MedicationManufacturerId == request.ManufacturerId.Value);
+            }
+
+            if (request.UnitId.HasValue)
+            {
+                query = query.Where(x => x.MedicationUnitId == request.UnitId.Value);
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.StockFilter))
+            {
+                query = request.StockFilter.ToLower() switch
+                {
+                    "instock" => query.Where(x => x.Stock > x.MinimumStock),
+                    "lowstock" => query.Where(x => x.Stock > 0 && x.Stock <= x.MinimumStock),
+                    "outofstock" => query.Where(x => x.Stock == 0),
+                    _ => query
+                };
+            }
+
+            var totalCount = await query.CountAsync(ct);
+
+            var items = await query
+                .OrderBy(x => x.Name)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Select(x => new MedicationListItemDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Code = x.Code,
+                    Description = x.Description,
+                    Manufacturer = x.MedicationManufacturer != null ? x.MedicationManufacturer.Name : x.Manufacturer,
+                    MedicationManufacturerId = x.MedicationManufacturerId,
+                    Strength = x.Strength,
+                    Stock = x.Stock,
+                    MinimumStock = x.MinimumStock,
+                    RequiresPrescription = x.RequiresPrescription,
+                    MedicationCategoryId = x.MedicationCategoryId,
+                    Category = x.MedicationCategory != null ? x.MedicationCategory.Name : x.Category,
+                    MedicationUnitId = x.MedicationUnitId,
+                    Unit = x.MedicationUnit != null ? x.MedicationUnit.Symbol : x.Unit
+                })
+                .ToListAsync(ct);
+
+            return new PagedResultDto<MedicationListItemDto>
+            {
+                Items = items,
+                Page = page,
+                PageSize = pageSize,
+                TotalCount = totalCount
+            };
+        }
         private static void ValidateMedicationDto(string name, string code, int stock, int minimumStock)
         {
             if (string.IsNullOrWhiteSpace(name))

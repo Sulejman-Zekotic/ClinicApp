@@ -12,6 +12,10 @@ namespace ClinicApp.Domain.Entities
 
         public string? Manufacturer { get; set; }
 
+        public int? MedicationManufacturerId { get; set; }
+
+        public MedicationManufacturer? MedicationManufacturer { get; set; }
+
         public string? Strength { get; set; }
 
         public string? Unit { get; set; }
@@ -23,5 +27,10 @@ namespace ClinicApp.Domain.Entities
         public string? Category { get; set; }
 
         public bool RequiresPrescription { get; set; } = false;
+        public int? MedicationCategoryId { get; set; }
+        public MedicationCategory? MedicationCategory { get; set; }
+
+        public int? MedicationUnitId { get; set; }
+        public MedicationUnit? MedicationUnit { get; set; }
     }
 }

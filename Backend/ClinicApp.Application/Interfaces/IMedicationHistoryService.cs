@@ -5,7 +5,13 @@ namespace ClinicApp.Application.Interfaces
     public interface IMedicationHistoryService
     {
         object TakeMedication(TakeMedicationDto dto, int userId, string username);
-        object GetAll(string? search, DateTime? fromDate, DateTime? toDate, int? userId, int? medicationId, string? reason, int currentUserId, string? userRole);
+
+        Task<PagedResultDto<MedicationHistoryListItemDto>> GetPagedAsync(
+            ListMedicationHistoryRequestDto request,
+            int currentUserId,
+            string? userRole,
+            CancellationToken ct = default);
+
         byte[] ExportExcel(DateTime? fromDate, DateTime? toDate, int? userId, int? medicationId, string? reason, int currentUserId, string? userRole);
         object GetByUser(int userId);
         object GetStats(int currentUserId, string? userRole);

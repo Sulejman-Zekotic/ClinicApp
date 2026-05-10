@@ -108,16 +108,57 @@ namespace ClinicApp.Infrastructure.Services.Implementations
                 user.MustChangePassword
             };
         }
-
-        public object GetAllUsers()
+        public async Task<PagedResultDto<UserListItemDto>> GetPagedUsersAsync(
+            ListUsersRequestDto request,
+            CancellationToken ct = default)
         {
-            return _context.Users.Select(u => new
+            var page = request.Page < 1 ? 1 : request.Page;
+            var pageSize = request.PageSize is < 1 or > 100 ? 10 : request.PageSize;
+
+            var query = _context.Users
+                .AsNoTracking()
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(request.Search))
             {
-                u.Id,
-                u.Username,
-                u.Email,
-                u.Role
-            }).ToList();
+                var search = request.Search.Trim();
+
+                query = query.Where(x =>
+                    x.Username.Contains(search) ||
+                    (x.Email != null && x.Email.Contains(search)));
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.Role))
+            {
+                var role = request.Role.Trim().ToLower();
+
+                query = query.Where(x => x.Role.ToLower() == role);
+            }
+
+            var totalCount = await query.CountAsync(ct);
+
+            var items = await query
+                .OrderBy(x => x.Username)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Select(x => new UserListItemDto
+                {
+                    Id = x.Id,
+                    Username = x.Username,
+                    Email = x.Email,
+                    Role = x.Role,
+                    MustChangePassword = x.MustChangePassword,
+                    LastSuccessfulLoginAtUtc = x.LastSuccessfulLoginAtUtc
+                })
+                .ToListAsync(ct);
+
+            return new PagedResultDto<UserListItemDto>
+            {
+                Items = items,
+                Page = page,
+                PageSize = pageSize,
+                TotalCount = totalCount
+            };
         }
 
         public object AddUser(AddUserDto dto, string adminUsername)
@@ -177,9 +218,13 @@ namespace ClinicApp.Infrastructure.Services.Implementations
 
             _context.SaveChanges();
 
-            var link = $"{_configuration["App:FrontendBaseUrl"]}/reset-password.html?token={token}";
+            var frontendBaseUrl = RequireSetting("App:FrontendBaseUrl").TrimEnd('/');
+            var link = $"{frontendBaseUrl}/reset-password?token={token}";
 
-            _emailService.SendPasswordResetEmailAsync(user.Email, user.Username, link);
+            _emailService
+                .SendPasswordResetEmailAsync(user.Email!, user.Username, link)
+                .GetAwaiter()
+                .GetResult();
 
             return new { message = "Reset link sent." };
         }
@@ -234,7 +279,7 @@ namespace ClinicApp.Infrastructure.Services.Implementations
 
         private string GenerateJwtToken(User user)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(RequireSetting("Jwt:Key")));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
@@ -246,10 +291,10 @@ namespace ClinicApp.Infrastructure.Services.Implementations
             };
 
             var token = new JwtSecurityToken(
-                _configuration["Jwt:Issuer"],
-                _configuration["Jwt:Audience"],
+                RequireSetting("Jwt:Issuer"),
+                RequireSetting("Jwt:Audience"),
                 claims,
-                expires: DateTime.UtcNow.AddMinutes(int.Parse(_configuration["Jwt:ExpiryMinutes"])),
+                expires: DateTime.UtcNow.AddMinutes(RequireIntegerSetting("Jwt:ExpiryMinutes")),
                 signingCredentials: creds
             );
 
@@ -263,7 +308,22 @@ namespace ClinicApp.Infrastructure.Services.Implementations
 
         private int GetRefreshTokenExpiryDays()
         {
-            return int.Parse(_configuration["Jwt:RefreshTokenExpiryDays"]);
+            return RequireIntegerSetting("Jwt:RefreshTokenExpiryDays");
+        }
+
+        private string RequireSetting(string key)
+        {
+            return _configuration[key]
+                ?? throw new InvalidOperationException($"Missing required configuration value: {key}");
+        }
+
+        private int RequireIntegerSetting(string key)
+        {
+            var rawValue = RequireSetting(key);
+
+            return int.TryParse(rawValue, out var value)
+                ? value
+                : throw new InvalidOperationException($"Configuration value '{key}' must be a valid integer.");
         }
     }
 }

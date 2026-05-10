@@ -31,15 +31,21 @@ public object TakeMedication(TakeMedicationDto dto, int userId, string username)
         throw new InvalidOperationException("Medication out of stock.");
 
     med.Stock -= quantity;
+            var reasonText = !string.IsNullOrWhiteSpace(dto.ReasonText)
+                ? dto.ReasonText.Trim()
+                : dto.Reason?.Trim() ?? string.Empty;
 
-    var history = new MedicationHistory
-    {
-        MedicationId = med.Id,
-        UserId = userId,
-        TakenAt = DateTime.UtcNow,
-        Reason = dto.Reason.Trim(),
-        Quantity = quantity
-    };
+            var history = new MedicationHistory
+            {
+                MedicationId = med.Id,
+                UserId = userId,
+                TakenAt = DateTime.UtcNow,
+                Reason = reasonText,
+                ReasonText = reasonText,
+                MedicationTakeReasonId = dto.MedicationTakeReasonId,
+                Quantity = quantity
+            };
+  
 
     _context.MedicationHistories.Add(history);
     _context.SaveChanges();
@@ -121,41 +127,68 @@ public object TakeMedication(TakeMedicationDto dto, int userId, string username)
     };
 }
 
-        public object GetAll(
-            string? search,
-            DateTime? fromDate,
-            DateTime? toDate,
-            int? userId,
-            int? medicationId,
-            string? reason,
-            int currentUserId,
-            string? userRole)
+        public async Task<PagedResultDto<MedicationHistoryListItemDto>> GetPagedAsync(
+    ListMedicationHistoryRequestDto request,
+    int currentUserId,
+    string? userRole,
+    CancellationToken ct = default)
         {
-            var query = BuildFilteredHistoryQuery(fromDate, toDate, userId, medicationId, reason, currentUserId, userRole);
+            var page = request.Page < 1 ? 1 : request.Page;
+            var pageSize = request.PageSize is < 1 or > 100 ? 10 : request.PageSize;
 
-            if (!string.IsNullOrWhiteSpace(search))
+            var query = BuildFilteredHistoryQuery(
+                request.FromDate,
+                request.ToDate,
+                request.UserId,
+                request.MedicationId,
+                request.Reason,
+                currentUserId,
+                userRole);
+
+            if (request.MedicationTakeReasonId.HasValue)
             {
-                var term = search.Trim().ToLower();
+                query = query.Where(h => h.MedicationTakeReasonId == request.MedicationTakeReasonId.Value);
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.Search))
+            {
+                var term = request.Search.Trim().ToLower();
+
                 query = query.Where(h =>
                     (h.Reason != null && h.Reason.ToLower().Contains(term)) ||
+                    (h.ReasonText != null && h.ReasonText.ToLower().Contains(term)) ||
                     h.Medication.Name.ToLower().Contains(term) ||
                     h.User.Username.ToLower().Contains(term));
             }
 
-            return query
+            var totalCount = await query.CountAsync(ct);
+
+            var items = await query
                 .OrderByDescending(h => h.TakenAt)
-                .Select(h => new
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Select(h => new MedicationHistoryListItemDto
                 {
-                    h.Id,
-                    h.MedicationId,
+                    Id = h.Id,
+                    MedicationId = h.MedicationId,
                     MedicationName = h.Medication.Name,
-                    h.UserId,
+                    UserId = h.UserId,
                     Username = h.User.Username,
-                    h.Reason,
-                    h.Quantity,
-                    h.TakenAt
+                    Reason = h.ReasonText ?? h.Reason,
+                    MedicationTakeReasonId = h.MedicationTakeReasonId,
+                    MedicationTakeReasonName = h.MedicationTakeReason != null ? h.MedicationTakeReason.Name : null,
+                    Quantity = h.Quantity,
+                    TakenAt = h.TakenAt
                 })
-                .ToList();
+                .ToListAsync(ct);
+
+            return new PagedResultDto<MedicationHistoryListItemDto>
+            {
+                Items = items,
+                Page = page,
+                PageSize = pageSize,
+                TotalCount = totalCount
+            };
         }
 
         public byte[] ExportExcel(
@@ -599,9 +632,10 @@ public object TakeMedication(TakeMedicationDto dto, int userId, string username)
             string? userRole)
         {
             var query = _context.MedicationHistories
-                .Include(h => h.Medication)
-                .Include(h => h.User)
-                .AsQueryable();
+     .Include(h => h.Medication)
+     .Include(h => h.User)
+     .Include(h => h.MedicationTakeReason)
+     .AsQueryable();
 
             if (userRole != "admin")
             {

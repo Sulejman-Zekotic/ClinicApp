@@ -3,6 +3,11 @@ namespace ClinicApp.Application.DTOs
 {
     public class AddMedicationDto
     {
+        public int? MedicationCategoryId { get; set; }
+
+        public int? MedicationManufacturerId { get; set; }
+
+        public int? MedicationUnitId { get; set; }
         [Required(ErrorMessage = "Naziv lijeka je obavezan.")]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Naziv lijeka mora imati između 2 i 100 karaktera.")]
         public string Name { get; set; } = string.Empty;

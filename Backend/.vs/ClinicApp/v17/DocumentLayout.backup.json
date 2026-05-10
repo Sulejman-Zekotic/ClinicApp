@@ -1,141 +1,168 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\",
+  "WorkspaceRootPath": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.infrastructure\\services\\implementations\\notificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|solutionrelative:clinicapp.infrastructure\\services\\implementations\\notificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.api\\controllers\\notificationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\controllers\\notificationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.infrastructure\\services\\implementations\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|solutionrelative:clinicapp.infrastructure\\services\\implementations\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.application\\interfaces\\inotificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\interfaces\\inotificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.application\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.api\\wwwroot\\script.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\wwwroot\\script.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicAppDb/True/SqlTable/dbo.Users.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.infrastructure\\designtimedbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|solutionrelative:clinicapp.infrastructure\\designtimedbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.api\\controllers\\medicationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\controllers\\medicationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.infrastructure\\services\\implementations\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|solutionrelative:clinicapp.infrastructure\\services\\implementations\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.api\\globalusings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\globalusings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.application\\dtos\\savepushsubscriptiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\dtos\\savepushsubscriptiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.api\\controllers\\medicationhistorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\controllers\\medicationhistorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.infrastructure\\clinicapp.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.infrastructure\\clinicapp.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|solutionrelative:clinicapp.infrastructure\\clinicapp.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{AA92A08A-C325-45A0-B5BD-F6B4CBDF47FB}|ClinicApp.Domain\\ClinicApp.Domain.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.domain\\clinicapp.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{AA92A08A-C325-45A0-B5BD-F6B4CBDF47FB}|ClinicApp.Domain\\ClinicApp.Domain.csproj|solutionrelative:clinicapp.domain\\clinicapp.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.api\\appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.application\\clinicapp.application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\clinicapp.application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.api\\middleware\\errorhandlingmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\middleware\\errorhandlingmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.api\\clinicapp.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.api\\clinicapp.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\clinicapp.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.infrastructure\\services\\implementations\\medicationhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|solutionrelative:clinicapp.infrastructure\\services\\implementations\\medicationhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.infrastructure\\globalusings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|solutionrelative:clinicapp.infrastructure\\globalusings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.application\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.infrastructure\\helpers\\notificationhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|solutionrelative:clinicapp.infrastructure\\helpers\\notificationhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.infrastructure\\helpers\\pushnotificationhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|solutionrelative:clinicapp.infrastructure\\helpers\\pushnotificationhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.infrastructure\\services\\implementations\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|solutionrelative:clinicapp.infrastructure\\services\\implementations\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.infrastructure\\services\\implementations\\pushnotificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|solutionrelative:clinicapp.infrastructure\\services\\implementations\\pushnotificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.infrastructure\\services\\implementations\\medicationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|solutionrelative:clinicapp.infrastructure\\services\\implementations\\medicationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.infrastructure\\helpers\\passwordhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|solutionrelative:clinicapp.infrastructure\\helpers\\passwordhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.application\\interfaces\\imedicationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\interfaces\\imedicationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.application\\dtos\\takemedicationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.application\\dtos\\takemedicationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\dtos\\takemedicationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.application\\dtos\\addmedicationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.infrastructure\\services\\implementations\\medicationhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|solutionrelative:clinicapp.infrastructure\\services\\implementations\\medicationhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AA92A08A-C325-45A0-B5BD-F6B4CBDF47FB}|ClinicApp.Domain\\ClinicApp.Domain.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.domain\\entities\\medicationhistory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AA92A08A-C325-45A0-B5BD-F6B4CBDF47FB}|ClinicApp.Domain\\ClinicApp.Domain.csproj|solutionrelative:clinicapp.domain\\entities\\medicationhistory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.api\\controllers\\medicationhistorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\controllers\\medicationhistorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.application\\interfaces\\imedicationhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\interfaces\\imedicationhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.application\\dtos\\medicationhistorylistitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\dtos\\medicationhistorylistitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.application\\dtos\\listmedicationhistoryrequestdto .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\dtos\\listmedicationhistoryrequestdto .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.infrastructure\\services\\implementations\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|solutionrelative:clinicapp.infrastructure\\services\\implementations\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.application\\dtos\\userlistitemdto.cs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\dtos\\userlistitemdto.cs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.infrastructure\\data\\appdbseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|solutionrelative:clinicapp.infrastructure\\data\\appdbseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.api\\controllers\\lookupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\controllers\\lookupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.api\\controllers\\medicationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67B82B9A-8510-405B-B60D-DC8AB89929D8}|ClinicApp.API\\ClinicApp.API.csproj|solutionrelative:clinicapp.api\\controllers\\medicationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.infrastructure\\services\\implementations\\medicationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|solutionrelative:clinicapp.infrastructure\\services\\implementations\\medicationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.application\\dtos\\listmedicationsrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\dtos\\listmedicationsrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.application\\dtos\\listusersrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\dtos\\listusersrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.infrastructure\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|solutionrelative:clinicapp.infrastructure\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AA92A08A-C325-45A0-B5BD-F6B4CBDF47FB}|ClinicApp.Domain\\ClinicApp.Domain.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.domain\\entities\\medication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AA92A08A-C325-45A0-B5BD-F6B4CBDF47FB}|ClinicApp.Domain\\ClinicApp.Domain.csproj|solutionrelative:clinicapp.domain\\entities\\medication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.application\\interfaces\\imedicationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\interfaces\\imedicationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.infrastructure\\services\\implementations\\lookupservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54196741-DCF0-4C77-BBB9-5741C9C23F01}|ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj|solutionrelative:clinicapp.infrastructure\\services\\implementations\\lookupservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.application\\interfaces\\ilookupservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\interfaces\\ilookupservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.application\\dtos\\updatemedicationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\dtos\\updatemedicationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.application\\dtos\\addmedicationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\dtos\\addmedicationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.application\\interfaces\\iemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\interfaces\\iemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.application\\dtos\\medicationlistitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\dtos\\medicationlistitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicappv2\\clinicapp.application\\interfaces\\imedicationhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\interfaces\\imedicationhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.application\\dtos\\pagedrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\dtos\\pagedrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.application\\dtos\\pagedresultdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\dtos\\pagedresultdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.application\\dtos\\lookupitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B434ED3A-A19E-4BF8-B095-B46D77040499}|ClinicApp.Application\\ClinicApp.Application.csproj|solutionrelative:clinicapp.application\\dtos\\lookupitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AA92A08A-C325-45A0-B5BD-F6B4CBDF47FB}|ClinicApp.Domain\\ClinicApp.Domain.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.domain\\entities\\medicationtakereason.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AA92A08A-C325-45A0-B5BD-F6B4CBDF47FB}|ClinicApp.Domain\\ClinicApp.Domain.csproj|solutionrelative:clinicapp.domain\\entities\\medicationtakereason.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AA92A08A-C325-45A0-B5BD-F6B4CBDF47FB}|ClinicApp.Domain\\ClinicApp.Domain.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.domain\\entities\\medicationunit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AA92A08A-C325-45A0-B5BD-F6B4CBDF47FB}|ClinicApp.Domain\\ClinicApp.Domain.csproj|solutionrelative:clinicapp.domain\\entities\\medicationunit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AA92A08A-C325-45A0-B5BD-F6B4CBDF47FB}|ClinicApp.Domain\\ClinicApp.Domain.csproj|c:\\users\\sulej\\desktop\\clinicapp\\backend\\clinicapp.domain\\entities\\medicationcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AA92A08A-C325-45A0-B5BD-F6B4CBDF47FB}|ClinicApp.Domain\\ClinicApp.Domain.csproj|solutionrelative:clinicapp.domain\\entities\\medicationcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicApp_Test/True/SqlTable/dbo.Users.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicAppDb/True/SqlTable/dbo.Users.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     }
   ],
   "DocumentGroupContainers": [
@@ -145,421 +172,498 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "NotificationService.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\Services\\Implementations\\NotificationService.cs",
-              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\Services\\Implementations\\NotificationService.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\Services\\Implementations\\NotificationService.cs",
-              "RelativeToolTip": "ClinicApp.Infrastructure\\Services\\Implementations\\NotificationService.cs",
-              "ViewState": "AgIAAI4AAAAAAAAAAAAgwLgAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-15T00:39:12.65Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\Program.cs",
-              "RelativeDocumentMoniker": "ClinicApp.API\\Program.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\Program.cs",
-              "RelativeToolTip": "ClinicApp.API\\Program.cs",
-              "ViewState": "AgIAAF8BAAAAAAAAAAAkwHABAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-08T23:47:10.406Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "NotificationController.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\Controllers\\NotificationController.cs",
-              "RelativeDocumentMoniker": "ClinicApp.API\\Controllers\\NotificationController.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\Controllers\\NotificationController.cs",
-              "RelativeToolTip": "ClinicApp.API\\Controllers\\NotificationController.cs",
-              "ViewState": "AgIAAH8AAAAAAAAAAADwv40AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-08T23:49:42.407Z",
+              "Title": "ClinicApp.Infrastructure",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj",
+              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj",
+              "RelativeToolTip": "ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-05-10T20:19:19.964Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "ClinicApp.API\\Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\Controllers\\UserController.cs",
-              "RelativeToolTip": "ClinicApp.API\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAEQAAAAAAAAAAAAgwFUAAAA+AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-08T23:49:47.88Z",
+              "Title": "ClinicApp.Domain",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Domain\\ClinicApp.Domain.csproj",
+              "RelativeDocumentMoniker": "ClinicApp.Domain\\ClinicApp.Domain.csproj",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Domain\\ClinicApp.Domain.csproj",
+              "RelativeToolTip": "ClinicApp.Domain\\ClinicApp.Domain.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-05-10T20:19:08.243Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\Services\\Implementations\\UserService.cs",
-              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\Services\\Implementations\\UserService.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\Services\\Implementations\\UserService.cs",
-              "RelativeToolTip": "ClinicApp.Infrastructure\\Services\\Implementations\\UserService.cs",
-              "ViewState": "AgIAAPQAAAAAAAAAAADwvwYBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-15T00:36:03.296Z",
+              "DocumentIndex": 2,
+              "Title": "ClinicApp.Application",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\ClinicApp.Application.csproj",
+              "RelativeDocumentMoniker": "ClinicApp.Application\\ClinicApp.Application.csproj",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\ClinicApp.Application.csproj",
+              "RelativeToolTip": "ClinicApp.Application\\ClinicApp.Application.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-05-10T20:18:51.929Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "INotificationService.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Application\\Interfaces\\INotificationService.cs",
-              "RelativeDocumentMoniker": "ClinicApp.Application\\Interfaces\\INotificationService.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Application\\Interfaces\\INotificationService.cs",
-              "RelativeToolTip": "ClinicApp.Application\\Interfaces\\INotificationService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-15T00:38:41.748Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "IUserService.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Application\\Interfaces\\IUserService.cs",
-              "RelativeDocumentMoniker": "ClinicApp.Application\\Interfaces\\IUserService.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Application\\Interfaces\\IUserService.cs",
-              "RelativeToolTip": "ClinicApp.Application\\Interfaces\\IUserService.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAwA4AAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-15T00:33:31.376Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "script.js",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\wwwroot\\script.js",
-              "RelativeDocumentMoniker": "ClinicApp.API\\wwwroot\\script.js",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\wwwroot\\script.js",
-              "RelativeToolTip": "ClinicApp.API\\wwwroot\\script.js",
-              "ViewState": "AgIAABcLAAAAAAAAAAAwwCYLAAA/AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-04-09T01:08:37.053Z",
+              "DocumentIndex": 3,
+              "Title": "ClinicApp.API",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.API\\ClinicApp.API.csproj",
+              "RelativeDocumentMoniker": "ClinicApp.API\\ClinicApp.API.csproj",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.API\\ClinicApp.API.csproj",
+              "RelativeToolTip": "ClinicApp.API\\ClinicApp.API.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-05-10T20:15:43.893Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 11,
-              "Title": "MedicationController.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\Controllers\\MedicationController.cs",
-              "RelativeDocumentMoniker": "ClinicApp.API\\Controllers\\MedicationController.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\Controllers\\MedicationController.cs",
-              "RelativeToolTip": "ClinicApp.API\\Controllers\\MedicationController.cs",
-              "ViewState": "AgIAAHgAAAAAAAAAAAAowIkAAAA6AAAAAAAAAA==",
+              "Title": "MedicationHistoryController.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.API\\Controllers\\MedicationHistoryController.cs",
+              "RelativeDocumentMoniker": "ClinicApp.API\\Controllers\\MedicationHistoryController.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.API\\Controllers\\MedicationHistoryController.cs",
+              "RelativeToolTip": "ClinicApp.API\\Controllers\\MedicationHistoryController.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAYwDwAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-08T23:49:12.452Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "SavePushSubscriptionDto.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Application\\DTOs\\SavePushSubscriptionDto.cs",
-              "RelativeDocumentMoniker": "ClinicApp.Application\\DTOs\\SavePushSubscriptionDto.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Application\\DTOs\\SavePushSubscriptionDto.cs",
-              "RelativeToolTip": "ClinicApp.Application\\DTOs\\SavePushSubscriptionDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-09T00:13:23.377Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "DesignTimeDbContextFactory.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\DesignTimeDbContextFactory.cs",
-              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\DesignTimeDbContextFactory.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\DesignTimeDbContextFactory.cs",
-              "RelativeToolTip": "ClinicApp.Infrastructure\\DesignTimeDbContextFactory.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAswBkAAAA8AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-09T00:00:48.778Z"
+              "WhenOpened": "2026-05-09T16:44:04.139Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 12,
-              "Title": "EmailService.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\Services\\Implementations\\EmailService.cs",
-              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\Services\\Implementations\\EmailService.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\Services\\Implementations\\EmailService.cs",
-              "RelativeToolTip": "ClinicApp.Infrastructure\\Services\\Implementations\\EmailService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA4AAAAAAAAAA==",
+              "Title": "IMedicationHistoryService.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\Interfaces\\IMedicationHistoryService.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Application\\Interfaces\\IMedicationHistoryService.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\Interfaces\\IMedicationHistoryService.cs",
+              "RelativeToolTip": "ClinicApp.Application\\Interfaces\\IMedicationHistoryService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-08T22:44:40.297Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "appsettings.Development.json",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\appsettings.Development.json",
-              "RelativeDocumentMoniker": "ClinicApp.API\\appsettings.Development.json",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\appsettings.Development.json",
-              "RelativeToolTip": "ClinicApp.API\\appsettings.Development.json",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAABsAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-08T23:54:30.408Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-09T16:43:20.963Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
-              "Title": "GlobalUsings.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\GlobalUsings.cs",
-              "RelativeDocumentMoniker": "ClinicApp.API\\GlobalUsings.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\GlobalUsings.cs",
-              "RelativeToolTip": "ClinicApp.API\\GlobalUsings.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAvAAAAAAAAAA==",
+              "Title": "MedicationHistoryListItemDto.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\MedicationHistoryListItemDto.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Application\\DTOs\\MedicationHistoryListItemDto.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\MedicationHistoryListItemDto.cs",
+              "RelativeToolTip": "ClinicApp.Application\\DTOs\\MedicationHistoryListItemDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-09T00:11:08.154Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "dbo.Users.sql",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicAppDb/True/SqlTable/dbo.Users.sql",
-              "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicAppDb/True/SqlTable/dbo.Users.sql",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-04-09T01:02:38.083Z"
+              "WhenOpened": "2026-05-09T16:42:56.844Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 15,
-              "Title": "MedicationHistoryController.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\Controllers\\MedicationHistoryController.cs",
-              "RelativeDocumentMoniker": "ClinicApp.API\\Controllers\\MedicationHistoryController.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\Controllers\\MedicationHistoryController.cs",
-              "RelativeToolTip": "ClinicApp.API\\Controllers\\MedicationHistoryController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAPAAAAAAAAAA==",
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.API\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "ClinicApp.API\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.API\\Controllers\\UserController.cs",
+              "RelativeToolTip": "ClinicApp.API\\Controllers\\UserController.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAkwD4AAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-08T23:49:36.543Z"
+              "WhenOpened": "2026-05-09T16:35:36.228Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "ClinicApp.API\\Properties\\launchSettings.json",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\Properties\\launchSettings.json",
-              "RelativeToolTip": "ClinicApp.API\\Properties\\launchSettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-08T23:52:14.221Z"
+              "DocumentIndex": 5,
+              "Title": "IUserService.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\Interfaces\\IUserService.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Application\\Interfaces\\IUserService.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\Interfaces\\IUserService.cs",
+              "RelativeToolTip": "ClinicApp.Application\\Interfaces\\IUserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-09T16:35:22.81Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "appsettings.Production.json",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\appsettings.Production.json",
-              "RelativeDocumentMoniker": "ClinicApp.API\\appsettings.Production.json",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\appsettings.Production.json",
-              "RelativeToolTip": "ClinicApp.API\\appsettings.Production.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.API\\appsettings.json",
+              "RelativeDocumentMoniker": "ClinicApp.API\\appsettings.json",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.API\\appsettings.json",
+              "RelativeToolTip": "ClinicApp.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-08T23:54:31.463Z"
+              "WhenOpened": "2026-05-07T20:05:54.949Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MedicationHistoryService.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Infrastructure\\Services\\Implementations\\MedicationHistoryService.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\Services\\Implementations\\MedicationHistoryService.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Infrastructure\\Services\\Implementations\\MedicationHistoryService.cs",
+              "RelativeToolTip": "ClinicApp.Infrastructure\\Services\\Implementations\\MedicationHistoryService.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAhwCgAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-09T16:45:26.642Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "EmailService.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Infrastructure\\Services\\Implementations\\EmailService.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\Services\\Implementations\\EmailService.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Infrastructure\\Services\\Implementations\\EmailService.cs",
+              "RelativeToolTip": "ClinicApp.Infrastructure\\Services\\Implementations\\EmailService.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAYwDAAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-09T17:10:44.69Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.API\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "ClinicApp.API\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.API\\appsettings.Development.json",
+              "RelativeToolTip": "ClinicApp.API\\appsettings.Development.json",
+              "ViewState": "AgIAABAAAAAAAAAAAAAowDEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-09T15:51:09.896Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 16,
-              "Title": "ClinicApp.Infrastructure.csproj",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj",
-              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj",
-              "RelativeToolTip": "ClinicApp.Infrastructure\\ClinicApp.Infrastructure.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-04-08T22:42:38.826Z"
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Infrastructure\\Services\\Implementations\\UserService.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\Services\\Implementations\\UserService.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Infrastructure\\Services\\Implementations\\UserService.cs",
+              "RelativeToolTip": "ClinicApp.Infrastructure\\Services\\Implementations\\UserService.cs",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAmwHIAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-09T16:36:42.816Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "TakeMedicationDto.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\TakeMedicationDto.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Application\\DTOs\\TakeMedicationDto.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\TakeMedicationDto.cs",
+              "RelativeToolTip": "ClinicApp.Application\\DTOs\\TakeMedicationDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T18:13:53.233Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "UserListItemDto.cs.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\UserListItemDto.cs.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Application\\DTOs\\UserListItemDto.cs.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\UserListItemDto.cs.cs",
+              "RelativeToolTip": "ClinicApp.Application\\DTOs\\UserListItemDto.cs.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-09T16:34:52.081Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MedicationHistory.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Domain\\Entities\\MedicationHistory.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Domain\\Entities\\MedicationHistory.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Domain\\Entities\\MedicationHistory.cs",
+              "RelativeToolTip": "ClinicApp.Domain\\Entities\\MedicationHistory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T18:22:23.399Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 19,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\appsettings.json",
-              "RelativeDocumentMoniker": "ClinicApp.API\\appsettings.json",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\appsettings.json",
-              "RelativeToolTip": "ClinicApp.API\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-08T23:54:28.924Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "ErrorHandlingMiddleware.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\Middleware\\ErrorHandlingMiddleware.cs",
-              "RelativeDocumentMoniker": "ClinicApp.API\\Middleware\\ErrorHandlingMiddleware.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\Middleware\\ErrorHandlingMiddleware.cs",
-              "RelativeToolTip": "ClinicApp.API\\Middleware\\ErrorHandlingMiddleware.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAA==",
+              "Title": "AppDbSeeder.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Infrastructure\\Data\\AppDbSeeder.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\Data\\AppDbSeeder.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Infrastructure\\Data\\AppDbSeeder.cs",
+              "RelativeToolTip": "ClinicApp.Infrastructure\\Data\\AppDbSeeder.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAawBgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-08T23:54:19.292Z"
+              "WhenOpened": "2026-05-08T18:17:37.239Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "ClinicApp.API.csproj",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\ClinicApp.API.csproj",
-              "RelativeDocumentMoniker": "ClinicApp.API\\ClinicApp.API.csproj",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.API\\ClinicApp.API.csproj",
-              "RelativeToolTip": "ClinicApp.API\\ClinicApp.API.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-04-08T23:48:27.798Z"
+              "DocumentIndex": 14,
+              "Title": "ListMedicationHistoryRequestDto .cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\ListMedicationHistoryRequestDto .cs",
+              "RelativeDocumentMoniker": "ClinicApp.Application\\DTOs\\ListMedicationHistoryRequestDto .cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\ListMedicationHistoryRequestDto .cs",
+              "RelativeToolTip": "ClinicApp.Application\\DTOs\\ListMedicationHistoryRequestDto .cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T18:28:21.83Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 23,
-              "Title": "GlobalUsings.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\GlobalUsings.cs",
-              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\GlobalUsings.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\GlobalUsings.cs",
-              "RelativeToolTip": "ClinicApp.Infrastructure\\GlobalUsings.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAgAAAAAAAAAA==",
+              "Title": "ListMedicationsRequestDto.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\ListMedicationsRequestDto.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Application\\DTOs\\ListMedicationsRequestDto.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\ListMedicationsRequestDto.cs",
+              "RelativeToolTip": "ClinicApp.Application\\DTOs\\ListMedicationsRequestDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-08T23:41:02.843Z"
+              "WhenOpened": "2026-05-08T18:12:12.204Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 22,
-              "Title": "MedicationHistoryService.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\Services\\Implementations\\MedicationHistoryService.cs",
-              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\Services\\Implementations\\MedicationHistoryService.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\Services\\Implementations\\MedicationHistoryService.cs",
-              "RelativeToolTip": "ClinicApp.Infrastructure\\Services\\Implementations\\MedicationHistoryService.cs",
-              "ViewState": "AgIAAKcAAAAAAAAAAAAtwLMAAAAaAAAAAAAAAA==",
+              "Title": "MedicationService.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Infrastructure\\Services\\Implementations\\MedicationService.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\Services\\Implementations\\MedicationService.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Infrastructure\\Services\\Implementations\\MedicationService.cs",
+              "RelativeToolTip": "ClinicApp.Infrastructure\\Services\\Implementations\\MedicationService.cs",
+              "ViewState": "AgIAAGkDAAAAAAAAAAAEwHkDAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-08T22:46:08.884Z"
+              "WhenOpened": "2026-05-08T18:19:44.078Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.API\\Program.cs",
+              "RelativeDocumentMoniker": "ClinicApp.API\\Program.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.API\\Program.cs",
+              "RelativeToolTip": "ClinicApp.API\\Program.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAswHQAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-07T19:49:55.861Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "MedicationController.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.API\\Controllers\\MedicationController.cs",
+              "RelativeDocumentMoniker": "ClinicApp.API\\Controllers\\MedicationController.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.API\\Controllers\\MedicationController.cs",
+              "RelativeToolTip": "ClinicApp.API\\Controllers\\MedicationController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T18:20:17.421Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "LookupController.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.API\\Controllers\\LookupController.cs",
+              "RelativeDocumentMoniker": "ClinicApp.API\\Controllers\\LookupController.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.API\\Controllers\\LookupController.cs",
+              "RelativeToolTip": "ClinicApp.API\\Controllers\\LookupController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T18:15:58.273Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 24,
-              "Title": "NotificationHelper.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\Helpers\\NotificationHelper.cs",
-              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\Helpers\\NotificationHelper.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\Helpers\\NotificationHelper.cs",
-              "RelativeToolTip": "ClinicApp.Infrastructure\\Helpers\\NotificationHelper.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAuwEAAAAAmAAAAAAAAAA==",
+              "Title": "ListUsersRequestDto.CS",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\ListUsersRequestDto.CS",
+              "RelativeDocumentMoniker": "ClinicApp.Application\\DTOs\\ListUsersRequestDto.CS",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\ListUsersRequestDto.CS",
+              "RelativeToolTip": "ClinicApp.Application\\DTOs\\ListUsersRequestDto.CS",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-08T22:49:28.39Z"
+              "WhenOpened": "2026-05-08T18:26:51.209Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 25,
-              "Title": "PushNotificationHelper.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\Helpers\\PushNotificationHelper.cs",
-              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\Helpers\\PushNotificationHelper.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\Helpers\\PushNotificationHelper.cs",
-              "RelativeToolTip": "ClinicApp.Infrastructure\\Helpers\\PushNotificationHelper.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Infrastructure\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Infrastructure\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "ClinicApp.Infrastructure\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAYwCgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-08T22:49:45.369Z"
+              "WhenOpened": "2026-05-08T18:22:46.087Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 26,
-              "Title": "PushNotificationService.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\Services\\Implementations\\PushNotificationService.cs",
-              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\Services\\Implementations\\PushNotificationService.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\Services\\Implementations\\PushNotificationService.cs",
-              "RelativeToolTip": "ClinicApp.Infrastructure\\Services\\Implementations\\PushNotificationService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Title": "Medication.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Domain\\Entities\\Medication.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Domain\\Entities\\Medication.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Domain\\Entities\\Medication.cs",
+              "RelativeToolTip": "ClinicApp.Domain\\Entities\\Medication.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAgwBYAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-08T22:46:38.518Z"
+              "WhenOpened": "2026-05-08T18:22:02.349Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 27,
-              "Title": "MedicationService.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\Services\\Implementations\\MedicationService.cs",
-              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\Services\\Implementations\\MedicationService.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\Services\\Implementations\\MedicationService.cs",
-              "RelativeToolTip": "ClinicApp.Infrastructure\\Services\\Implementations\\MedicationService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAA2AAAAAAAAAA==",
+              "Title": "IMedicationService.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\Interfaces\\IMedicationService.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Application\\Interfaces\\IMedicationService.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\Interfaces\\IMedicationService.cs",
+              "RelativeToolTip": "ClinicApp.Application\\Interfaces\\IMedicationService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-08T22:46:26.59Z"
+              "WhenOpened": "2026-05-08T18:19:26.484Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 28,
-              "Title": "PasswordHelper.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\Helpers\\PasswordHelper.cs",
-              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\Helpers\\PasswordHelper.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Infrastructure\\Helpers\\PasswordHelper.cs",
-              "RelativeToolTip": "ClinicApp.Infrastructure\\Helpers\\PasswordHelper.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAApAAAAAAAAAA==",
+              "Title": "LookupService.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Infrastructure\\Services\\Implementations\\LookupService.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Infrastructure\\Services\\Implementations\\LookupService.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Infrastructure\\Services\\Implementations\\LookupService.cs",
+              "RelativeToolTip": "ClinicApp.Infrastructure\\Services\\Implementations\\LookupService.cs",
+              "ViewState": "AgIAADQAAAAAAAAAAAAAADQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-08T22:49:39.12Z"
+              "WhenOpened": "2026-05-08T18:15:16.645Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "ILookupService.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\Interfaces\\ILookupService.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Application\\Interfaces\\ILookupService.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\Interfaces\\ILookupService.cs",
+              "RelativeToolTip": "ClinicApp.Application\\Interfaces\\ILookupService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T18:14:20.393Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 30,
-              "Title": "TakeMedicationDto.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Application\\DTOs\\TakeMedicationDto.cs",
-              "RelativeDocumentMoniker": "ClinicApp.Application\\DTOs\\TakeMedicationDto.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Application\\DTOs\\TakeMedicationDto.cs",
-              "RelativeToolTip": "ClinicApp.Application\\DTOs\\TakeMedicationDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA3AAAAAAAAAA==",
+              "Title": "UpdateMedicationDto.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\UpdateMedicationDto.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Application\\DTOs\\UpdateMedicationDto.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\UpdateMedicationDto.cs",
+              "RelativeToolTip": "ClinicApp.Application\\DTOs\\UpdateMedicationDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-08T22:37:10.182Z"
+              "WhenOpened": "2026-05-08T18:13:22.52Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 31,
               "Title": "AddMedicationDto.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Application\\DTOs\\AddMedicationDto.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\AddMedicationDto.cs",
               "RelativeDocumentMoniker": "ClinicApp.Application\\DTOs\\AddMedicationDto.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Application\\DTOs\\AddMedicationDto.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\AddMedicationDto.cs",
               "RelativeToolTip": "ClinicApp.Application\\DTOs\\AddMedicationDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-08T22:36:55.334Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "IMedicationService.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Application\\Interfaces\\IMedicationService.cs",
-              "RelativeDocumentMoniker": "ClinicApp.Application\\Interfaces\\IMedicationService.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Application\\Interfaces\\IMedicationService.cs",
-              "RelativeToolTip": "ClinicApp.Application\\Interfaces\\IMedicationService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-08T22:33:14.312Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "IMedicationHistoryService.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Application\\Interfaces\\IMedicationHistoryService.cs",
-              "RelativeDocumentMoniker": "ClinicApp.Application\\Interfaces\\IMedicationHistoryService.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Application\\Interfaces\\IMedicationHistoryService.cs",
-              "RelativeToolTip": "ClinicApp.Application\\Interfaces\\IMedicationHistoryService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-08T22:33:09.523Z"
+              "WhenOpened": "2026-05-08T18:13:02.743Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 32,
-              "Title": "IEmailService.cs",
-              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Application\\Interfaces\\IEmailService.cs",
-              "RelativeDocumentMoniker": "ClinicApp.Application\\Interfaces\\IEmailService.cs",
-              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicAppV2\\ClinicApp.Application\\Interfaces\\IEmailService.cs",
-              "RelativeToolTip": "ClinicApp.Application\\Interfaces\\IEmailService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Title": "MedicationListItemDto.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\MedicationListItemDto.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Application\\DTOs\\MedicationListItemDto.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\MedicationListItemDto.cs",
+              "RelativeToolTip": "ClinicApp.Application\\DTOs\\MedicationListItemDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-08T22:33:03.976Z"
+              "WhenOpened": "2026-05-08T18:12:37.83Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "PagedRequestDto.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\PagedRequestDto.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Application\\DTOs\\PagedRequestDto.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\PagedRequestDto.cs",
+              "RelativeToolTip": "ClinicApp.Application\\DTOs\\PagedRequestDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T18:11:56.823Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "PagedResultDto.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\PagedResultDto.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Application\\DTOs\\PagedResultDto.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\PagedResultDto.cs",
+              "RelativeToolTip": "ClinicApp.Application\\DTOs\\PagedResultDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T18:11:29.505Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "LookupItemDto.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\LookupItemDto.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Application\\DTOs\\LookupItemDto.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Application\\DTOs\\LookupItemDto.cs",
+              "RelativeToolTip": "ClinicApp.Application\\DTOs\\LookupItemDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T18:10:43.546Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "MedicationTakeReason.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Domain\\Entities\\MedicationTakeReason.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Domain\\Entities\\MedicationTakeReason.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Domain\\Entities\\MedicationTakeReason.cs",
+              "RelativeToolTip": "ClinicApp.Domain\\Entities\\MedicationTakeReason.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T18:09:55.197Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "MedicationUnit.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Domain\\Entities\\MedicationUnit.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Domain\\Entities\\MedicationUnit.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Domain\\Entities\\MedicationUnit.cs",
+              "RelativeToolTip": "ClinicApp.Domain\\Entities\\MedicationUnit.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAowA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T18:09:17.796Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "MedicationCategory.cs",
+              "DocumentMoniker": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Domain\\Entities\\MedicationCategory.cs",
+              "RelativeDocumentMoniker": "ClinicApp.Domain\\Entities\\MedicationCategory.cs",
+              "ToolTip": "C:\\Users\\sulej\\Desktop\\ClinicApp\\Backend\\ClinicApp.Domain\\Entities\\MedicationCategory.cs",
+              "RelativeToolTip": "ClinicApp.Domain\\Entities\\MedicationCategory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T18:08:53.049Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "dbo.Users.sql",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicApp_Test/True/SqlTable/dbo.Users.sql",
+              "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicApp_Test/True/SqlTable/dbo.Users.sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2026-05-07T20:09:58.703Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "dbo.Users.sql",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicAppDb/True/SqlTable/dbo.Users.sql",
+              "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicAppDb/True/SqlTable/dbo.Users.sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2026-05-07T19:43:56.967Z"
             }
           ]
         }

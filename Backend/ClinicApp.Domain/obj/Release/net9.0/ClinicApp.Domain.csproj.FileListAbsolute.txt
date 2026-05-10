@@ -1,0 +1,12 @@
+C:\Users\sulej\Desktop\ClinicApp\Backend\ClinicApp.Domain\bin\Release\net9.0\ClinicApp.Domain.deps.json
+C:\Users\sulej\Desktop\ClinicApp\Backend\ClinicApp.Domain\bin\Release\net9.0\ClinicApp.Domain.dll
+C:\Users\sulej\Desktop\ClinicApp\Backend\ClinicApp.Domain\bin\Release\net9.0\ClinicApp.Domain.pdb
+C:\Users\sulej\Desktop\ClinicApp\Backend\ClinicApp.Domain\obj\Release\net9.0\ClinicApp.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sulej\Desktop\ClinicApp\Backend\ClinicApp.Domain\obj\Release\net9.0\ClinicApp.Domain.AssemblyInfoInputs.cache
+C:\Users\sulej\Desktop\ClinicApp\Backend\ClinicApp.Domain\obj\Release\net9.0\ClinicApp.Domain.AssemblyInfo.cs
+C:\Users\sulej\Desktop\ClinicApp\Backend\ClinicApp.Domain\obj\Release\net9.0\ClinicApp.Domain.csproj.CoreCompileInputs.cache
+C:\Users\sulej\Desktop\ClinicApp\Backend\ClinicApp.Domain\obj\Release\net9.0\ClinicApp.Domain.sourcelink.json
+C:\Users\sulej\Desktop\ClinicApp\Backend\ClinicApp.Domain\obj\Release\net9.0\ClinicApp.Domain.dll
+C:\Users\sulej\Desktop\ClinicApp\Backend\ClinicApp.Domain\obj\Release\net9.0\refint\ClinicApp.Domain.dll
+C:\Users\sulej\Desktop\ClinicApp\Backend\ClinicApp.Domain\obj\Release\net9.0\ClinicApp.Domain.pdb
+C:\Users\sulej\Desktop\ClinicApp\Backend\ClinicApp.Domain\obj\Release\net9.0\ref\ClinicApp.Domain.dll
