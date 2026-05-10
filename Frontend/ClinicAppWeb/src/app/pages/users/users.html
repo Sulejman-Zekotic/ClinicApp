@@ -1,0 +1,288 @@
+<div class="users-page">
+  @if (!isAdmin) {
+    <div class="clinic-empty">Samo admin može upravljati korisnicima.</div>
+  } @else {
+    @if (errorMessage) {
+      <div class="ui-alert ui-alert--danger users-page__alert">
+        {{ errorMessage }}
+      </div>
+    }
+
+    <section class="users-metrics">
+      <article class="users-stat-card users-stat-card--green">
+        <div class="users-stat-card__icon">
+          <svg lucideIcon="users" class="h-7 w-7"></svg>
+        </div>
+        <div class="users-stat-card__body">
+          <div class="users-stat-card__label">Ukupno</div>
+          <div class="users-stat-card__value">{{ totalCount }}</div>
+        </div>
+      </article>
+
+      <article class="users-stat-card users-stat-card--blue">
+        <div class="users-stat-card__icon">
+          <svg lucideIcon="badge-check" class="h-7 w-7"></svg>
+        </div>
+        <div class="users-stat-card__body">
+          <div class="users-stat-card__label">Prikazano</div>
+          <div class="users-stat-card__value">{{ users.length }}</div>
+        </div>
+      </article>
+
+      <article class="users-stat-card users-stat-card--purple">
+        <div class="users-stat-card__icon">
+          <svg lucideIcon="shield-check" class="h-7 w-7"></svg>
+        </div>
+        <div class="users-stat-card__body">
+          <div class="users-stat-card__label">Admini</div>
+          <div class="users-stat-card__value">{{ adminCount }}</div>
+        </div>
+      </article>
+    </section>
+
+    <section class="users-panel">
+      <div class="users-panel__header">
+        <h2 class="users-panel__title">Korisnici</h2>
+
+        <div class="users-toolbar-actions">
+          <button type="button" class="clinic-button-primary" (click)="openCreatePanel()">Dodaj korisnika</button>
+        </div>
+      </div>
+
+      <div class="users-toolbar">
+        <input
+          class="clinic-input"
+          [(ngModel)]="search"
+          (ngModelChange)="queueFilterRefresh()"
+          name="search"
+          placeholder="Pretraga korisnika ili emaila" />
+
+        <select class="clinic-select" [(ngModel)]="roleFilter" (ngModelChange)="queueFilterRefresh()" name="roleFilter">
+          <option value="">Sve uloge</option>
+          <option value="admin">Admin</option>
+          <option value="user">Korisnik</option>
+        </select>
+
+        <button type="button" class="clinic-button-secondary" (click)="clearFilters()">Očisti</button>
+      </div>
+
+      @if (isLoading) {
+        <div class="clinic-empty users-panel__empty">
+          <app-loading-spinner label="Učitavanje korisnika..."></app-loading-spinner>
+        </div>
+      } @else if (users.length === 0) {
+        <div class="clinic-empty users-panel__empty">Nema rezultata za odabrane filtere.</div>
+      } @else {
+        <div class="users-table-card">
+          <div class="users-table-scroll">
+            <table class="users-table">
+              <thead>
+                <tr>
+                  <th class="users-table__col-user">Korisnik</th>
+                  <th class="users-table__col-email">Email</th>
+                  <th class="users-table__col-role">Uloga</th>
+                  <th class="users-table__col-actions">Akcije</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (user of users; track user.id) {
+                  <tr>
+                    <td class="users-table__col-user">
+                      <div class="users-table__identity">
+                        <div class="icon-avatar">{{ initials(user.username) }}</div>
+                        <div class="users-table__identity-copy">
+                          <div class="users-table__title">{{ user.username }}</div>
+                          <div class="users-table__meta">{{ roleLabel(user.role) }}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="users-table__col-email">
+                      <div class="users-table__title">{{ user.email }}</div>
+                    </td>
+                    <td class="users-table__col-role">
+                      <span [class]="getRoleClass(user.role)">{{ roleLabel(user.role) }}</span>
+                    </td>
+                    <td class="users-table__col-actions">
+                      <div class="users-table__actions">
+                        <button
+                          type="button"
+                          class="table-icon-button table-icon-button--primary"
+                          title="Aktivnost"
+                          (click)="previewActivity(user)">
+                          <svg lucideIcon="activity" class="h-4 w-4"></svg>
+                        </button>
+                        <button
+                          type="button"
+                          class="table-icon-button"
+                          title="Historija"
+                          (click)="openHistory(user)">
+                          <svg lucideIcon="history" class="h-4 w-4"></svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+
+          <div class="users-table-card__pagination">
+            <app-pagination
+              [page]="page"
+              [pageSize]="pageSize"
+              [totalCount]="totalCount"
+              [alwaysShow]="true"
+              (pageChange)="changePage($event)">
+            </app-pagination>
+          </div>
+        </div>
+      }
+    </section>
+  }
+
+  @if (activePanel === 'form' && isAdmin) {
+    <div class="workspace-toast-backdrop" (click)="closePanel()">
+      <section class="workspace-toast workspace-toast--narrow" (click)="$event.stopPropagation()">
+        <div class="workspace-toast__header">
+          <h2 class="workspace-toast__title">Dodaj korisnika</h2>
+        </div>
+
+        <div class="workspace-toast__body workspace-toast-stack">
+          @if (errorMessage) {
+            <div class="ui-alert ui-alert--danger">
+              {{ errorMessage }}
+            </div>
+          }
+
+          <label class="workspace-field" [class.workspace-field--error]="showFieldError('username')">
+            <span class="workspace-field__label">Korisničko ime</span>
+            <input
+              class="clinic-input"
+              [class.clinic-input--invalid]="showFieldError('username')"
+              [(ngModel)]="form.username"
+              name="username"
+              maxlength="60"
+              required />
+            @if (showFieldError('username')) {
+              <span class="workspace-field__error">{{ getFieldError('username') }}</span>
+            }
+          </label>
+
+          <label class="workspace-field" [class.workspace-field--error]="showFieldError('email')">
+            <span class="workspace-field__label">Email</span>
+            <input
+              class="clinic-input"
+              [class.clinic-input--invalid]="showFieldError('email')"
+              [(ngModel)]="form.email"
+              name="email"
+              type="email"
+              maxlength="120"
+              required />
+            @if (showFieldError('email')) {
+              <span class="workspace-field__error">{{ getFieldError('email') }}</span>
+            }
+          </label>
+
+          <label class="workspace-field" [class.workspace-field--error]="showFieldError('role')">
+            <span class="workspace-field__label">Uloga</span>
+            <select
+              class="clinic-select"
+              [class.clinic-input--invalid]="showFieldError('role')"
+              [(ngModel)]="form.role"
+              name="role">
+              <option value="user">Korisnik</option>
+              <option value="admin">Admin</option>
+            </select>
+            @if (showFieldError('role')) {
+              <span class="workspace-field__error">{{ getFieldError('role') }}</span>
+            }
+          </label>
+        </div>
+
+        <div class="workspace-toast__footer">
+          <button type="button" class="clinic-button-secondary" (click)="closePanel()">Odustani</button>
+          <button type="button" class="clinic-button-primary" [disabled]="isSaving" (click)="submit()">
+            @if (isSaving) {
+              <app-loading-spinner [inline]="true" size="sm"></app-loading-spinner>
+            }
+            {{ isSaving ? 'Spremanje...' : 'Dodaj korisnika' }}
+          </button>
+        </div>
+      </section>
+    </div>
+  }
+
+  @if (activePanel === 'activity') {
+    <div class="workspace-toast-backdrop" (click)="closePanel()">
+      <section class="workspace-toast workspace-toast--narrow" (click)="$event.stopPropagation()">
+        <div class="workspace-toast__header">
+          <h2 class="workspace-toast__title">
+            {{ selectedActivityUser ? selectedActivityUser.username : 'Aktivnost' }}
+          </h2>
+        </div>
+
+        <div class="workspace-toast__body">
+          @if (activityLoading) {
+            <div class="clinic-empty">
+              <app-loading-spinner label="Učitavanje aktivnosti..."></app-loading-spinner>
+            </div>
+          } @else if (activityPreview.length === 0) {
+            <div class="clinic-empty">Nema aktivnosti.</div>
+          } @else {
+            <div class="users-log-list">
+              @for (record of activityPreview; track record.id) {
+                <article class="users-log-item">
+                  <div>
+                    <div class="users-log-item__title">{{ record.medicationName }}</div>
+                    <div class="users-log-item__meta">{{ record.reason }} · {{ record.takenAt | date: 'dd.MM.yyyy HH:mm' }}</div>
+                  </div>
+                  <span class="status-chip status-chip--info">{{ record.quantity }}</span>
+                </article>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="workspace-toast__footer">
+          <button type="button" class="clinic-button-secondary" (click)="closePanel()">Zatvori</button>
+        </div>
+      </section>
+    </div>
+  }
+
+  @if (activePanel === 'credentials' && generatedCredential) {
+    <div class="workspace-toast-backdrop" (click)="closePanel()">
+      <section class="workspace-toast workspace-toast--narrow" (click)="$event.stopPropagation()">
+        <div class="workspace-toast__header">
+          <h2 class="workspace-toast__title">Privremena lozinka</h2>
+        </div>
+
+        <div class="workspace-toast__body">
+          <div class="workspace-toast-stack">
+            <article class="workspace-toast-meta">
+              <div class="workspace-toast-meta__label">Korisnik</div>
+              <div class="workspace-toast-meta__value">{{ generatedCredential.username }}</div>
+            </article>
+
+            @if (generatedCredential.email) {
+              <article class="workspace-toast-meta">
+                <div class="workspace-toast-meta__label">Email</div>
+                <div class="workspace-toast-meta__value">{{ generatedCredential.email }}</div>
+              </article>
+            }
+
+            <article class="workspace-toast-meta">
+              <div class="workspace-toast-meta__label">Lozinka</div>
+              <div class="workspace-toast-meta__value users-credentials__password">{{ generatedCredential.password }}</div>
+            </article>
+          </div>
+        </div>
+
+        <div class="workspace-toast__footer">
+          <button type="button" class="clinic-button-secondary" (click)="closePanel()">Zatvori</button>
+          <button type="button" class="clinic-button-primary" (click)="copyPassword(generatedCredential.password)">Kopiraj lozinku</button>
+        </div>
+      </section>
+    </div>
+  }
+</div>

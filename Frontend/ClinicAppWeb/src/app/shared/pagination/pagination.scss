@@ -1,0 +1,137 @@
+:host {
+  display: block;
+}
+
+.pagination-shell {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 14px 12px 16px;
+
+  &__desktop,
+  &__mobile {
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  &__mobile {
+    display: none;
+  }
+
+  &__nav {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    &--mobile {
+      gap: 8px;
+    }
+  }
+
+  &__summary {
+    color: #6d7786;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.35;
+    text-align: center;
+  }
+}
+
+.pagination-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #394452;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 150ms ease, background 150ms ease;
+
+  &:hover:not(:disabled) {
+    color: #173f79;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &--icon {
+    min-width: 34px;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    font-size: 26px;
+    line-height: 1;
+  }
+
+  &--current {
+    min-width: 46px;
+    height: 46px;
+    padding: 0 14px;
+    background: #2583ea;
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  &--current:hover:not(:disabled) {
+    color: #ffffff;
+    background: #2583ea;
+  }
+}
+
+@media (max-width: 760px) {
+  .pagination-shell {
+    margin-top: 12px;
+    padding: 12px 6px 14px;
+    gap: 8px;
+
+    &__desktop {
+      display: none;
+    }
+
+    &__mobile {
+      display: grid;
+      gap: 8px;
+    }
+
+    &__nav {
+      gap: 8px;
+    }
+
+    &__summary {
+      font-size: 11.5px;
+    }
+  }
+
+  .pagination-button {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 9px;
+    font-size: 14px;
+
+    &--icon {
+      min-width: 30px;
+      width: 30px;
+      height: 30px;
+      font-size: 24px;
+    }
+
+    &--current {
+      min-width: 40px;
+      height: 40px;
+      padding: 0 12px;
+    }
+  }
+}

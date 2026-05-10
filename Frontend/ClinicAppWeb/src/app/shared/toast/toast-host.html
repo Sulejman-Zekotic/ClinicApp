@@ -1,0 +1,18 @@
+@if (toast.items$ | async; as items) {
+  <div class="toast-host">
+    @for (item of items; track item.id) {
+      <article class="toast-card" [ngClass]="'toast-card--' + item.tone">
+        <div class="toast-card__content">
+          @if (item.title) {
+            <div class="toast-card__title">{{ item.title }}</div>
+          }
+          <div class="toast-card__message">{{ item.message }}</div>
+        </div>
+
+        <button type="button" class="toast-card__dismiss" (click)="dismiss(item.id)">
+          Close
+        </button>
+      </article>
+    }
+  </div>
+}

@@ -1,0 +1,174 @@
+<div class="analytics-page">
+  @if (!isAdmin) {
+    <div class="clinic-empty">Analitika je dostupna admin korisniku.</div>
+  } @else {
+    @if (errorMessage) {
+      <div class="ui-alert ui-alert--danger analytics-page__alert">
+        {{ errorMessage }}
+      </div>
+    }
+
+    @if (summaryLoading) {
+      <div class="clinic-empty analytics-page__loading">
+        <app-loading-spinner label="Učitavanje analitike..."></app-loading-spinner>
+      </div>
+    } @else if (adminStats) {
+      <section class="analytics-metrics">
+        <article class="analytics-stat-card analytics-stat-card--blue">
+          <div class="analytics-stat-card__icon">
+            <svg lucideIcon="clipboard-list" class="h-7 w-7"></svg>
+          </div>
+          <div class="analytics-stat-card__body">
+            <div class="analytics-stat-card__label">Danas</div>
+            <div class="analytics-stat-card__value">{{ adminStats.todayCount }}</div>
+          </div>
+        </article>
+
+        <article class="analytics-stat-card analytics-stat-card--green">
+          <div class="analytics-stat-card__icon">
+            <svg lucideIcon="calendar-range" class="h-7 w-7"></svg>
+          </div>
+          <div class="analytics-stat-card__body">
+            <div class="analytics-stat-card__label">Sedmica</div>
+            <div class="analytics-stat-card__value">{{ adminStats.weekCount }}</div>
+          </div>
+        </article>
+
+        <article class="analytics-stat-card analytics-stat-card--orange">
+          <div class="analytics-stat-card__icon">
+            <svg lucideIcon="badge-check" class="h-7 w-7"></svg>
+          </div>
+          <div class="analytics-stat-card__body">
+            <div class="analytics-stat-card__label">Mjesec</div>
+            <div class="analytics-stat-card__value">{{ adminStats.monthCount }}</div>
+          </div>
+        </article>
+
+        <article class="analytics-stat-card analytics-stat-card--purple">
+          <div class="analytics-stat-card__icon">
+            <svg lucideIcon="triangle-alert" class="h-7 w-7"></svg>
+          </div>
+          <div class="analytics-stat-card__body">
+            <div class="analytics-stat-card__label">Pri kraju</div>
+            <div class="analytics-stat-card__value">{{ adminStats.lowStockCount }}</div>
+          </div>
+        </article>
+      </section>
+
+      <section class="analytics-insights">
+        <article class="analytics-highlight analytics-highlight--primary">
+          <div class="analytics-highlight__label">Najkorišteniji lijek</div>
+          <div class="analytics-highlight__value">{{ adminStats.mostUsedMedication || '-' }}</div>
+          <div class="analytics-highlight__meta">{{ adminStats.mostUsedMedicationCount }} izdavanja</div>
+        </article>
+
+        <article class="analytics-highlight analytics-highlight--accent">
+          <div class="analytics-highlight__label">Najčešći razlog</div>
+          <div class="analytics-highlight__value">{{ adminStats.mostCommonReason || '-' }}</div>
+          <div class="analytics-highlight__meta">{{ adminStats.mostCommonReasonCount }} unosa</div>
+        </article>
+      </section>
+
+      <section class="analytics-grid analytics-grid--wide">
+        <article class="analytics-panel">
+          <div class="analytics-panel__header">
+            <h2 class="analytics-panel__title">Razlozi izdavanja</h2>
+          </div>
+
+          @if (reasonSegments.length === 0) {
+            <div class="clinic-empty analytics-panel__empty">Nema podataka.</div>
+          } @else {
+            <div class="analytics-donut">
+              <div class="analytics-donut__chart" [style.background]="reasonChartBackground">
+                <div class="analytics-donut__center">
+                  <span class="analytics-donut__center-label">Ukupno</span>
+                  <strong class="analytics-donut__center-value">{{ reasonTotal }}</strong>
+                </div>
+              </div>
+
+              <div class="analytics-donut__legend">
+                @for (segment of reasonSegments; track segment.label) {
+                  <article class="analytics-donut__item">
+                    <span class="analytics-donut__dot" [style.background]="segment.color"></span>
+                    <span class="analytics-donut__label">{{ segment.label }}</span>
+                    <span class="analytics-donut__value">{{ segment.value }}</span>
+                  </article>
+                }
+              </div>
+            </div>
+          }
+        </article>
+
+        <article class="analytics-panel">
+          <div class="analytics-panel__header">
+            <h2 class="analytics-panel__title">Top lijekovi</h2>
+          </div>
+
+          @if (!adminStats.topMedications.length) {
+            <div class="clinic-empty analytics-panel__empty">Nema podataka.</div>
+          } @else {
+            <div class="analytics-columns">
+              @for (item of adminStats.topMedications.slice(0, 5); track item.medication) {
+                <article class="analytics-columns__item">
+                  <div class="analytics-columns__value">{{ item.count }}</div>
+                  <div class="analytics-columns__bar-shell">
+                    <div class="analytics-columns__bar" [style.height]="medicationBarHeight(item.count)"></div>
+                  </div>
+                  <div class="analytics-columns__label" [title]="item.medication">{{ item.medication }}</div>
+                </article>
+              }
+            </div>
+          }
+        </article>
+      </section>
+
+      <section class="analytics-grid analytics-grid--balanced">
+        <article class="analytics-panel">
+          <div class="analytics-panel__header">
+            <h2 class="analytics-panel__title">Aktivni korisnici</h2>
+          </div>
+
+          @if (!adminStats.topUsers.length) {
+            <div class="clinic-empty analytics-panel__empty">Nema podataka.</div>
+          } @else {
+            <div class="analytics-bars">
+              @for (item of adminStats.topUsers.slice(0, 5); track item.username) {
+                <article class="analytics-bars__row">
+                  <div class="analytics-bars__label" [title]="item.username">{{ item.username }}</div>
+                  <div class="analytics-bars__track">
+                    <div class="analytics-bars__fill" [style.width]="userBarWidth(item.count)"></div>
+                  </div>
+                  <div class="analytics-bars__value">{{ item.count }}</div>
+                </article>
+              }
+            </div>
+          }
+        </article>
+
+        <article class="analytics-panel">
+          <div class="analytics-panel__header">
+            <h2 class="analytics-panel__title">Zadnjih 7 dana</h2>
+          </div>
+
+          @if (!adminStats.last7Days.length) {
+            <div class="clinic-empty analytics-panel__empty">Nema podataka.</div>
+          } @else {
+            <div class="analytics-mini-bars">
+              @for (item of adminStats.last7Days; track item.date) {
+                <article class="analytics-mini-bars__item">
+                  <div class="analytics-mini-bars__value">{{ item.count }}</div>
+                  <div class="analytics-mini-bars__bar-shell">
+                    <div class="analytics-mini-bars__bar" [style.height]="dayBarHeight(item.count)"></div>
+                  </div>
+                  <div class="analytics-mini-bars__label">{{ item.date | date: 'dd.MM' }}</div>
+                </article>
+              }
+            </div>
+          }
+        </article>
+      </section>
+    } @else {
+      <div class="clinic-empty">Analitika nije dostupna.</div>
+    }
+  }
+</div>

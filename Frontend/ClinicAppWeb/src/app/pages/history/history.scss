@@ -1,0 +1,438 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.history-page {
+  display: grid;
+  gap: 22px;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 28px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  &__alert {
+    position: relative;
+    z-index: 2;
+  }
+
+  .clinic-button-primary {
+    border-color: #2452c9;
+    background: #2452c9;
+    color: #ffffff;
+    box-shadow: none;
+
+    &:hover:not(:disabled),
+    &:focus-visible {
+      border-color: #1f47b4;
+      background: #1f47b4;
+      box-shadow: none;
+      transform: none;
+    }
+  }
+}
+
+.history-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.history-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 104px;
+  padding: 22px;
+  border: 1px solid rgba(164, 190, 214, 0.82);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow:
+    0 18px 42px rgba(21, 45, 76, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(8px);
+
+  &__icon {
+    display: grid;
+    width: 58px;
+    height: 58px;
+    flex: 0 0 58px;
+    place-items: center;
+    border-radius: 50%;
+  }
+
+  &__label {
+    color: #123763;
+    font-size: 13px;
+    font-weight: 950;
+    line-height: 1.2;
+  }
+
+  &__value {
+    margin-top: 6px;
+    color: #082f5d;
+    font-size: 33px;
+    font-weight: 950;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  &--blue .history-stat-card__icon {
+    color: #245fef;
+    background: rgba(36, 95, 239, 0.12);
+    border: 1px solid rgba(36, 95, 239, 0.18);
+  }
+
+  &--green .history-stat-card__icon {
+    color: #148d6c;
+    background: rgba(52, 168, 133, 0.17);
+    border: 1px solid rgba(52, 168, 133, 0.25);
+  }
+
+  &--purple .history-stat-card__icon {
+    color: #7257ff;
+    background: rgba(124, 92, 255, 0.14);
+    border: 1px solid rgba(124, 92, 255, 0.22);
+  }
+}
+
+.history-panel {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+  padding: 26px;
+  border: 1px solid rgba(164, 190, 214, 0.82);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow:
+    0 18px 42px rgba(21, 45, 76, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(8px);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  &__title {
+    margin: 0;
+    color: #082f5d;
+    font-size: 20px;
+    font-weight: 950;
+    letter-spacing: -0.02em;
+  }
+
+  &__empty {
+    background: rgba(255, 255, 255, 0.48);
+  }
+}
+
+.history-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.history-toolbar {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+
+  &--user {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  &__search {
+    grid-column: 1 / -1;
+
+    &::placeholder {
+      font-size: 15px;
+    }
+  }
+}
+
+.history-table-card {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid rgba(164, 190, 214, 0.68);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.72);
+
+  &__pagination {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid rgba(217, 228, 241, 0.72);
+    background: rgba(255, 255, 255, 0.74);
+
+    app-pagination {
+      width: 100%;
+    }
+
+    :host ::ng-deep .pagination-shell {
+      width: 100%;
+      margin-top: 0;
+    }
+  }
+}
+
+.history-table-scroll {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: clamp(340px, calc(100dvh - 420px), 560px);
+  scrollbar-gutter: stable;
+}
+
+.history-table {
+  width: 100%;
+  min-width: 0;
+  table-layout: fixed;
+  border-collapse: collapse;
+
+  th,
+  td {
+    min-width: 0;
+    padding: 12px 14px;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    border-bottom: 1px solid rgba(164, 190, 214, 0.62);
+    color: #446289;
+    font-size: 12px;
+    font-weight: 950;
+    background: rgba(248, 251, 255, 0.98);
+  }
+
+  tbody tr + tr td {
+    border-top: 1px solid rgba(217, 228, 241, 0.7);
+  }
+
+  &__col-medication {
+    width: 22%;
+  }
+
+  &__col-user {
+    width: 16%;
+  }
+
+  &__col-reason {
+    width: 28%;
+  }
+
+  &__col-quantity {
+    width: 11%;
+  }
+
+  &__col-date {
+    width: 15%;
+  }
+
+  &__col-actions {
+    width: 8%;
+  }
+
+  &__title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #0f315a;
+    font-size: 14px;
+    font-weight: 950;
+  }
+
+  &__title--wrap {
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.35;
+  }
+
+  &__meta {
+    margin-top: 4px;
+    color: #6a7f9c;
+    font-size: 12px;
+    font-weight: 800;
+  }
+}
+
+@media (max-width: 1200px) {
+  :host {
+    height: auto;
+    min-height: 100dvh;
+  }
+
+  .history-page {
+    height: auto;
+    min-height: 100dvh;
+    padding: 76px 22px 24px;
+    overflow: visible;
+  }
+
+  .history-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .history-toolbar,
+  .history-toolbar--user {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .history-page {
+    padding: 72px 8px 18px;
+    gap: 14px;
+  }
+
+  .history-metrics {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .history-stat-card {
+    min-height: 98px;
+    padding: 18px 16px;
+    gap: 16px;
+    border-radius: 20px;
+  }
+
+  .history-stat-card__icon {
+    width: 54px;
+    height: 54px;
+    flex-basis: 54px;
+  }
+
+  .history-stat-card__value {
+    font-size: 30px;
+  }
+
+  .history-panel {
+    padding: 18px 16px;
+    border-radius: 20px;
+  }
+
+  .history-panel__header {
+    display: grid;
+    gap: 16px;
+  }
+
+  .history-toolbar,
+  .history-toolbar--user {
+    grid-template-columns: 1fr;
+  }
+
+  .history-toolbar__search::placeholder {
+    font-size: 14px;
+  }
+
+  .history-table-scroll {
+    max-height: min(48dvh, 430px);
+  }
+
+  .history-table-card__pagination {
+    min-height: 78px;
+  }
+
+  .history-table {
+    th,
+    td {
+      padding: 12px 10px;
+    }
+
+    &__col-user,
+    &__col-quantity {
+      display: none;
+    }
+
+    &__col-medication {
+      width: 30%;
+    }
+
+    &__col-reason {
+      width: 36%;
+    }
+
+    &__col-date {
+      width: 22%;
+    }
+
+    &__col-actions {
+      width: 12%;
+    }
+
+    &__title {
+      font-size: 13px;
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .history-page {
+    padding: 70px 8px 14px;
+  }
+
+  .history-stat-card {
+    min-height: 92px;
+    padding: 14px;
+    gap: 12px;
+    border-radius: 18px;
+  }
+
+  .history-stat-card__icon {
+    width: 46px;
+    height: 46px;
+    flex-basis: 46px;
+  }
+
+  .history-stat-card__value {
+    font-size: 26px;
+  }
+
+  .history-panel {
+    padding: 14px;
+  }
+
+  .history-toolbar__search::placeholder {
+    font-size: 13px;
+  }
+
+  .history-table-scroll {
+    max-height: min(46dvh, 390px);
+  }
+
+  .history-table-card__pagination {
+    min-height: 74px;
+  }
+
+  .history-table {
+    &__col-reason {
+      display: none;
+    }
+
+    &__col-medication {
+      width: 46%;
+    }
+
+    &__col-date {
+      width: 34%;
+    }
+
+    &__col-actions {
+      width: 20%;
+    }
+  }
+}

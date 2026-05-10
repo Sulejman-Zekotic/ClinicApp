@@ -1,0 +1,106 @@
+import {
+  ApplicationConfig,
+  inject,
+  provideAppInitializer,
+  provideBrowserGlobalErrorListeners
+} from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import {
+  provideLucideIcons,
+  LucideBadgeAlert,
+  LucideBadgeCheck,
+  LucideBell,
+  LucideBellDot,
+  LucideBellRing,
+  LucideActivity,
+  LucideBuilding2,
+  LucideCircle,
+  LucideChartColumnBig,
+  LucideClipboardList,
+  LucideClipboardPlus,
+  LucideDownload,
+  LucideEye,
+  LucideEyeOff,
+  LucideFileClock,
+  LucideFilter,
+  LucideFingerprint,
+  LucideHistory,
+  LucideHouse,
+  LucideKeyRound,
+  LucideLayoutDashboard,
+  LucideLock,
+  LucideLockKeyhole,
+  LucideLogOut,
+  LucideMail,
+  LucideMessagesSquare,
+  LucidePackage,
+  LucidePenLine,
+  LucidePill,
+  LucideSearch,
+  LucideSettings,
+  LucideShieldCheck,
+  LucideSparkles,
+  LucideStethoscope,
+  LucideSyringe,
+  LucideTriangleAlert,
+  LucideTrash2,
+  LucideUpload,
+  LucideUser,
+  LucideUsers
+} from '@lucide/angular';
+
+import { routes } from './app.routes';
+import { authInterceptor } from './interceptors/auth-interceptor';
+import { RuntimeConfigService } from './core/runtime-config.service';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideRouter(routes),
+    provideAppInitializer(() => inject(RuntimeConfigService).load()),
+    provideHttpClient(withInterceptors([authInterceptor])),
+    provideLucideIcons(
+      LucideBadgeAlert,
+      LucideBadgeCheck,
+      LucideBell,
+      LucideBellDot,
+      LucideBellRing,
+      LucideActivity,
+      LucideBuilding2,
+      LucideCircle,
+      LucideChartColumnBig,
+      LucideClipboardList,
+      LucideClipboardPlus,
+      LucideDownload,
+      LucideEye,
+      LucideEyeOff,
+      LucideFileClock,
+      LucideFilter,
+      LucideFingerprint,
+      LucideHistory,
+      LucideHouse,
+      LucideKeyRound,
+      LucideLayoutDashboard,
+      LucideLock,
+      LucideLockKeyhole,
+      LucideLogOut,
+      LucideMail,
+      LucideMessagesSquare,
+      LucidePackage,
+      LucidePenLine,
+      LucidePill,
+      LucideSearch,
+      LucideSettings,
+      LucideShieldCheck,
+      LucideSparkles,
+      LucideStethoscope,
+      LucideSyringe,
+      LucideTriangleAlert,
+      LucideTrash2,
+      LucideUpload,
+      LucideUser,
+      LucideUsers
+    )
+  ]
+};

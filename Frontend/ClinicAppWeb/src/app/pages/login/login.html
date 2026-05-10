@@ -1,0 +1,222 @@
+<div class="login-page relative min-h-screen overflow-hidden bg-[#f4f6fb]">
+  <div class="absolute inset-0 z-0 pointer-events-none">
+    <div class="wave-wrap">
+      <!-- TOP WAVE -->
+      <svg
+        class="top-wave"
+        viewBox="0 0 1440 320"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M0,120
+             C120,170 260,205 420,195
+             C590,184 720,110 900,95
+             C1080,80 1240,125 1440,185
+             L1440,0 L0,0 Z"
+          fill="#4fb39e"
+          fill-opacity="0.18"
+        />
+      </svg>
+
+      <!-- desktop / tablet -->
+      <svg
+        class="wave wave-back desktop-wave"
+        viewBox="0 0 1440 900"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M0,560
+             C140,535 280,530 430,550
+             C600,573 760,620 930,640
+             C1100,660 1270,642 1440,605
+             L1440,900 L0,900 Z"
+          fill="#90b0f8"
+          fill-opacity="0.22"
+        />
+      </svg>
+
+      <svg
+        class="wave wave-main desktop-wave"
+        viewBox="0 0 1440 900"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M0,615
+             C150,582 300,585 450,615
+             C620,650 790,705 960,728
+             C1130,750 1295,734 1440,690
+             L1440,900 L0,900 Z"
+          fill="#3b73db"
+        />
+      </svg>
+
+      <!-- mobile -->
+      <svg
+        class="wave wave-back mobile-wave"
+        viewBox="0 0 520 900"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M0,556
+             C18,546 34,536 52,534
+             C70,532 88,540 104,549
+             C120,558 136,565 154,564
+             C172,563 188,554 204,545
+             C220,536 236,530 254,532
+             C272,534 288,545 304,555
+             C320,565 338,571 356,569
+             C374,567 390,556 406,547
+             C422,538 438,533 456,535
+             C478,538 500,549 520,556
+             L520,900 L0,900 Z"
+          fill="#8caef7"
+          fill-opacity="0.24"
+        />
+      </svg>
+
+      <svg
+        class="wave wave-main mobile-wave"
+        viewBox="0 0 520 900"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M0,540
+             C16,529 32,519 50,517
+             C68,515 86,523 102,533
+             C118,543 134,551 152,551
+             C170,551 186,542 202,533
+             C218,524 234,517 252,518
+             C270,519 286,530 302,540
+             C318,550 336,558 354,557
+             C372,556 388,545 404,536
+             C420,527 436,521 454,523
+             C476,526 498,536 520,544
+             L520,900 L0,900 Z"
+          fill="#3b73db"
+        />
+      </svg>
+    </div>
+  </div>
+
+  <div class="relative z-10 min-h-screen px-0 sm:px-4 md:px-6">
+    <div class="login-shell">
+      <div
+        class="login-card relative w-full max-w-none sm:max-w-[420px] md:max-w-[430px] rounded-none sm:rounded-[24px] md:rounded-[24px] px-4 sm:px-5 md:px-5 pb-7 sm:pb-8 md:pb-8 pt-14 sm:pt-15 md:pt-16 shadow-none sm:shadow-[0_18px_46px_rgba(31,41,55,0.10)]"
+      >
+        <div
+          class="top-badge absolute left-1/2 top-0 flex h-16 w-16 sm:h-[78px] sm:w-[78px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/80 shadow-[0_10px_20px_rgba(31,41,55,0.08)]"
+        >
+          <img
+            src="images/login/doctor.png"
+            alt=""
+            class="doctor-badge-img h-10 w-10 sm:h-11 sm:w-11 object-contain"
+          />
+        </div>
+
+        <div class="mb-5 sm:mb-5 flex items-center justify-center gap-2 sm:gap-3">
+          <img
+            src="images/global/logo.png"
+            alt="MediTrack logo"
+            class="logo-mark h-[72px] w-[72px] sm:h-[92px] sm:w-[92px] object-contain"
+          />
+          <h1 class="brand-title m-0 text-[25px] sm:text-[27px] font-semibold tracking-[-0.02em]">
+            <span class="brand-medi">Medi</span><span class="brand-track">Track</span>
+          </h1>
+        </div>
+
+        <form class="flex flex-col gap-4 sm:gap-4" (ngSubmit)="login()">
+          <div class="relative">
+            <svg
+              lucideUser
+              class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#8a94a6]"
+            ></svg>
+
+            <input
+              id="username"
+              name="username"
+              type="text"
+              [(ngModel)]="username"
+              placeholder="Username"
+              autocomplete="username"
+              class="h-[52px] sm:h-[54px] w-full rounded-[16px] sm:rounded-[16px] border border-[#dbe3f0] bg-[#f7f9fc] pl-12 pr-4 text-[14px] sm:text-[15px] text-[#22324d] outline-none transition focus:border-[#4b7de3] focus:bg-white focus:ring-4 focus:ring-[rgba(59,115,219,0.12)]"
+            />
+          </div>
+
+          <div class="relative">
+            <svg
+              lucideLock
+              class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#8a94a6]"
+            ></svg>
+
+            <input
+              id="password"
+              name="password"
+              [type]="showPassword ? 'text' : 'password'"
+              [(ngModel)]="password"
+              placeholder="Password"
+              autocomplete="current-password"
+              class="h-[52px] sm:h-[54px] w-full rounded-[16px] sm:rounded-[16px] border border-[#dbe3f0] bg-[#f7f9fc] pl-12 pr-12 text-[14px] sm:text-[15px] text-[#22324d] outline-none transition focus:border-[#4b7de3] focus:bg-white focus:ring-4 focus:ring-[rgba(59,115,219,0.12)]"
+            />
+
+            <button
+              type="button"
+              class="absolute right-3 top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full bg-transparent p-0 transition hover:bg-[#eef4ff]"
+              (click)="togglePasswordVisibility()"
+              [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+            >
+              <svg
+                [lucideIcon]="showPassword ? EyeOffIcon : EyeIcon"
+                class="h-4.5 w-4.5 text-[#8a94a6]"
+              ></svg>
+            </button>
+          </div>
+
+          <div class="meta-row mt-1">
+            <label class="remember-me">
+              <input
+                type="checkbox"
+                [(ngModel)]="rememberMe"
+                name="rememberMe"
+              />
+              <span class="checkmark"></span>
+              <span class="label-text">Remember me</span>
+            </label>
+
+            <a routerLink="/forgot-password" class="forgot-link">
+              Forgot password?
+            </a>
+          </div>
+
+          <button
+            class="login-btn mt-2 h-[52px] sm:h-[54px] w-full rounded-[16px] sm:rounded-[16px] border-0 bg-gradient-to-br from-[#243b63] to-[#182945] text-[15px] sm:text-[16px] font-semibold tracking-[0.02em] text-white shadow-[0_12px_22px_rgba(24,41,69,0.22)] transition hover:-translate-y-[1px] hover:brightness-[1.04] disabled:cursor-not-allowed"
+            type="submit"
+            [disabled]="isLoading"
+          >
+            <span class="inline-flex items-center justify-center gap-3">
+              @if (isLoading) {
+                <span class="spinner-wrap inline-flex items-center justify-center">
+                  <app-loading-spinner [inline]="true" size="sm"></app-loading-spinner>
+                </span>
+              }
+              <span class="login-btn-text">{{ isLoading ? 'Logging in...' : 'LOGIN' }}</span>
+            </span>
+          </button>
+
+          @if (errorMessage) {
+            <div class="error-box mt-3">
+              <div class="error-icon">!</div>
+              <div class="error-text">
+                {{ errorMessage }}
+              </div>
+            </div>
+          }
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

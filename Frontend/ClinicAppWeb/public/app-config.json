@@ -1,0 +1,6 @@
+{
+  "apiUrl": "https://meditrack.azurewebsites.net/api",
+  "appName": "MediTrack",
+  "clinicName": "MediTrack Clinical Operations",
+  "supportEmail": "meditrackmt@gmail.com"
+}

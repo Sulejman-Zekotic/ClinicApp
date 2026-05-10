@@ -1,0 +1,109 @@
+<div class="space-y-7">
+  <section class="space-y-3 px-1">
+    <p class="clinic-label">My access</p>
+    <h1 class="clinic-title">Account & security</h1>
+    <p class="clinic-subtitle max-w-4xl">
+      Review the current session and keep access secure with a password change flow that matches the backend rules.
+    </p>
+  </section>
+
+  @if (forcedPasswordChange) {
+    <div class="ui-alert ui-alert--danger">
+      You are signed in with a temporary password. Set a new password before continuing with the rest of the app.
+    </div>
+  }
+
+  @if (errorMessage) {
+    <div class="ui-alert ui-alert--danger">
+      {{ errorMessage }}
+    </div>
+  }
+
+  <section class="grid gap-5 xl:grid-cols-[0.9fr_1.1fr]">
+    <article class="clinic-shell-card p-6">
+      <p class="clinic-label">Profile snapshot</p>
+      <h2 class="mt-3 text-[24px] font-black text-[var(--clinic-text)]">Current session</h2>
+
+      @if (isLoading) {
+        <div class="clinic-empty mt-5">
+          <app-loading-spinner label="Loading account details..."></app-loading-spinner>
+        </div>
+      } @else {
+        <div class="mt-5 space-y-4">
+          <div class="rounded-[22px] border border-[var(--clinic-border)] bg-[rgba(247,250,255,0.92)] px-5 py-5">
+            <div class="text-sm font-bold uppercase tracking-[0.18em] text-[var(--clinic-text-soft)]">Username</div>
+            <div class="mt-3 text-[30px] font-black text-[var(--clinic-text)]">
+              {{ profile?.username || auth.getUsername() }}
+            </div>
+          </div>
+
+          <div class="grid gap-4 md:grid-cols-2">
+            <div class="rounded-[22px] border border-[var(--clinic-border)] bg-white px-5 py-5">
+              <div class="text-sm font-bold uppercase tracking-[0.18em] text-[var(--clinic-text-soft)]">Role</div>
+              <div class="mt-3 text-[24px] font-black text-[var(--clinic-text)]">
+                {{ profile?.role || auth.getRole() }}
+              </div>
+            </div>
+
+            <div class="rounded-[22px] border border-[var(--clinic-border)] bg-white px-5 py-5">
+              <div class="text-sm font-bold uppercase tracking-[0.18em] text-[var(--clinic-text-soft)]">Session type</div>
+              <div class="mt-3 text-[24px] font-black text-[var(--clinic-text)]">
+                {{ auth.usesPersistentSession() ? 'Remembered' : 'This browser only' }}
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </article>
+
+    <article class="clinic-shell-card p-6">
+      <p class="clinic-label">Password policy</p>
+      <h2 class="mt-3 text-[24px] font-black text-[var(--clinic-text)]">Change password</h2>
+      <p class="mt-3 text-sm font-semibold leading-7 text-[var(--clinic-text-soft)]">
+        Use at least 8 characters. If you signed in with a temporary password, this step unlocks the rest of the application.
+      </p>
+
+      <form class="mt-6 grid gap-4" (ngSubmit)="submit()">
+        <label class="auth-field">
+          <span class="auth-field__label">Current password</span>
+          <input
+            class="clinic-input"
+            [(ngModel)]="currentPassword"
+            name="currentPassword"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Enter the current password">
+        </label>
+
+        <label class="auth-field">
+          <span class="auth-field__label">New password</span>
+          <input
+            class="clinic-input"
+            [(ngModel)]="newPassword"
+            name="newPassword"
+            type="password"
+            autocomplete="new-password"
+            placeholder="Create a new password">
+        </label>
+
+        <label class="auth-field">
+          <span class="auth-field__label">Confirm new password</span>
+          <input
+            class="clinic-input"
+            [(ngModel)]="confirmPassword"
+            name="confirmPassword"
+            type="password"
+            autocomplete="new-password"
+            placeholder="Repeat the new password">
+        </label>
+
+        <button type="submit" class="clinic-button-primary" [disabled]="isSaving">
+          @if (isSaving) {
+            <app-loading-spinner [inline]="true" size="sm"></app-loading-spinner>
+          }
+          {{ isSaving ? 'Saving...' : 'Update password' }}
+        </button>
+      </form>
+    </article>
+  </section>
+</div>

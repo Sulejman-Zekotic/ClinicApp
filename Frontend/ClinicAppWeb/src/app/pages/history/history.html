@@ -1,0 +1,192 @@
+<div class="history-page">
+  @if (errorMessage) {
+    <div class="ui-alert ui-alert--danger history-page__alert">
+      {{ errorMessage }}
+    </div>
+  }
+
+  <section class="history-metrics">
+    <article class="history-stat-card history-stat-card--blue">
+      <div class="history-stat-card__icon">
+        <svg lucideIcon="clipboard-list" class="h-7 w-7"></svg>
+      </div>
+      <div class="history-stat-card__body">
+        <div class="history-stat-card__label">Ukupno</div>
+        <div class="history-stat-card__value">{{ totalRecords }}</div>
+      </div>
+    </article>
+
+    <article class="history-stat-card history-stat-card--green">
+      <div class="history-stat-card__icon">
+        <svg lucideIcon="badge-check" class="h-7 w-7"></svg>
+      </div>
+      <div class="history-stat-card__body">
+        <div class="history-stat-card__label">Danas</div>
+        <div class="history-stat-card__value">{{ todaysEntries }}</div>
+      </div>
+    </article>
+
+    <article class="history-stat-card history-stat-card--purple">
+      <div class="history-stat-card__icon">
+        <svg lucideIcon="users" class="h-7 w-7"></svg>
+      </div>
+      <div class="history-stat-card__body">
+        <div class="history-stat-card__label">Korisnici</div>
+        <div class="history-stat-card__value">{{ uniqueUsersCount }}</div>
+      </div>
+    </article>
+  </section>
+
+  <section class="history-panel">
+    <div class="history-panel__header">
+      <h2 class="history-panel__title">Historija lijekova</h2>
+
+      <div class="history-toolbar-actions">
+        <button type="button" class="clinic-button-secondary" (click)="clearFilters()">Očisti</button>
+        <button type="button" class="clinic-button-primary" (click)="exportExcel()">Izvoz</button>
+      </div>
+    </div>
+
+    <div class="history-toolbar" [class.history-toolbar--user]="isAdmin">
+      @if (isAdmin) {
+        <select class="clinic-select" [(ngModel)]="selectedUserId" (ngModelChange)="queueFilterRefresh()" name="selectedUserId">
+          <option [ngValue]="null">Svi korisnici</option>
+          @for (user of users; track user.id) {
+            <option [ngValue]="user.id">{{ user.username }}</option>
+          }
+        </select>
+      }
+
+      <select class="clinic-select" [(ngModel)]="selectedMedicationId" (ngModelChange)="queueFilterRefresh()" name="selectedMedicationId">
+        <option [ngValue]="null">Svi lijekovi</option>
+        @for (medication of medications; track medication.id) {
+          <option [ngValue]="medication.id">{{ medication.name }}</option>
+        }
+      </select>
+
+      <select class="clinic-select" [(ngModel)]="selectedReasonId" (ngModelChange)="queueFilterRefresh()" name="selectedReasonId">
+        <option [ngValue]="null">Svi razlozi</option>
+        @for (reason of reasonOptions; track reason.id) {
+          <option [ngValue]="reason.id">{{ reason.name }}</option>
+        }
+      </select>
+
+      <input class="clinic-input" [(ngModel)]="fromDate" (ngModelChange)="queueFilterRefresh()" name="fromDate" type="date" />
+      <input class="clinic-input" [(ngModel)]="toDate" (ngModelChange)="queueFilterRefresh()" name="toDate" type="date" />
+
+      <input
+        class="clinic-input history-toolbar__search"
+        [(ngModel)]="search"
+        (ngModelChange)="queueFilterRefresh()"
+        name="search"
+        placeholder="Pretraga lijeka, korisnika, razloga" />
+    </div>
+
+    @if (isLoading) {
+      <div class="clinic-empty history-panel__empty">
+        <app-loading-spinner label="Učitavanje historije..."></app-loading-spinner>
+      </div>
+    } @else if (records.length === 0) {
+      <div class="clinic-empty history-panel__empty">Nema podataka za odabrane filtere.</div>
+    } @else {
+      <div class="history-table-card">
+        <div class="history-table-scroll">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th class="history-table__col-medication">Lijek</th>
+                <th class="history-table__col-user">Korisnik</th>
+                <th class="history-table__col-reason">Razlog</th>
+                <th class="history-table__col-quantity">Količina</th>
+                <th class="history-table__col-date">Datum</th>
+                <th class="history-table__col-actions">Pregled</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (record of records; track record.id) {
+                <tr>
+                  <td class="history-table__col-medication">
+                    <div class="history-table__title">{{ record.medicationName }}</div>
+                  </td>
+                  <td class="history-table__col-user">
+                    <div class="history-table__title">{{ record.username }}</div>
+                  </td>
+                  <td class="history-table__col-reason">
+                    <div class="history-table__title history-table__title--wrap">{{ recordReason(record) }}</div>
+                  </td>
+                  <td class="history-table__col-quantity">
+                    <span class="status-chip status-chip--info">{{ record.quantity }}</span>
+                  </td>
+                  <td class="history-table__col-date">
+                    <div class="history-table__title">{{ record.takenAt | date: 'dd.MM.yyyy' }}</div>
+                    <div class="history-table__meta">{{ record.takenAt | date: 'HH:mm' }}</div>
+                  </td>
+                  <td class="history-table__col-actions">
+                    <button type="button" class="table-icon-button" (click)="openRecord(record)" title="Pregled">
+                      <svg lucideIcon="eye" class="h-4 w-4"></svg>
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div class="history-table-card__pagination">
+          <app-pagination
+            [page]="page"
+            [pageSize]="pageSize"
+            [totalCount]="totalCount"
+            [alwaysShow]="true"
+            (pageChange)="changePage($event)">
+          </app-pagination>
+        </div>
+      </div>
+    }
+  </section>
+
+  @if (selectedRecord) {
+    <div class="workspace-toast-backdrop" (click)="closeRecord()">
+      <section class="workspace-toast workspace-toast--narrow" (click)="$event.stopPropagation()">
+        <button type="button" class="workspace-toast__close" (click)="closeRecord()" aria-label="Zatvori zapis">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 6L18 18M18 6L6 18" />
+          </svg>
+        </button>
+
+        <div class="workspace-toast__header">
+          <p class="workspace-toast__eyebrow">Historija</p>
+          <h2 class="workspace-toast__title">{{ selectedRecord.medicationName }}</h2>
+        </div>
+
+        <div class="workspace-toast__body">
+          <div class="workspace-toast-grid">
+            <article class="workspace-toast-meta">
+              <div class="workspace-toast-meta__label">Korisnik</div>
+              <div class="workspace-toast-meta__value">{{ selectedRecord.username }}</div>
+            </article>
+
+            <article class="workspace-toast-meta">
+              <div class="workspace-toast-meta__label">Količina</div>
+              <div class="workspace-toast-meta__value">{{ selectedRecord.quantity }}</div>
+            </article>
+
+            <article class="workspace-toast-meta">
+              <div class="workspace-toast-meta__label">Datum</div>
+              <div class="workspace-toast-meta__value">{{ selectedRecord.takenAt | date: 'dd.MM.yyyy HH:mm' }}</div>
+            </article>
+
+            <article class="workspace-toast-meta">
+              <div class="workspace-toast-meta__label">Razlog</div>
+              <div class="workspace-toast-meta__value">{{ recordReason(selectedRecord) }}</div>
+            </article>
+          </div>
+        </div>
+
+        <div class="workspace-toast__footer">
+          <button type="button" class="clinic-button-secondary" (click)="closeRecord()">Zatvori</button>
+        </div>
+      </section>
+    </div>
+  }
+</div>

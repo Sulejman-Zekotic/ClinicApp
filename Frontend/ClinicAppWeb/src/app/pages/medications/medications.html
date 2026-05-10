@@ -1,0 +1,673 @@
+<div class="medications-page">
+  @if (errorMessage) {
+    <div class="ui-alert ui-alert--danger medications-page__alert">
+      {{ errorMessage }}
+    </div>
+  }
+
+  <section class="medications-metrics" aria-label="Pregled zaliha lijekova">
+    <article class="medications-stat-card medications-stat-card--blue">
+      <div class="medications-stat-card__icon">
+        <svg lucideIcon="pill" class="h-7 w-7"></svg>
+      </div>
+
+      <div>
+        <div class="medications-stat-card__label">Ukupno</div>
+        <div class="medications-stat-card__value">{{ totalMedications }}</div>
+      </div>
+    </article>
+
+    <article class="medications-stat-card medications-stat-card--green">
+      <div class="medications-stat-card__icon">
+        <svg lucideIcon="package" class="h-7 w-7"></svg>
+      </div>
+
+      <div>
+        <div class="medications-stat-card__label">Na stanju</div>
+        <div class="medications-stat-card__value">{{ inStockCount }}</div>
+      </div>
+    </article>
+
+    <article class="medications-stat-card medications-stat-card--orange">
+      <div class="medications-stat-card__icon">
+        <svg lucideIcon="triangle-alert" class="h-7 w-7"></svg>
+      </div>
+
+      <div>
+        <div class="medications-stat-card__label">Pri kraju</div>
+        <div class="medications-stat-card__value">{{ lowSupplyCount }}</div>
+      </div>
+    </article>
+
+    <article class="medications-stat-card medications-stat-card--purple">
+      <div class="medications-stat-card__icon">
+        <svg lucideIcon="clipboard-plus" class="h-7 w-7"></svg>
+      </div>
+
+      <div>
+        <div class="medications-stat-card__label">Nema na stanju</div>
+        <div class="medications-stat-card__value">{{ outOfStockCount }}</div>
+      </div>
+    </article>
+  </section>
+
+  <section class="medications-panel">
+    <div class="medications-panel__header">
+      <h2 class="medications-panel__title">Inventar lijekova</h2>
+
+      @if (isAdmin) {
+        <div class="medications-actions">
+          <button type="button" class="clinic-button-secondary" (click)="openImportPanel()">Uvoz Excel</button>
+          <button type="button" class="clinic-button-secondary" (click)="exportExcel()">Izvoz</button>
+          @if (!isMobile) {
+            <button
+              type="button"
+              class="clinic-button-primary medications-actions__add medications-actions__add--desktop desktop-only-add-button"
+              (click)="openCreateForm()">
+              Dodaj lijek
+            </button>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="medications-toolbar medications-toolbar--desktop">
+      <input
+        class="clinic-input"
+        [(ngModel)]="search"
+        (ngModelChange)="queueFilterRefresh()"
+        name="search"
+        placeholder="Pretraga naziva, šifre ili proizvođača" />
+
+      <select
+        class="clinic-select"
+        [(ngModel)]="categoryId"
+        (ngModelChange)="queueFilterRefresh()"
+        name="categoryId">
+        <option [ngValue]="null">Sve kategorije</option>
+        @for (category of categoryOptions; track category.id) {
+          <option [ngValue]="category.id">{{ category.name }}</option>
+        }
+      </select>
+
+      <select
+        class="clinic-select"
+        [(ngModel)]="manufacturerId"
+        (ngModelChange)="queueFilterRefresh()"
+        name="manufacturerId">
+        <option [ngValue]="null">Svi proizvođači</option>
+        @for (manufacturer of manufacturerOptions; track manufacturer.id) {
+          <option [ngValue]="manufacturer.id">{{ manufacturer.name }}</option>
+        }
+      </select>
+
+      <select class="clinic-select" [(ngModel)]="unitId" (ngModelChange)="queueFilterRefresh()" name="unitId">
+        <option [ngValue]="null">Sve jedinice</option>
+        @for (unit of unitOptions; track unit.id) {
+          <option [ngValue]="unit.id">{{ lookupLabel(unit) }}</option>
+        }
+      </select>
+
+      <select
+        class="clinic-select"
+        [(ngModel)]="stockFilter"
+        (ngModelChange)="queueFilterRefresh()"
+        name="stockFilter">
+        <option value="">Sva stanja</option>
+        <option value="instock">Na stanju</option>
+        <option value="lowstock">Pri kraju</option>
+        <option value="outofstock">Nema na stanju</option>
+      </select>
+
+      <button type="button" class="clinic-button-secondary medications-toolbar__clear" (click)="clearFilters()">
+        Očisti
+      </button>
+    </div>
+
+    <div class="medications-mobile-controls">
+      <input
+        class="clinic-input medications-mobile-controls__search"
+        [(ngModel)]="search"
+        (ngModelChange)="queueFilterRefresh()"
+        name="mobileSearch"
+        placeholder="Pretraga lijekova" />
+
+      <button type="button" class="clinic-button-secondary medications-mobile-controls__filter" (click)="openFiltersPanel()">
+  <svg class="filter-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M4 6h16M7 12h10M10 18h4" />
+  </svg>
+  Filteri
+</button>
+    </div>
+
+    @if (isLoading) {
+      <div class="clinic-empty medications-panel__empty">
+        <app-loading-spinner label="Učitavanje lijekova..."></app-loading-spinner>
+      </div>
+    } @else if (medications.length === 0) {
+      <div class="clinic-empty medications-panel__empty">
+        Nema rezultata za odabrane filtere.
+      </div>
+    } @else {
+      <div class="medications-list-stack">
+        <div class="medications-table-card">
+        <div class="medications-table-scroll">
+          <table class="medications-table">
+            <thead>
+              <tr>
+                <th class="medications-table__col-medication">Lijek</th>
+                <th class="medications-table__col-category">Kategorija</th>
+                <th class="medications-table__col-unit">Jedinica</th>
+                <th class="medications-table__col-stock">Stanje</th>
+                <th class="medications-table__col-status">Status</th>
+                <th class="medications-table__col-actions">Akcije</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (medication of medications; track medication.id) {
+                <tr>
+                  <td class="medications-table__col-medication">
+                    <div class="medications-table__identity">
+                      <div class="medications-table__avatar">
+                        <svg lucideIcon="pill" class="h-4.5 w-4.5"></svg>
+                      </div>
+
+                      <div class="medications-table__name-wrap">
+                        <div class="medications-table__title">{{ medication.name }}</div>
+                        <div class="medications-table__meta">
+                          {{ medication.code }} · {{ medication.manufacturer || '-' }}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td class="medications-table__col-category">
+                    <div class="medications-table__title">{{ medication.category || '-' }}</div>
+                  </td>
+
+                  <td class="medications-table__col-unit">
+                    <div class="medications-table__title">{{ medication.strength || '-' }}</div>
+                    <div class="medications-table__meta">{{ medication.unit || '-' }}</div>
+                  </td>
+
+                  <td class="medications-table__col-stock">
+                    <div class="medications-table__title">{{ medication.stock }}</div>
+                    <div class="medications-table__meta">Min {{ medication.minimumStock }}</div>
+                  </td>
+
+                  <td class="medications-table__col-status">
+                    <span [class]="getStockStatusClass(medication)">
+                      {{ getStockStatus(medication) }}
+                    </span>
+                  </td>
+
+                  <td class="medications-table__col-actions">
+                    <div class="medications-row-actions">
+                      <button
+                        type="button"
+                        class="table-icon-button table-icon-button--primary"
+                        title="Evidentiraj izdavanje"
+                        (click)="startTakeMedication(medication)">
+                        <svg lucideIcon="clipboard-plus" class="h-4 w-4"></svg>
+                      </button>
+
+                      <button
+                        type="button"
+                        class="table-icon-button"
+                        title="Pregled"
+                        (click)="viewDetails(medication.id)">
+                        <svg lucideIcon="eye" class="h-4 w-4"></svg>
+                      </button>
+
+                      @if (isAdmin) {
+                        <button
+                          type="button"
+                          class="table-icon-button"
+                          title="Uredi"
+                          (click)="startEdit(medication)">
+                          <svg lucideIcon="pen-line" class="h-4 w-4"></svg>
+                        </button>
+
+                        <button
+                          type="button"
+                          class="table-icon-button table-icon-button--danger"
+                          title="Obriši"
+                          [disabled]="deletingMedicationId === medication.id"
+                          (click)="deleteMedication(medication)">
+                          @if (deletingMedicationId === medication.id) {
+                            <app-loading-spinner [inline]="true" size="sm"></app-loading-spinner>
+                          } @else {
+                            <svg lucideIcon="trash-2" class="h-4 w-4"></svg>
+                          }
+                        </button>
+                      }
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+        <div class="medications-pagination-strip">
+          <app-pagination
+            [page]="page"
+            [pageSize]="pageSize"
+            [totalCount]="totalCount"
+            (pageChange)="changePage($event)">
+          </app-pagination>
+        </div>
+      </div>    }
+  </section>
+
+
+  @if (isAdmin) {
+    <button
+      type="button"
+      class="medications-floating-add"
+      aria-label="Dodaj lijek"
+      title="Dodaj lijek"
+      (click)="openCreateForm()">
+      <svg lucideIcon="plus" class="h-6 w-6"></svg>
+    </button>
+  }
+
+  @if (activePanel === 'filters') {
+    <div class="workspace-toast-backdrop" (click)="closePanel()">
+      <section class="workspace-toast workspace-toast--narrow medications-filter-sheet" (click)="$event.stopPropagation()">
+
+        <div class="workspace-toast__header">
+          <h2 class="workspace-toast__title">Filteri lijekova</h2>
+        </div>
+
+        <div class="workspace-toast__body medications-filter-sheet__body">
+          <label class="workspace-field">
+            <span class="workspace-field__label">Kategorija</span>
+            <select class="clinic-select" [(ngModel)]="categoryId" (ngModelChange)="queueFilterRefresh()" name="mobileCategoryId">
+              <option [ngValue]="null">Sve kategorije</option>
+              @for (category of categoryOptions; track category.id) {
+                <option [ngValue]="category.id">{{ category.name }}</option>
+              }
+            </select>
+          </label>
+
+          <label class="workspace-field">
+            <span class="workspace-field__label">Proizvođač</span>
+            <select class="clinic-select" [(ngModel)]="manufacturerId" (ngModelChange)="queueFilterRefresh()" name="mobileManufacturerId">
+              <option [ngValue]="null">Svi proizvođači</option>
+              @for (manufacturer of manufacturerOptions; track manufacturer.id) {
+                <option [ngValue]="manufacturer.id">{{ manufacturer.name }}</option>
+              }
+            </select>
+          </label>
+
+          <label class="workspace-field">
+            <span class="workspace-field__label">Jedinica</span>
+            <select class="clinic-select" [(ngModel)]="unitId" (ngModelChange)="queueFilterRefresh()" name="mobileUnitId">
+              <option [ngValue]="null">Sve jedinice</option>
+              @for (unit of unitOptions; track unit.id) {
+                <option [ngValue]="unit.id">{{ lookupLabel(unit) }}</option>
+              }
+            </select>
+          </label>
+
+          <label class="workspace-field">
+            <span class="workspace-field__label">Stanje</span>
+            <select class="clinic-select" [(ngModel)]="stockFilter" (ngModelChange)="queueFilterRefresh()" name="mobileStockFilter">
+              <option value="">Sva stanja</option>
+              <option value="instock">Na stanju</option>
+              <option value="lowstock">Pri kraju</option>
+              <option value="outofstock">Nema na stanju</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="workspace-toast__footer">
+          <button type="button" class="clinic-button-secondary" (click)="clearFilters(); closePanel()">Očisti</button>
+          <button type="button" class="clinic-button-primary" (click)="closePanel()">Primijeni</button>
+        </div>
+      </section>
+    </div>
+  }
+
+
+  @if (activePanel === 'delete' && pendingDeleteMedication) {
+    <div class="workspace-toast-backdrop" (click)="closePanel()">
+      <section class="medications-confirm-dialog" (click)="$event.stopPropagation()">
+
+        <div class="medications-confirm-dialog__summary">
+          <div>
+            <span>Šifra</span>
+            <strong>{{ pendingDeleteMedication.code || '-' }}</strong>
+          </div>
+          <div>
+            <span>Trenutno stanje</span>
+            <strong>{{ pendingDeleteMedication.stock }} kom</strong>
+          </div>
+        </div>
+
+        <div class="medications-confirm-dialog__actions">
+          <button type="button" class="clinic-button-secondary" (click)="closePanel()">Otkaži</button>
+          <button
+            type="button"
+            class="clinic-button-danger"
+            [disabled]="deletingMedicationId === pendingDeleteMedication.id"
+            (click)="confirmDeleteMedication()">
+            @if (deletingMedicationId === pendingDeleteMedication.id) {
+              <app-loading-spinner [inline]="true" size="sm"></app-loading-spinner>
+            }
+            {{ deletingMedicationId === pendingDeleteMedication.id ? 'Brisanje...' : 'Obriši' }}
+          </button>
+        </div>
+      </section>
+    </div>
+  }
+
+  @if (activePanel === 'form' && isAdmin) {
+    <div class="workspace-toast-backdrop" (click)="closePanel()">
+      <section class="workspace-toast" (click)="$event.stopPropagation()">
+
+        <div class="workspace-toast__header">
+          <h2 class="workspace-toast__title">
+            {{ editingMedicationId ? 'Uredi lijek' : 'Dodaj lijek' }}
+          </h2>
+        </div>
+
+        <div class="workspace-toast__body">
+          @if (errorMessage) {
+            <div class="ui-alert ui-alert--danger medications-panel__sheet-alert">
+              {{ errorMessage }}
+            </div>
+          }
+
+          <form class="workspace-toast-form" (ngSubmit)="submitMedication()">
+            <div class="workspace-toast-grid">
+              <label class="workspace-field">
+                <span class="workspace-field__label">Naziv</span>
+                <input class="clinic-input" [(ngModel)]="medicationForm.name" name="name" required />
+              </label>
+
+              <label class="workspace-field">
+                <span class="workspace-field__label">Šifra</span>
+                <input class="clinic-input" [(ngModel)]="medicationForm.code" name="code" required />
+              </label>
+
+              <label class="workspace-field">
+                <span class="workspace-field__label">Kategorija</span>
+                <select class="clinic-select" [(ngModel)]="medicationForm.medicationCategoryId" name="medicationCategoryId">
+                  <option [ngValue]="null">Odaberi</option>
+                  @for (category of categoryOptions; track category.id) {
+                    <option [ngValue]="category.id">{{ category.name }}</option>
+                  }
+                </select>
+              </label>
+
+              <label class="workspace-field">
+                <span class="workspace-field__label">Proizvođač</span>
+                <select
+                  class="clinic-select"
+                  [(ngModel)]="medicationForm.medicationManufacturerId"
+                  name="medicationManufacturerId">
+                  <option [ngValue]="null">Odaberi</option>
+                  @for (manufacturer of manufacturerOptions; track manufacturer.id) {
+                    <option [ngValue]="manufacturer.id">{{ manufacturer.name }}</option>
+                  }
+                </select>
+              </label>
+
+              <label class="workspace-field">
+                <span class="workspace-field__label">Jačina</span>
+                <input class="clinic-input" [(ngModel)]="medicationForm.strength" name="strength" />
+              </label>
+
+              <label class="workspace-field">
+                <span class="workspace-field__label">Jedinica</span>
+                <select class="clinic-select" [(ngModel)]="medicationForm.medicationUnitId" name="medicationUnitId">
+                  <option [ngValue]="null">Odaberi</option>
+                  @for (unit of unitOptions; track unit.id) {
+                    <option [ngValue]="unit.id">{{ lookupLabel(unit) }}</option>
+                  }
+                </select>
+              </label>
+
+              <label class="workspace-field">
+                <span class="workspace-field__label">Stanje</span>
+                <input class="clinic-input" [(ngModel)]="medicationForm.stock" name="stock" type="number" min="1" />
+              </label>
+
+              <label class="workspace-field">
+                <span class="workspace-field__label">Minimalno stanje</span>
+                <input
+                  class="clinic-input"
+                  [(ngModel)]="medicationForm.minimumStock"
+                  name="minimumStock"
+                  type="number"
+                  min="0" />
+              </label>
+
+              <label class="workspace-field workspace-field--full">
+                <span class="workspace-field__label">Opis</span>
+                <textarea class="clinic-textarea" [(ngModel)]="medicationForm.description" name="description"></textarea>
+              </label>
+            </div>
+
+            <label class="medications-checkbox">
+              <input [(ngModel)]="medicationForm.requiresPrescription" name="requiresPrescription" type="checkbox" />
+              <span>Na recept</span>
+            </label>
+          </form>
+        </div>
+
+        <div class="workspace-toast__footer">
+          <button type="button" class="clinic-button-secondary" (click)="closePanel()">Odustani</button>
+          <button type="button" class="clinic-button-primary" [disabled]="isSavingMedication" (click)="submitMedication()">
+            @if (isSavingMedication) {
+              <app-loading-spinner [inline]="true" size="sm"></app-loading-spinner>
+            }
+            {{ isSavingMedication ? 'Spremanje...' : editingMedicationId ? 'Sačuvaj' : 'Dodaj lijek' }}
+          </button>
+        </div>
+      </section>
+    </div>
+  }
+
+  @if (activePanel === 'import' && isAdmin) {
+    <div class="workspace-toast-backdrop" (click)="closePanel()">
+      <section class="workspace-toast workspace-toast--narrow" (click)="$event.stopPropagation()">
+
+        <div class="workspace-toast__header">
+          <h2 class="workspace-toast__title">Uvoz Excel fajla</h2>
+        </div>
+
+        <div class="workspace-toast__body workspace-toast-stack">
+          @if (errorMessage) {
+            <div class="ui-alert ui-alert--danger medications-panel__sheet-alert">
+              {{ errorMessage }}
+            </div>
+          }
+
+          <label class="workspace-field">
+            <span class="workspace-field__label">Fajl</span>
+            <input class="clinic-input" type="file" accept=".xlsx,.xls" (change)="onFileSelected($event)" />
+          </label>
+
+          @if (importPreview) {
+            <div class="workspace-toast-stack">
+              <article class="workspace-toast-meta">
+                <div class="workspace-toast-meta__label">Pregled</div>
+                <div class="workspace-toast-meta__value">
+                  {{ importPreview.totalRows }} redova · Dodaj {{ importPreview.addCount }} · Uredi {{ importPreview.updateCount }}
+                </div>
+              </article>
+
+              @for (row of importPreview.rows.slice(0, 5); track row.rowNumber) {
+                <article class="workspace-toast-meta">
+                  <div class="workspace-toast-meta__label">Red {{ row.rowNumber }}</div>
+                  <div class="workspace-toast-meta__value">{{ row.name || 'Bez naziva' }} · {{ row.message }}</div>
+                </article>
+              }
+            </div>
+          }
+
+          @if (importResult) {
+            <article class="workspace-toast-meta">
+              <div class="workspace-toast-meta__label">Završeno</div>
+              <div class="workspace-toast-meta__value">
+                Dodano {{ importResult.addedCount }} · Uređeno {{ importResult.updatedCount }} · Preskočeno {{ importResult.skippedCount }}
+              </div>
+            </article>
+          }
+        </div>
+
+        <div class="workspace-toast__footer">
+          <button type="button" class="clinic-button-secondary" (click)="previewImport()" [disabled]="!selectedImportFile || isPreviewLoading">
+            @if (isPreviewLoading) {
+              <app-loading-spinner [inline]="true" size="sm"></app-loading-spinner>
+            }
+            {{ isPreviewLoading ? 'Učitavanje...' : 'Pregled' }}
+          </button>
+
+          <button type="button" class="clinic-button-primary" (click)="importExcel()" [disabled]="!selectedImportFile || isImporting">
+            @if (isImporting) {
+              <app-loading-spinner [inline]="true" size="sm"></app-loading-spinner>
+            }
+            {{ isImporting ? 'Uvoz...' : 'Uvezi' }}
+          </button>
+        </div>
+      </section>
+    </div>
+  }
+
+  @if (activePanel === 'take' && takeMedicationTarget) {
+    <div class="workspace-toast-backdrop" (click)="closePanel()">
+      <section class="workspace-toast workspace-toast--narrow" (click)="$event.stopPropagation()">
+
+        <div class="workspace-toast__header">
+          <h2 class="workspace-toast__title">Evidentiraj izdavanje</h2>
+        </div>
+
+        <div class="workspace-toast__body workspace-toast-stack">
+          @if (errorMessage) {
+            <div class="ui-alert ui-alert--danger medications-panel__sheet-alert">
+              {{ errorMessage }}
+            </div>
+          }
+
+          <article class="workspace-toast-meta">
+            <div class="workspace-toast-meta__label">Lijek</div>
+            <div class="workspace-toast-meta__value">
+              {{ takeMedicationTarget.name }} · {{ takeMedicationTarget.stock }}
+            </div>
+          </article>
+
+          <label class="workspace-field">
+            <span class="workspace-field__label">Količina</span>
+            <input class="clinic-input" [(ngModel)]="takeQuantity" name="takeQuantity" type="number" min="1" />
+          </label>
+
+          <label class="workspace-field">
+            <span class="workspace-field__label">Razlog</span>
+            <select class="clinic-select" [(ngModel)]="takeReasonId" name="takeReasonId">
+              <option [ngValue]="null">Odaberi</option>
+              @for (reason of takeReasonOptions; track reason.id) {
+                <option [ngValue]="reason.id">{{ reason.name }}</option>
+              }
+            </select>
+          </label>
+
+          <label class="workspace-field">
+            <span class="workspace-field__label">Napomena</span>
+            <textarea
+              class="clinic-textarea medications-sheet__note"
+              [(ngModel)]="takeReasonNote"
+              name="takeReasonNote"></textarea>
+          </label>
+        </div>
+
+        <div class="workspace-toast__footer">
+          <button type="button" class="clinic-button-secondary" (click)="closePanel()">Odustani</button>
+
+          <button type="button" class="clinic-button-primary" (click)="submitTakeMedication()" [disabled]="isTakingMedication">
+            @if (isTakingMedication) {
+              <app-loading-spinner [inline]="true" size="sm"></app-loading-spinner>
+            }
+            {{ isTakingMedication ? 'Spremanje...' : 'Sačuvaj' }}
+          </button>
+        </div>
+      </section>
+    </div>
+  }
+
+  @if (activePanel === 'view') {
+    <div class="workspace-toast-backdrop" (click)="closePanel()">
+      <section class="workspace-toast workspace-toast--narrow" (click)="$event.stopPropagation()">
+
+        @if (detailLoading) {
+          <div class="workspace-toast__body medications-sheet__loading">
+            <div class="clinic-empty">
+              <app-loading-spinner label="Učitavanje detalja..."></app-loading-spinner>
+            </div>
+          </div>
+        } @else if (selectedMedicationDetails) {
+          <div class="workspace-toast__header">
+            <h2 class="workspace-toast__title">{{ selectedMedicationDetails.name }}</h2>
+          </div>
+
+          <div class="workspace-toast__body">
+            <div class="workspace-toast-grid">
+              <article class="workspace-toast-meta">
+                <div class="workspace-toast-meta__label">Šifra</div>
+                <div class="workspace-toast-meta__value">{{ selectedMedicationDetails.code }}</div>
+              </article>
+
+              <article class="workspace-toast-meta">
+                <div class="workspace-toast-meta__label">Kategorija</div>
+                <div class="workspace-toast-meta__value">{{ selectedMedicationDetails.category || '-' }}</div>
+              </article>
+
+              <article class="workspace-toast-meta">
+                <div class="workspace-toast-meta__label">Jačina</div>
+                <div class="workspace-toast-meta__value">
+                  {{ selectedMedicationDetails.strength || '-' }} {{ selectedMedicationDetails.unit || '' }}
+                </div>
+              </article>
+
+              <article class="workspace-toast-meta">
+                <div class="workspace-toast-meta__label">Stanje</div>
+                <div class="workspace-toast-meta__value">
+                  {{ selectedMedicationDetails.stock }} · Min {{ selectedMedicationDetails.minimumStock }}
+                </div>
+              </article>
+
+              <article class="workspace-toast-meta">
+                <div class="workspace-toast-meta__label">Proizvođač</div>
+                <div class="workspace-toast-meta__value">{{ selectedMedicationDetails.manufacturer || '-' }}</div>
+              </article>
+
+              <article class="workspace-toast-meta">
+                <div class="workspace-toast-meta__label">Recept</div>
+                <div class="workspace-toast-meta__value">
+                  {{ selectedMedicationDetails.requiresPrescription ? 'Da' : 'Ne' }}
+                </div>
+              </article>
+            </div>
+
+            <article class="workspace-toast-meta medications-sheet__description">
+              <div class="workspace-toast-meta__label">Opis</div>
+              <div class="workspace-toast-meta__value">
+                {{ selectedMedicationDetails.description || '-' }}
+              </div>
+            </article>
+          </div>
+
+          <div class="workspace-toast__footer">
+            <button type="button" class="clinic-button-secondary" (click)="closePanel()">Zatvori</button>
+          </div>
+        }
+      </section>
+    </div>
+  }
+</div>

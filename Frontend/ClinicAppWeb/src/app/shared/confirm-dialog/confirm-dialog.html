@@ -1,0 +1,38 @@
+@if (dialog.state$ | async; as state) {
+  <div class="workspace-toast-backdrop" (click)="cancel()">
+    <section
+      class="workspace-toast workspace-toast--narrow confirm-toast"
+      [ngClass]="state.tone === 'danger' ? 'confirm-toast--danger' : 'confirm-toast--primary'"
+      (click)="$event.stopPropagation()">
+      <button type="button" class="workspace-toast__close" (click)="cancel()" aria-label="Close confirmation">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6L18 18M18 6L6 18" />
+        </svg>
+      </button>
+
+      <div class="workspace-toast__header">
+        <p class="workspace-toast__eyebrow">Potvrda akcije</p>
+        <h2 class="workspace-toast__title">{{ state.title }}</h2>
+        <p class="workspace-toast__subtitle">{{ state.message }}</p>
+      </div>
+
+      <div class="workspace-toast__body">
+        <div class="confirm-toast__icon-shell">
+          <div class="confirm-toast__icon"></div>
+        </div>
+      </div>
+
+      <div class="workspace-toast__footer">
+        <button type="button" class="clinic-button-secondary" (click)="cancel()">
+          {{ state.cancelLabel }}
+        </button>
+        <button
+          type="button"
+          [class]="state.tone === 'danger' ? 'clinic-button-danger' : 'clinic-button-primary'"
+          (click)="confirm()">
+          {{ state.confirmLabel }}
+        </button>
+      </div>
+    </section>
+  </div>
+}

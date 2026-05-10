@@ -1,0 +1,180 @@
+<div class="dashboard-page">
+  @if (errorMessage) {
+    <div class="ui-alert ui-alert--danger">
+      {{ errorMessage }}
+    </div>
+  }
+
+  @if (isLoading) {
+    <div class="clinic-empty dashboard-loading">
+      <app-loading-spinner label="Učitavanje dashboarda..."></app-loading-spinner>
+    </div>
+  } @else {
+    <section class="dashboard-metrics">
+      <article class="metric-card metric-card--teal">
+        <div class="metric-card__icon">
+          <svg lucideIcon="pill" class="h-7 w-7"></svg>
+        </div>
+
+        <div class="metric-card__body">
+          <div class="metric-card__label">Ukupno lijekova</div>
+          <div class="metric-card__value">{{ medicationsCount }}</div>
+        </div>
+      </article>
+
+      <article class="metric-card metric-card--orange">
+        <div class="metric-card__icon">
+          <svg lucideIcon="triangle-alert" class="h-7 w-7"></svg>
+        </div>
+
+        <div class="metric-card__body">
+          <div class="metric-card__label">Lijekovi s niskim zalihama</div>
+          <div class="metric-card__value">{{ lowStockCount }}</div>
+        </div>
+      </article>
+
+      <article class="metric-card metric-card--green">
+        <div class="metric-card__icon">
+          <svg lucideIcon="users" class="h-7 w-7"></svg>
+        </div>
+
+        <div class="metric-card__body">
+          <div class="metric-card__label">Aktivni korisnici</div>
+          <div class="metric-card__value">{{ activeUsersCount }}</div>
+        </div>
+      </article>
+
+      <article class="metric-card metric-card--purple">
+        <div class="metric-card__icon">
+          <svg lucideIcon="clipboard-list" class="h-7 w-7"></svg>
+        </div>
+
+        <div class="metric-card__body">
+          <div class="metric-card__label">Današnja evidentiranja</div>
+          <div class="metric-card__value">{{ todayActivityCount }}</div>
+        </div>
+      </article>
+    </section>
+
+    <section class="dashboard-content-grid">
+      <article class="panel-card dashboard-panel dashboard-panel--chart">
+        <div class="panel-card__header">
+          <div>
+            <h2 class="panel-card__title">Sedmični pregled evidentiranja lijekova</h2>
+            <p class="panel-card__subtitle">Broj evidentiranih lijekova po danima</p>
+          </div>
+        </div>
+
+        @if (!chartHasData) {
+          <div class="clinic-empty dashboard-panel__empty">
+            Nema dovoljno evidentiranja za prikaz grafikona.
+          </div>
+        } @else {
+          <div class="dashboard-chart">
+            <div class="dashboard-chart__canvas">
+              <svg viewBox="0 0 740 240" class="dashboard-chart__svg">
+                <defs>
+                  <linearGradient id="dashboardArea" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="rgba(52, 168, 133, 0.2)"></stop>
+                    <stop offset="100%" stop-color="rgba(52, 168, 133, 0.025)"></stop>
+                  </linearGradient>
+                </defs>
+
+                <line
+                  x1="24"
+                  y1="212"
+                  x2="716"
+                  y2="212"
+                  stroke="rgba(183, 197, 218, 0.62)"
+                  stroke-width="1.5">
+                </line>
+
+                <polygon
+                  fill="url(#dashboardArea)"
+                  [attr.points]="'24,212 ' + chartPoints(chartValues) + ' 716,212'">
+                </polygon>
+
+                <polyline
+                  fill="none"
+                  stroke="#34a885"
+                  stroke-width="3.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  [attr.points]="chartPoints(chartValues)">
+                </polyline>
+
+                @for (point of chartDots(chartValues); track $index) {
+                  <circle [attr.cx]="point.x" [attr.cy]="point.y" r="8" fill="rgba(52, 168, 133, 0.15)"></circle>
+                  <circle [attr.cx]="point.x" [attr.cy]="point.y" r="4.6" fill="#34a885"></circle>
+                }
+              </svg>
+            </div>
+
+            <div class="dashboard-chart__labels">
+              @for (label of chartLabels; track label) {
+                <span>{{ label }}</span>
+              }
+            </div>
+
+            <div class="dashboard-chart__footer">
+              <div class="dashboard-chart__footer-item">
+                <div class="dashboard-chart__footer-label">Ukupno evidentiranja</div>
+                <div class="dashboard-chart__footer-value">{{ adminStats?.weekCount ?? totalUsageCount }}</div>
+              </div>
+
+              <div class="dashboard-chart__footer-item">
+                <div class="dashboard-chart__footer-label">Danas</div>
+                <div class="dashboard-chart__footer-value">{{ adminStats?.todayCount ?? 0 }}</div>
+              </div>
+
+              <div class="dashboard-chart__footer-item">
+                <div class="dashboard-chart__footer-label">Ovaj mjesec</div>
+                <div class="dashboard-chart__footer-value">{{ adminStats?.monthCount ?? 0 }}</div>
+              </div>
+            </div>
+          </div>
+        }
+      </article>
+
+      <article class="panel-card dashboard-panel dashboard-panel--alerts">
+        <div class="panel-card__header">
+          <div>
+            <h2 class="panel-card__title">Najnovija upozorenja</h2>
+            <p class="panel-card__subtitle">Zalihe lijekova i nova evidentiranja</p>
+          </div>
+        </div>
+
+        @if (topAlertItems.length === 0) {
+          <div class="clinic-empty dashboard-panel__empty dashboard-panel__empty--alerts">
+            Nema novih upozorenja.
+          </div>
+        } @else {
+          <div class="dashboard-alert-list">
+            @for (item of topAlertItems; track item.title) {
+              <article class="dashboard-alert-list__item">
+                <div
+                  class="dashboard-alert-list__icon"
+                  [class.dashboard-alert-list__icon--warn]="item.tone === 'warn'"
+                  [class.dashboard-alert-list__icon--good]="item.tone === 'good'">
+
+                  @if (item.tone === 'warn') {
+                    <svg lucideIcon="triangle-alert" class="h-4.5 w-4.5"></svg>
+                  } @else if (item.tone === 'good') {
+                    <svg lucideIcon="badge-check" class="h-4.5 w-4.5"></svg>
+                  } @else {
+                    <svg lucideIcon="bell" class="h-4.5 w-4.5"></svg>
+                  }
+                </div>
+
+                <div class="dashboard-alert-list__body">
+                  <div class="dashboard-alert-list__title">{{ item.title }}</div>
+                  <div class="dashboard-alert-list__meta">{{ item.meta }}</div>
+                </div>
+              </article>
+            }
+          </div>
+        }
+      </article>
+    </section>
+  }
+</div>

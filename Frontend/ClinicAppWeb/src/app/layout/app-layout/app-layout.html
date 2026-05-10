@@ -1,0 +1,94 @@
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar" [class.dashboard-sidebar--open]="mobileNavOpen">
+    <button type="button" class="dashboard-sidebar__close" (click)="closeMobileNav()" aria-label="Zatvori meni">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M15 6L9 12L15 18" />
+      </svg>
+    </button>
+
+    <div class="dashboard-sidebar__brand">
+      <img src="images/global/logo.png" alt="MediTrack logo" class="dashboard-sidebar__brand-logo" />
+
+      <div class="dashboard-sidebar__brand-name">
+        <span class="dashboard-sidebar__brand-name-main">Medi</span>
+        <span class="dashboard-sidebar__brand-name-accent">Track</span>
+      </div>
+    </div>
+
+    <nav class="dashboard-sidebar__nav">
+      @for (item of visibleNavItems; track item.path) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="dashboard-nav-link--active"
+          class="dashboard-nav-link"
+          (click)="closeMobileNav()">
+
+          <span class="dashboard-nav-link__icon">
+            <svg [lucideIcon]="item.icon" class="h-5 w-5"></svg>
+          </span>
+
+          <span class="dashboard-nav-link__label">{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+
+    <div class="dashboard-sidebar__footer">
+      <a routerLink="/account" class="dashboard-sidebar__user-card" (click)="closeMobileNav()">
+        <span class="dashboard-sidebar__user-avatar">
+          <svg lucideIcon="user" class="h-5 w-5"></svg>
+        </span>
+
+        <span class="dashboard-sidebar__user-copy">
+          <span class="dashboard-sidebar__user-name">{{ username }}</span>
+          <span class="dashboard-sidebar__user-role">{{ roleLabel }}</span>
+        </span>
+      </a>
+
+      <button type="button" class="dashboard-sidebar__logout" (click)="logout()">
+        <span class="dashboard-nav-link__icon dashboard-nav-link__icon--logout">
+          <svg lucideIcon="log-out" class="h-5 w-5"></svg>
+        </span>
+
+        <span>Odjavi</span>
+      </button>
+    </div>
+  </aside>
+
+  <div class="dashboard-main">
+    <div class="dashboard-waves" aria-hidden="true">
+      <svg class="dashboard-waves__svg" viewBox="0 0 1440 900" preserveAspectRatio="none">
+        <path
+          class="dashboard-waves__top"
+          d="M0,0 H1440 V74 C1235,115 1055,70 850,52 C630,33 520,95 330,110 C178,122 70,96 0,72 Z">
+        </path>
+
+        <path
+          class="dashboard-waves__white"
+          d="M0,98 C170,145 330,132 520,105 C740,72 890,63 1085,91 C1245,114 1360,125 1440,88 V255 C1230,265 1030,235 830,236 C600,238 455,278 250,246 C110,224 40,185 0,145 Z">
+        </path>
+
+        <path
+          class="dashboard-waves__soft"
+          d="M0,720 C170,680 340,678 535,700 C730,722 890,790 1090,808 C1250,823 1360,780 1440,730 V900 H0 Z">
+        </path>
+
+        <path
+          class="dashboard-waves__blue"
+          d="M0,807 C145,758 295,740 492,766 C700,793 850,865 1045,884 C1215,902 1340,850 1440,785 V900 H0 Z">
+        </path>
+      </svg>
+    </div>
+
+    <button type="button" class="dashboard-mobile-menu" (click)="toggleMobileNav()" aria-label="Otvori meni">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <main class="dashboard-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+
+  <app-confirm-dialog-host></app-confirm-dialog-host>
+</div>

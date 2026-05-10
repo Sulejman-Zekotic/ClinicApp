@@ -1,0 +1,1993 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.medications-page {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 22px;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: 100dvh;
+  padding: 28px;
+  overflow: hidden;
+  background: transparent;
+
+  &__alert {
+    position: relative;
+    z-index: 2;
+  }
+
+  .clinic-button-primary {
+    border-color: #2452c9;
+    background: #2452c9;
+    color: #ffffff;
+    box-shadow: 0 18px 34px rgba(36, 82, 201, 0.22);
+
+    &:hover:not(:disabled) {
+      border-color: #1f47b4;
+      background: #1f47b4;
+    }
+  }
+}
+
+.medications-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  min-height: 0;
+}
+
+.medications-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 104px;
+  padding: 22px;
+  border: 1px solid rgba(164, 190, 214, 0.82);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow:
+    0 18px 42px rgba(21, 45, 76, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(8px);
+
+  &__icon {
+    display: grid;
+    width: 58px;
+    height: 58px;
+    flex: 0 0 58px;
+    place-items: center;
+    border-radius: 50%;
+  }
+
+  &__label {
+    color: #123763;
+    font-size: 13px;
+    font-weight: 950;
+    line-height: 1.2;
+  }
+
+  &__value {
+    margin-top: 6px;
+    color: #082f5d;
+    font-size: 33px;
+    font-weight: 950;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  &--green .medications-stat-card__icon {
+    color: #148d6c;
+    background: rgba(52, 168, 133, 0.17);
+    border: 1px solid rgba(52, 168, 133, 0.25);
+  }
+
+  &--blue .medications-stat-card__icon {
+    color: #245fef;
+    background: rgba(36, 95, 239, 0.12);
+    border: 1px solid rgba(36, 95, 239, 0.18);
+  }
+
+  &--orange .medications-stat-card__icon {
+    color: #ff5f22;
+    background: rgba(255, 106, 43, 0.14);
+    border: 1px solid rgba(255, 106, 43, 0.24);
+  }
+
+  &--purple .medications-stat-card__icon {
+    color: #7257ff;
+    background: rgba(124, 92, 255, 0.14);
+    border: 1px solid rgba(124, 92, 255, 0.22);
+  }
+}
+
+.medications-panel {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 16px;
+  min-width: 0;
+  min-height: 0;
+  padding: 26px;
+  overflow: hidden;
+  border: 1px solid rgba(164, 190, 214, 0.82);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow:
+    0 18px 42px rgba(21, 45, 76, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(8px);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    min-width: 0;
+  }
+
+  &__title {
+    margin: 0;
+    color: #082f5d;
+    font-size: 20px;
+    font-weight: 950;
+    letter-spacing: -0.02em;
+  }
+
+  &__empty {
+    min-height: 260px;
+    background: rgba(255, 255, 255, 0.48);
+  }
+
+  &__sheet-alert {
+    margin-bottom: 14px;
+  }
+}
+
+.medications-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+
+  &__add {
+    min-width: 132px;
+  }
+}
+
+.medications-toolbar {
+  display: grid;
+  grid-template-columns:
+    minmax(220px, 1.55fr)
+    repeat(4, minmax(145px, 0.95fr))
+    minmax(115px, 0.72fr);
+  gap: 14px;
+  min-width: 0;
+
+  &__clear {
+    width: 100%;
+  }
+}
+
+.medications-mobile-controls {
+  display: none;
+}
+
+.medications-table-card {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid rgba(164, 190, 214, 0.68);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.72);
+
+  &__pagination {
+    border-top: 1px solid rgba(217, 228, 241, 0.72);
+    background: rgba(255, 255, 255, 0.74);
+  }
+}
+
+.medications-table-scroll {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+
+.medications-table {
+  width: 100%;
+  min-width: 0;
+  table-layout: fixed;
+  border-collapse: collapse;
+
+  th,
+  td {
+    min-width: 0;
+    padding: 12px 14px;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    border-bottom: 1px solid rgba(164, 190, 214, 0.62);
+    color: #446289;
+    font-size: 12px;
+    font-weight: 950;
+    background: rgba(248, 251, 255, 0.98);
+  }
+
+  tbody tr + tr td {
+    border-top: 1px solid rgba(217, 228, 241, 0.7);
+  }
+
+  &__col-medication {
+    width: 31%;
+  }
+
+  &__col-category {
+    width: 16%;
+  }
+
+  &__col-unit {
+    width: 11%;
+  }
+
+  &__col-stock {
+    width: 10%;
+  }
+
+  &__col-status {
+    width: 12%;
+  }
+
+  &__col-actions {
+    width: 20%;
+  }
+
+  &__identity {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    gap: 10px;
+  }
+
+  &__avatar {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    place-items: center;
+    border-radius: 50%;
+    color: #245fef;
+    background: rgba(36, 95, 239, 0.1);
+  }
+
+  &__name-wrap {
+    min-width: 0;
+  }
+
+  &__title,
+  &__meta {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__title {
+    color: #0f315a;
+    font-size: 14px;
+    font-weight: 950;
+  }
+
+  &__meta {
+    margin-top: 4px;
+    color: #6a7f9c;
+    font-size: 12px;
+    font-weight: 800;
+  }
+}
+
+.medications-row-actions {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.medications-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #18355d;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.medications-sheet__loading {
+  display: block;
+  padding-top: 24px;
+}
+
+.medications-sheet__description {
+  margin-top: 14px;
+}
+
+.medications-sheet__note {
+  min-height: 110px;
+}
+
+.medications-filter-sheet__body {
+  display: grid;
+  gap: 14px;
+}
+
+@media (max-width: 1280px) {
+  .medications-toolbar {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .medications-table {
+    &__col-medication {
+      width: 29%;
+    }
+
+    &__col-category {
+      width: 15%;
+    }
+
+    &__col-unit {
+      width: 10%;
+    }
+
+    &__col-stock {
+      width: 9%;
+    }
+
+    &__col-status {
+      width: 12%;
+    }
+
+    &__col-actions {
+      width: 25%;
+    }
+  }
+}
+
+@media (max-width: 980px) {
+  .medications-page {
+    gap: 14px;
+    padding: 18px;
+  }
+
+  .medications-metrics {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .medications-stat-card {
+    min-height: 86px;
+    padding: 14px;
+    gap: 12px;
+    border-radius: 18px;
+
+    &__icon {
+      width: 46px;
+      height: 46px;
+      flex-basis: 46px;
+    }
+
+    &__label {
+      font-size: 12px;
+    }
+
+    &__value {
+      font-size: 26px;
+    }
+  }
+
+  .medications-panel {
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .medications-panel__header {
+    display: grid;
+    gap: 14px;
+  }
+
+  .medications-actions {
+    justify-content: stretch;
+  }
+
+  .medications-actions .clinic-button-primary,
+  .medications-actions .clinic-button-secondary {
+    flex: 1 1 120px;
+  }
+}
+
+@media (max-width: 760px) {
+  :host {
+    height: 100dvh;
+    min-height: 0;
+  }
+
+  .medications-page {
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 10px;
+    height: 100dvh;
+    min-height: 0;
+    padding: 70px 10px 12px;
+    overflow: hidden;
+  }
+
+  .medications-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .medications-stat-card {
+    min-height: 72px;
+    padding: 10px;
+    gap: 9px;
+    border-radius: 16px;
+
+    &__icon {
+      width: 38px;
+      height: 38px;
+      flex: 0 0 38px;
+    }
+
+    &__label {
+      font-size: 11px;
+    }
+
+    &__value {
+      margin-top: 3px;
+      font-size: 22px;
+    }
+  }
+
+  .medications-panel {
+    grid-template-rows: auto auto minmax(0, 1fr);
+    gap: 12px;
+    min-height: 0;
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  .medications-panel__title {
+    font-size: 18px;
+  }
+
+  .medications-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .medications-actions .clinic-button-primary,
+  .medications-actions .clinic-button-secondary {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 8px;
+    font-size: 12px;
+  }
+
+  .medications-toolbar--desktop {
+    display: none;
+  }
+
+  .medications-mobile-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .medications-mobile-controls__search {
+    min-width: 0;
+  }
+
+  .medications-mobile-controls__filter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-width: 104px;
+  }
+
+  .medications-table-card {
+    border-radius: 18px;
+  }
+
+  .medications-table {
+    th,
+    td {
+      padding: 12px 10px;
+    }
+
+    &__col-category,
+    &__col-unit,
+    &__col-stock,
+    &__col-status {
+      display: none;
+    }
+
+    &__col-medication {
+      width: calc(100% - 148px);
+    }
+
+    &__col-actions {
+      width: 148px;
+    }
+
+    &__avatar {
+      width: 40px;
+      height: 40px;
+      flex-basis: 40px;
+    }
+
+    &__meta {
+      display: none;
+    }
+  }
+
+  .medications-row-actions {
+    justify-content: flex-end;
+    gap: 5px;
+  }
+
+  .medications-row-actions .table-icon-button {
+    width: 31px;
+    height: 31px;
+    min-width: 31px;
+    padding: 0;
+    border-radius: 10px;
+  }
+
+  .medications-table-card__pagination {
+    min-height: 66px;
+  }
+}
+
+@media (max-width: 420px) {
+  .medications-page {
+    padding: 66px 8px 10px;
+  }
+
+  .medications-stat-card {
+    min-height: 64px;
+    padding: 8px;
+    gap: 8px;
+    border-radius: 15px;
+  }
+
+  .medications-stat-card__icon {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+  }
+
+  .medications-stat-card__label {
+    font-size: 10px;
+  }
+
+  .medications-stat-card__value {
+    font-size: 20px;
+  }
+
+  .medications-panel {
+    padding: 12px;
+  }
+
+  .medications-table {
+    &__col-medication {
+      width: calc(100% - 136px);
+    }
+
+    &__col-actions {
+      width: 136px;
+    }
+
+    &__avatar {
+      width: 36px;
+      height: 36px;
+      flex-basis: 36px;
+    }
+  }
+
+  .medications-row-actions .table-icon-button {
+    width: 29px;
+    height: 29px;
+    min-width: 29px;
+  }
+}
+
+/* Final UX polish */
+.medications-page {
+  .clinic-button-primary {
+    box-shadow: none !important;
+    transform: none !important;
+    transition: border-color 160ms ease, background 160ms ease, color 160ms ease !important;
+
+    &:hover:not(:disabled),
+    &:focus-visible {
+      transform: none !important;
+      box-shadow: none !important;
+    }
+  }
+}
+
+.medications-floating-add {
+  position: fixed;
+  right: clamp(18px, 3vw, 34px);
+  bottom: clamp(18px, 3vw, 34px);
+  z-index: 20;
+  display: grid;
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  border: 1px solid rgba(112, 149, 255, 0.42);
+  border-radius: 999px;
+  color: #ffffff;
+  background: linear-gradient(180deg, #2f63e7 0%, #2452c9 100%);
+  box-shadow: none;
+  cursor: pointer;
+  transform: none;
+  transition: border-color 160ms ease, background 160ms ease;
+
+  &:hover,
+  &:focus-visible {
+    border-color: rgba(112, 149, 255, 0.72);
+    background: linear-gradient(180deg, #2a5dde 0%, #214cbd 100%);
+    box-shadow: none;
+    transform: none;
+  }
+}
+
+.medications-confirm-dialog {
+  position: relative;
+  width: min(520px, calc(100vw - 28px));
+  padding: 28px;
+  border: 1px solid rgba(164, 190, 214, 0.82);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 24px 70px rgba(7, 31, 62, 0.2);
+  backdrop-filter: blur(14px);
+}
+
+.medications-confirm-dialog__icon {
+  display: grid;
+  width: 62px;
+  height: 62px;
+  margin: 0 auto 18px;
+  place-items: center;
+  border: 1px solid rgba(255, 93, 76, 0.28);
+  border-radius: 20px;
+  color: #ef3f33;
+  background: linear-gradient(180deg, rgba(255, 93, 76, 0.14), rgba(255, 93, 76, 0.08));
+}
+
+.medications-confirm-dialog__title {
+  margin: 0;
+  color: #082f5d;
+  font-size: 28px;
+  font-weight: 950;
+  letter-spacing: -0.04em;
+}
+
+.medications-confirm-dialog__message {
+  max-width: 420px;
+  margin: 10px 0 0;
+  color: #647894;
+  font-size: 15px;
+  font-weight: 750;
+  line-height: 1.55;
+
+  strong {
+    color: #102f58;
+    font-weight: 950;
+  }
+}
+
+.medications-confirm-dialog__summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+
+  div {
+    padding: 14px;
+    border: 1px solid rgba(164, 190, 214, 0.62);
+    border-radius: 18px;
+    background: rgba(248, 251, 255, 0.82);
+  }
+
+  span {
+    display: block;
+    color: #7a8ba6;
+    font-size: 11px;
+    font-weight: 950;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  strong {
+    display: block;
+    margin-top: 5px;
+    overflow: hidden;
+    color: #123763;
+    font-size: 15px;
+    font-weight: 950;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.medications-confirm-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.clinic-button-danger {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 22px;
+  border: 1px solid #ef4b3f;
+  border-radius: 14px;
+  color: #ffffff;
+  background: linear-gradient(180deg, #ff6654 0%, #ef3f33 100%);
+  box-shadow: none;
+  font-weight: 950;
+  cursor: pointer;
+  transform: none;
+
+  &:hover:not(:disabled),
+  &:focus-visible {
+    background: linear-gradient(180deg, #f85b4a 0%, #df362b 100%);
+    box-shadow: none;
+    transform: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.68;
+  }
+}
+
+@media (max-width: 760px) {
+  .medications-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .medications-stat-card {
+    min-height: 104px;
+    padding: 18px 16px;
+    gap: 16px;
+  }
+
+  .medications-stat-card__icon {
+    width: 54px;
+    height: 54px;
+    flex-basis: 54px;
+  }
+
+  .medications-stat-card__label {
+    font-size: 14px;
+  }
+
+  .medications-stat-card__value {
+    font-size: 30px;
+  }
+
+  .medications-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .medications-mobile-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .medications-mobile-controls__filter {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .medications-table {
+    &__col-medication {
+      width: calc(100% - 146px);
+    }
+
+    &__col-actions {
+      width: 146px;
+    }
+
+    &__title {
+      overflow: visible;
+      text-overflow: clip;
+      white-space: normal;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+
+    &__name-wrap {
+      min-width: 0;
+    }
+  }
+
+  .medications-confirm-dialog {
+    padding: 24px 18px 18px;
+    border-radius: 24px;
+  }
+
+  .medications-confirm-dialog__title {
+    font-size: 23px;
+  }
+
+  .medications-confirm-dialog__summary {
+    grid-template-columns: 1fr;
+  }
+
+  .medications-confirm-dialog__actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .medications-floating-add {
+    right: 18px;
+    bottom: 18px;
+    width: 56px;
+    height: 56px;
+  }
+}
+
+@media (max-width: 420px) {
+  .medications-stat-card {
+    min-height: 100px;
+  }
+
+  .medications-stat-card__icon {
+    width: 52px;
+    height: 52px;
+    flex-basis: 52px;
+  }
+
+  .medications-stat-card__label {
+    font-size: 14px;
+  }
+
+  .medications-stat-card__value {
+    font-size: 30px;
+  }
+
+  .medications-table {
+    &__col-medication {
+      width: calc(100% - 136px);
+    }
+
+    &__col-actions {
+      width: 136px;
+    }
+  }
+}
+
+/* Mobile/desktop behavior fix requested */
+.medications-actions__add--desktop {
+  display: inline-flex;
+}
+
+.medications-floating-add {
+  display: none;
+}
+
+.medications-page {
+  .clinic-button-primary,
+  .clinic-button-primary:hover:not(:disabled),
+  .clinic-button-primary:focus-visible {
+    box-shadow: none !important;
+    transform: none !important;
+  }
+}
+
+@media (min-width: 761px) {
+  .medications-actions {
+    align-items: center;
+  }
+
+  .medications-actions__add--desktop {
+    min-width: 132px;
+  }
+}
+
+@media (max-width: 760px) {
+  :host {
+    height: auto;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .medications-page {
+    display: block;
+    height: auto;
+    min-height: 100dvh;
+    max-height: none;
+    padding: 76px 10px 24px;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .medications-metrics {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .medications-stat-card {
+    width: 100%;
+    min-height: 122px;
+    padding: 22px 20px;
+  }
+
+  .medications-panel {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    gap: 14px;
+    min-height: 0;
+    padding: 16px;
+    overflow: visible;
+  }
+
+  .medications-panel__header {
+    display: grid;
+    gap: 14px;
+  }
+
+  .medications-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .medications-actions .clinic-button-secondary,
+  .medications-actions .clinic-button-primary {
+    width: 230px !important;
+    min-height: 58px;
+    justify-content: center;
+    border-radius: 16px;
+    font-size: 14px;
+  }
+.medications-mobile-controls__filter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.medications-mobile-controls__filter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.medications-mobile-controls__filter .filter-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+.medications-mobile-controls__filter .filter-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+  .medications-actions__add--desktop {
+    display: none !important;
+  }
+
+  .medications-mobile-controls {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .medications-mobile-controls__search,
+  .medications-mobile-controls__filter {
+    width: 100%;
+    min-height: 58px;
+    border-radius: 16px;
+  }
+
+  .medications-mobile-controls__filter svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .medications-table-card {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .medications-table-scroll {
+    max-height: none;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .medications-table {
+    table-layout: fixed;
+
+    th,
+    td {
+      padding: 12px 8px;
+    }
+
+    &__col-medication {
+      width: calc(100% - 128px);
+    }
+
+    &__col-actions {
+      width: 128px;
+    }
+
+    &__identity {
+      gap: 8px;
+    }
+
+    &__avatar {
+      width: 34px;
+      height: 34px;
+      flex: 0 0 34px;
+    }
+
+    &__name-wrap {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    &__title {
+      overflow: visible !important;
+      text-overflow: clip !important;
+      white-space: normal !important;
+      line-height: 1.2;
+      word-break: break-word;
+      font-size: 13px;
+    }
+
+    &__meta {
+      display: none;
+    }
+  }
+
+  .medications-row-actions {
+    justify-content: flex-end;
+    gap: 4px;
+  }
+
+  .medications-row-actions .table-icon-button {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    border-radius: 9px;
+  }
+
+  .medications-row-actions .table-icon-button svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .medications-table-card__pagination {
+    min-height: 78px;
+  }
+
+  .medications-floating-add {
+    position: fixed;
+    right: 20px;
+    bottom: 22px;
+    z-index: 40;
+    display: grid;
+    width: 62px;
+    height: 62px;
+    place-items: center;
+    border: 1px solid rgba(120, 154, 255, 0.58);
+    border-radius: 999px;
+    color: #ffffff !important;
+    background: linear-gradient(180deg, #2f63e7 0%, #2452c9 100%);
+    box-shadow: 0 16px 38px rgba(36, 82, 201, 0.24);
+    transform: none !important;
+  }
+
+  .medications-floating-add svg {
+    width: 28px;
+    height: 28px;
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+    stroke-width: 3;
+  }
+
+  .medications-floating-add:hover,
+  .medications-floating-add:focus-visible {
+    box-shadow: 0 16px 38px rgba(36, 82, 201, 0.24);
+    transform: none !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .medications-page {
+    padding-inline: 10px;
+  }
+
+  .medications-table {
+    &__col-medication {
+      width: calc(100% - 122px);
+    }
+
+    &__col-actions {
+      width: 122px;
+    }
+  }
+
+  .medications-row-actions .table-icon-button {
+    width: 27px;
+    height: 27px;
+    min-width: 27px;
+  }
+}
+
+/* Medication-only final adjustments */
+.medications-page {
+  .workspace-toast-backdrop {
+    z-index: 140;
+  }
+
+  .workspace-toast__header,
+  .workspace-toast__body,
+  .workspace-toast__footer {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+
+  .workspace-toast__header {
+    padding-top: 22px;
+    padding-bottom: 14px;
+  }
+
+  .workspace-toast__body {
+    padding-bottom: 18px;
+  }
+
+  .workspace-toast__footer {
+    padding-bottom: 20px;
+  }
+
+  .workspace-field {
+    width: 100%;
+  }
+
+  .workspace-field__label {
+    padding-left: 2px;
+  }
+}
+
+.medications-actions {
+  width: 100%;
+}
+
+.medications-table-scroll {
+  max-height: clamp(340px, calc(100dvh - 410px), 560px);
+}
+
+.medications-row-actions .table-icon-button {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  border-radius: 12px;
+}
+
+.medications-row-actions .table-icon-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+.workspace-field--error .workspace-field__label {
+  color: #c4372a;
+}
+
+.workspace-field__error {
+  margin-top: 7px;
+  color: #c4372a;
+  font-size: 12px;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+.clinic-input--invalid,
+.clinic-select.clinic-input--invalid,
+.clinic-textarea.clinic-input--invalid {
+  border-color: rgba(239, 68, 68, 0.62) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
+}
+
+.medications-confirm-dialog {
+  padding: 28px;
+}
+
+.medications-confirm-dialog__icon {
+  width: 58px;
+  height: 58px;
+  margin-bottom: 16px;
+  border-radius: 18px;
+}
+
+.medications-confirm-dialog__message {
+  margin-top: 12px;
+}
+
+.medications-confirm-dialog__summary {
+  margin-top: 18px;
+}
+
+.medications-floating-add {
+  width: 48px;
+  height: 48px;
+  border-color: rgba(112, 149, 255, 0.44);
+}
+
+.medications-floating-add svg {
+  width: 18px;
+  height: 18px;
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  stroke-width: 3;
+}
+
+:host ::ng-deep .medications-table-card app-pagination .pagination-button {
+  transition: none;
+}
+
+:host ::ng-deep .medications-table-card app-pagination .pagination-button:hover:not(:disabled) {
+  transform: none;
+  border-color: transparent;
+  background: transparent;
+  color: #33527f;
+  box-shadow: none;
+}
+
+:host ::ng-deep .medications-table-card app-pagination .pagination-button--current,
+:host ::ng-deep .medications-table-card app-pagination .pagination-button--current:hover:not(:disabled) {
+  border-color: rgba(36, 95, 239, 0.3);
+  background: var(--clinic-primary-gradient);
+  color: #ffffff;
+  box-shadow: 0 14px 28px rgba(36, 95, 239, 0.2);
+}
+
+@media (max-width: 980px) {
+  .medications-panel__header {
+    align-items: stretch;
+  }
+
+  .medications-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .medications-actions .clinic-button-secondary,
+  .medications-actions .clinic-button-primary {
+    width: 100%;
+    min-width: 0;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 760px) {
+  .medications-actions .clinic-button-secondary,
+  .medications-actions .clinic-button-primary {
+    min-height: 58px;
+    padding-inline: 14px;
+  }
+
+  .medications-table-scroll {
+    max-height: min(48dvh, 430px);
+    overflow-y: auto;
+  }
+
+  .medications-row-actions .table-icon-button {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    border-radius: 10px;
+  }
+
+  .medications-row-actions .table-icon-button svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .medications-floating-add {
+    right: 16px;
+    bottom: 16px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .medications-floating-add svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .medications-confirm-dialog {
+    padding: 24px 18px 18px;
+  }
+}
+
+@media (max-width: 420px) {
+  .medications-table-scroll {
+    max-height: min(46dvh, 390px);
+  }
+
+  .medications-floating-add {
+    right: 14px;
+    bottom: 14px;
+    width: 46px;
+    height: 46px;
+  }
+
+  .medications-row-actions .table-icon-button {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+  }
+}
+
+/* =========================================================
+   FINAL MOBILE TABLE + PAGINATION FIX
+   - mobile: pill/tablet icon hidden
+   - list/table rows use full parent width
+   - medication names stay in one line
+   - pagination below list, compact, summary visible
+   - floating add button has white plus
+   ========================================================= */
+
+.medications-panel__title {
+  white-space: nowrap !important;
+  line-height: 1.1 !important;
+}
+
+.medications-list-stack {
+  display: grid !important;
+  grid-template-rows: minmax(0, 1fr) 50px !important;
+  gap: 4px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+}
+
+.medications-table-card {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+
+.medications-table-scroll {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  max-height: clamp(300px, calc(100dvh - 430px), 520px) !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  scrollbar-gutter: stable !important;
+}
+
+.medications-table {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  table-layout: fixed !important;
+}
+
+.medications-table tr,
+.medications-table thead,
+.medications-table tbody {
+  width: 100% !important;
+}
+
+.medications-table-card__pagination {
+  display: none !important;
+}
+
+.medications-pagination-strip {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 50px !important;
+  max-height: 50px !important;
+  min-height: 50px !important;
+  padding: 0 0 8px !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+}
+
+:host ::ng-deep .medications-pagination-strip app-pagination {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  height: 50px !important;
+  max-height: 50px !important;
+  min-height: 50px !important;
+  overflow: visible !important;
+}
+
+:host ::ng-deep .medications-pagination-strip .pagination,
+:host ::ng-deep .medications-pagination-strip .pagination__controls,
+:host ::ng-deep .medications-pagination-strip .pagination-controls {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  height: 30px !important;
+  min-height: 30px !important;
+  max-height: 30px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+}
+
+:host ::ng-deep .medications-pagination-strip .pagination-button,
+:host ::ng-deep .medications-pagination-strip button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 26px !important;
+  height: 26px !important;
+  min-width: 26px !important;
+  max-width: 26px !important;
+  min-height: 26px !important;
+  max-height: 26px !important;
+  padding: 0 !important;
+  border-radius: 9px !important;
+  font-size: 12px !important;
+  line-height: 1 !important;
+  box-shadow: none !important;
+}
+
+:host ::ng-deep .medications-pagination-strip .pagination__summary,
+:host ::ng-deep .medications-pagination-strip .pagination-summary,
+:host ::ng-deep .medications-pagination-strip .pagination-info,
+:host ::ng-deep .medications-pagination-strip p,
+:host ::ng-deep .medications-pagination-strip small {
+  display: block !important;
+  margin: 3px 0 0 !important;
+  padding: 0 0 8px !important;
+  color: #6a7f9c !important;
+  font-size: 12px !important;
+  font-weight: 750 !important;
+  line-height: 1.15 !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+
+.medications-floating-add {
+  color: #ffffff !important;
+  background: linear-gradient(180deg, #2f63e7 0%, #2452c9 100%) !important;
+  border-color: rgba(112, 149, 255, 0.42) !important;
+  position: fixed !important;
+  overflow: hidden !important;
+}
+
+.medications-floating-add svg {
+  display: none !important;
+}
+
+.medications-floating-add::before,
+.medications-floating-add::after {
+  content: '' !important;
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  display: block !important;
+  width: 18px !important;
+  height: 3px !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+.medications-floating-add::after {
+  transform: translate(-50%, -50%) rotate(90deg) !important;
+}
+
+.filter-icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (min-width: 761px) {
+  .medications-panel {
+    grid-template-rows: auto auto minmax(0, 1fr) !important;
+  }
+
+  .medications-panel__header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .medications-list-stack {
+    grid-template-rows: minmax(0, 1fr) 52px !important;
+    gap: 4px !important;
+    height: auto !important;
+  }
+
+  .medications-table-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  .medications-table-scroll {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: min(48dvh, 430px) !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+
+  .medications-table {
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: fixed !important;
+  }
+
+  .medications-table th,
+  .medications-table td {
+    padding: 10px 8px !important;
+  }
+
+  .medications-table__col-category,
+  .medications-table__col-unit,
+  .medications-table__col-stock,
+  .medications-table__col-status {
+    display: none !important;
+  }
+
+  .medications-table__col-medication {
+    width: calc(100% - 142px) !important;
+    max-width: calc(100% - 142px) !important;
+  }
+
+  .medications-table__col-actions {
+    width: 142px !important;
+    max-width: 142px !important;
+  }
+
+  .medications-table__identity {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    gap: 0 !important;
+  }
+
+  .medications-table__avatar {
+    display: none !important;
+  }
+
+  .medications-table__name-wrap {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .medications-table__title {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+  }
+
+  .medications-table__meta {
+    display: none !important;
+  }
+
+  .medications-row-actions {
+    width: 100% !important;
+    justify-content: flex-end !important;
+    gap: 4px !important;
+  }
+
+  .medications-row-actions .table-icon-button {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    padding: 0 !important;
+    border-radius: 10px !important;
+  }
+
+  .medications-pagination-strip {
+    height: 52px !important;
+    min-height: 52px !important;
+    max-height: 52px !important;
+    padding: 1px 0 9px !important;
+    overflow: visible !important;
+  }
+
+  :host ::ng-deep .medications-pagination-strip app-pagination {
+    height: 52px !important;
+    min-height: 52px !important;
+    max-height: 52px !important;
+  }
+
+  :host ::ng-deep .medications-pagination-strip .pagination,
+  :host ::ng-deep .medications-pagination-strip .pagination__controls,
+  :host ::ng-deep .medications-pagination-strip .pagination-controls {
+    height: 30px !important;
+    min-height: 30px !important;
+    max-height: 30px !important;
+  }
+
+  :host ::ng-deep .medications-pagination-strip .pagination-button,
+  :host ::ng-deep .medications-pagination-strip button {
+    width: 26px !important;
+    height: 26px !important;
+    min-width: 26px !important;
+    max-width: 26px !important;
+    min-height: 26px !important;
+    max-height: 26px !important;
+    border-radius: 9px !important;
+    font-size: 12px !important;
+  }
+
+  :host ::ng-deep .medications-pagination-strip .pagination__summary,
+  :host ::ng-deep .medications-pagination-strip .pagination-summary,
+  :host ::ng-deep .medications-pagination-strip .pagination-info,
+  :host ::ng-deep .medications-pagination-strip p,
+  :host ::ng-deep .medications-pagination-strip small {
+    display: block !important;
+    margin-top: 3px !important;
+    padding-bottom: 9px !important;
+    line-height: 1.1 !important;
+  }
+
+  .medications-floating-add {
+    width: 48px !important;
+    height: 48px !important;
+    right: 16px !important;
+    bottom: 18px !important;
+    z-index: 30 !important;
+  }
+
+  .medications-floating-add::before,
+  .medications-floating-add::after {
+    width: 17px !important;
+    height: 3px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .medications-table-scroll {
+    max-height: min(46dvh, 390px) !important;
+  }
+
+  .medications-table th,
+  .medications-table td {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  .medications-table__col-medication {
+    width: calc(100% - 136px) !important;
+    max-width: calc(100% - 136px) !important;
+  }
+
+  .medications-table__col-actions {
+    width: 136px !important;
+    max-width: 136px !important;
+  }
+
+  .medications-row-actions {
+    gap: 4px !important;
+  }
+
+  .medications-row-actions .table-icon-button {
+    width: 29px !important;
+    height: 29px !important;
+    min-width: 29px !important;
+  }
+
+  :host ::ng-deep .medications-pagination-strip .pagination-button,
+  :host ::ng-deep .medications-pagination-strip button {
+    width: 25px !important;
+    height: 25px !important;
+    min-width: 25px !important;
+    max-width: 25px !important;
+    font-size: 11px !important;
+  }
+}
+/* MOBILE: Uvoz/Izvoz dugmad iste širine kao pretraga */
+@media (max-width: 760px) {
+  .medications-panel__header {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .medications-panel__title {
+    width: 100% !important;
+    margin-bottom: 16px !important;
+    white-space: nowrap !important;
+  }
+
+  .medications-actions {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    gap: 12px !important;
+  }
+
+  .medications-actions button,
+  .medications-actions .clinic-button-secondary,
+  .medications-actions .clinic-button-primary {
+    display: flex !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+    justify-content: center !important;
+  }
+
+  .medications-actions__add--desktop {
+    display: none !important;
+  }
+
+  .medications-mobile-controls {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  .medications-mobile-controls__search,
+  .medications-mobile-controls__filter {
+    width: 100% !important;
+    max-width: none !important;
+  }
+}
+@media (max-width: 760px) {
+  .medications-actions {
+    gap: 10px !important;
+  }
+
+  .medications-actions button,
+  .medications-actions .clinic-button-secondary,
+  .medications-actions .clinic-button-primary {
+    min-height: 46px !important;
+    height: 46px !important;
+    padding: 0 16px !important;
+    border-radius: 16px !important;
+    font-size: 15px !important;
+    line-height: 1 !important;
+  }
+
+  .medications-mobile-controls__search,
+  .medications-mobile-controls__filter {
+    min-height: 50px !important;
+    height: 50px !important;
+    border-radius: 16px !important;
+  }
+}
+
+/* Mobile: 5 lijekova po stranici + manji floating plus + bolja pagination pozicija */
+@media (max-width: 760px) {
+  .medications-floating-add {
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    min-height: 46px !important;
+    right: 18px !important;
+    bottom: 48px !important;
+    border-radius: 999px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+  }
+
+  .medications-floating-add svg {
+    width: 22px !important;
+    height: 22px !important;
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+    stroke-width: 2.8 !important;
+  }
+
+  .medications-pagination-strip {
+    height: 42px !important;
+    max-height: 42px !important;
+    min-height: 42px !important;
+    padding-bottom: 8px !important;
+    overflow: visible !important;
+  }
+
+  :host ::ng-deep .medications-pagination-strip app-pagination {
+    height: 42px !important;
+    max-height: 42px !important;
+    overflow: visible !important;
+  }
+
+  :host ::ng-deep .medications-pagination-strip .pagination {
+    height: 42px !important;
+    max-height: 42px !important;
+    align-items: flex-start !important;
+    padding-top: 0 !important;
+    padding-bottom: 8px !important;
+    overflow: visible !important;
+  }
+
+  :host ::ng-deep .medications-pagination-strip .pagination__summary,
+  :host ::ng-deep .medications-pagination-strip .pagination-summary,
+  :host ::ng-deep .medications-pagination-strip .pagination-info,
+  :host ::ng-deep .medications-pagination-strip p,
+  :host ::ng-deep .medications-pagination-strip small {
+    display: block !important;
+    margin-top: 4px !important;
+    margin-bottom: 8px !important;
+    padding-bottom: 6px !important;
+    line-height: 1.2 !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .medications-floating-add {
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    min-height: 42px !important;
+    right: 16px !important;
+    bottom: 48px !important;
+  }
+
+  .medications-floating-add svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+/* Pagination polish: veći brojevi + sivi tekst odmaknut od dna */
+.medications-pagination-strip {
+  height: 54px !important;
+  max-height: 54px !important;
+  min-height: 54px !important;
+  padding: 4px 0 14px !important;
+  overflow: visible !important;
+}
+
+:host ::ng-deep .medications-pagination-strip app-pagination {
+  height: 54px !important;
+  max-height: 54px !important;
+  overflow: visible !important;
+}
+
+:host ::ng-deep .medications-pagination-strip .pagination {
+  height: 54px !important;
+  max-height: 54px !important;
+  padding: 0 0 12px !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+}
+
+:host ::ng-deep .medications-pagination-strip .pagination-button {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  border-radius: 12px !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+}
+
+:host ::ng-deep .medications-pagination-strip .pagination__summary,
+:host ::ng-deep .medications-pagination-strip .pagination-summary,
+:host ::ng-deep .medications-pagination-strip .pagination-info,
+:host ::ng-deep .medications-pagination-strip p,
+:host ::ng-deep .medications-pagination-strip small {
+  display: block !important;
+  margin-top: 6px !important;
+  margin-bottom: 14px !important;
+  padding-bottom: 10px !important;
+  color: #64748b !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  line-height: 1.25 !important;
+}
+
+/* Desktop dodatno malo ljepše i veće */
+@media (min-width: 761px) {
+  .medications-pagination-strip {
+    height: 60px !important;
+    max-height: 60px !important;
+    min-height: 60px !important;
+    padding: 6px 0 18px !important;
+  }
+
+  :host ::ng-deep .medications-pagination-strip app-pagination,
+  :host ::ng-deep .medications-pagination-strip .pagination {
+    height: 60px !important;
+    max-height: 60px !important;
+  }
+
+  :host ::ng-deep .medications-pagination-strip .pagination-button {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    border-radius: 13px !important;
+    font-size: 16px !important;
+  }
+
+  :host ::ng-deep .medications-pagination-strip .pagination__summary,
+  :host ::ng-deep .medications-pagination-strip .pagination-summary,
+  :host ::ng-deep .medications-pagination-strip .pagination-info,
+  :host ::ng-deep .medications-pagination-strip p,
+  :host ::ng-deep .medications-pagination-strip small {
+    margin-top: 7px !important;
+    margin-bottom: 16px !important;
+    padding-bottom: 12px !important;
+    font-size: 16px !important;
+  }
+}
+@media (max-width: 760px) {
+  .desktop-only-add-button {
+    display: none !important;
+  }
+}

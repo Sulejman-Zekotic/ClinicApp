@@ -1,0 +1,219 @@
+<div class="space-y-7">
+  <section class="space-y-3 px-1">
+    <p class="clinic-label">Inbox i postavke</p>
+    <h1 class="clinic-title">Notifikacije</h1>
+    <p class="clinic-subtitle max-w-4xl">
+      Upravljaj obavijestima, pregledaj nove poruke iz sistema i podesi koje notifikacije zelis primati.
+    </p>
+  </section>
+
+  @if (errorMessage) {
+    <div class="ui-alert ui-alert--danger">
+      {{ errorMessage }}
+    </div>
+  }
+
+  @if (successMessage) {
+    <div class="ui-alert ui-alert--success">
+      {{ successMessage }}
+    </div>
+  }
+
+  <section class="grid gap-6 xl:grid-cols-[minmax(0,1.1fr)_minmax(340px,420px)]">
+    <article class="clinic-shell-card p-6">
+      <p class="clinic-label">Glavna kontrola</p>
+      <h2 class="mt-3 text-[24px] font-black text-[var(--clinic-text)]">Notifikacijski centar</h2>
+
+      <div class="mt-5 grid gap-4 md:grid-cols-2">
+        <div class="rounded-[22px] border border-[var(--clinic-border)] bg-[rgba(245,244,255,0.7)] p-5">
+          <div class="text-sm font-bold uppercase tracking-[0.16em] text-[var(--clinic-text-soft)]">Browser dozvola</div>
+          <div class="mt-3 text-[24px] font-black text-[var(--clinic-text)]">
+            @switch (browserPermission) {
+              @case ('granted') {
+                Odobreno
+              }
+              @case ('denied') {
+                Blokirano
+              }
+              @case ('default') {
+                Ceka dozvolu
+              }
+              @default {
+                Nije podrzano
+              }
+            }
+          </div>
+        </div>
+
+        <div class="rounded-[22px] border border-[var(--clinic-border)] bg-[rgba(245,244,255,0.7)] p-5">
+          <div class="text-sm font-bold uppercase tracking-[0.16em] text-[var(--clinic-text-soft)]">Ovaj uredjaj</div>
+          <div class="mt-3 text-[24px] font-black text-[var(--clinic-text)]">
+            {{ devicePushEnabled ? 'Aktivan' : 'Neaktivan' }}
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-5 flex flex-wrap gap-3">
+        <button type="button" class="clinic-button-primary" (click)="enablePushOnDevice()">
+          Ukljuci na ovom uredjaju
+        </button>
+        <button type="button" class="clinic-button-secondary" (click)="disablePushOnDevice()">
+          Iskljuci na ovom uredjaju
+        </button>
+      </div>
+
+      <div class="mt-5 rounded-[24px] border border-[var(--clinic-border)] bg-[rgba(245,244,255,0.62)] p-5">
+        <p class="clinic-label">Tipovi obavijesti</p>
+
+        <label class="mt-4 flex items-start gap-4 rounded-[20px] border border-[var(--clinic-border)] bg-white/80 px-4 py-4">
+          <input type="checkbox" [(ngModel)]="preferences.receiveLowStockNotifications" class="mt-1 h-5 w-5" />
+          <div>
+            <div class="font-black text-[var(--clinic-text)]">Osnovne stock obavijesti</div>
+            <div class="mt-1 text-sm text-[var(--clinic-text-soft)]">
+              Jednostavan signal kada lijek ide pri kraju i treba novu nabavku.
+            </div>
+          </div>
+        </label>
+
+        <div class="mt-4 flex flex-wrap gap-3">
+          <button type="button" class="clinic-button-secondary" (click)="advancedPreferencesOpen = !advancedPreferencesOpen">
+            {{ advancedPreferencesOpen ? 'Sakrij napredne opcije' : 'Prikazi napredne opcije' }}
+          </button>
+        </div>
+
+        @if (advancedPreferencesOpen) {
+          <div class="mt-4 space-y-4">
+            <label class="flex items-start gap-4 rounded-[20px] border border-[var(--clinic-border)] bg-white/80 px-4 py-4">
+              <input type="checkbox" [(ngModel)]="preferences.receiveOutOfStockNotifications" class="mt-1 h-5 w-5" />
+              <div>
+                <div class="font-black text-[var(--clinic-text)]">Nema na stanju</div>
+                <div class="mt-1 text-sm text-[var(--clinic-text-soft)]">Obavijest kada lijek vise nije dostupan.</div>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-4 rounded-[20px] border border-[var(--clinic-border)] bg-white/80 px-4 py-4">
+              <input type="checkbox" [(ngModel)]="preferences.receiveMedicationTakenNotifications" class="mt-1 h-5 w-5" />
+              <div>
+                <div class="font-black text-[var(--clinic-text)]">Evidentirano uzimanje</div>
+                <div class="mt-1 text-sm text-[var(--clinic-text-soft)]">Obavijest kada se evidentira novo uzimanje lijeka.</div>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-4 rounded-[20px] border border-[var(--clinic-border)] bg-white/80 px-4 py-4">
+              <input type="checkbox" [(ngModel)]="preferences.receiveImportSummaryNotifications" class="mt-1 h-5 w-5" />
+              <div>
+                <div class="font-black text-[var(--clinic-text)]">Sazetak importa</div>
+                <div class="mt-1 text-sm text-[var(--clinic-text-soft)]">Pregled rezultata nakon masovnog importa lijekova.</div>
+              </div>
+            </label>
+          </div>
+        }
+
+        <div class="mt-5 flex flex-wrap gap-3">
+          <button type="button" class="clinic-button-primary" [disabled]="isSaving" (click)="savePreferences()">
+            @if (isSaving) {
+              <app-loading-spinner [inline]="true" size="sm"></app-loading-spinner>
+            }
+            {{ isSaving ? 'Spremanje...' : 'Sacuvaj postavke' }}
+          </button>
+          <button type="button" class="clinic-button-secondary" (click)="loadPage()">Vrati trenutno</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="clinic-shell-card p-6">
+      <p class="clinic-label">Status</p>
+      <h2 class="mt-3 text-[24px] font-black text-[var(--clinic-text)]">Brzi pregled</h2>
+
+      <div class="mt-5 space-y-4">
+        <div class="rounded-[22px] bg-[linear-gradient(135deg,#3b73db_0%,#243b63_100%)] p-5 text-white shadow-[0_18px_40px_rgba(59,115,219,0.26)]">
+          <div class="text-sm font-bold uppercase tracking-[0.18em] text-white/80">Neprocitano</div>
+          <div class="mt-3 text-[42px] font-black">{{ unreadCount }}</div>
+          <div class="text-sm text-white/80">Obavijesti cekaju pregled.</div>
+        </div>
+
+        <div class="rounded-[22px] border border-[var(--clinic-border)] bg-[rgba(245,244,255,0.72)] p-5">
+          <div class="text-sm font-bold uppercase tracking-[0.16em] text-[var(--clinic-text-soft)]">Push endpoint</div>
+          <div class="mt-3 break-all text-sm font-semibold text-[var(--clinic-text)]">
+            {{ currentEndpoint || 'Nema aktivne push pretplate na ovom uredjaju.' }}
+          </div>
+        </div>
+
+        <div class="rounded-[22px] border border-[var(--clinic-border)] bg-[rgba(245,244,255,0.72)] p-5">
+          <div class="text-sm font-bold uppercase tracking-[0.16em] text-[var(--clinic-text-soft)]">Inbox filteri</div>
+          <div class="mt-4 grid gap-3">
+            <input class="clinic-input" [(ngModel)]="search" name="search" placeholder="Pretrazi obavijesti" />
+            <select class="clinic-select" [(ngModel)]="stateFilter" name="stateFilter">
+              <option value="all">Sve obavijesti</option>
+              <option value="unread">Samo neprocitane</option>
+              <option value="read">Samo procitane</option>
+            </select>
+          </div>
+          <div class="mt-4 flex flex-wrap gap-3">
+            <button type="button" class="clinic-button-secondary" [disabled]="unreadCount === 0" (click)="markAllAsRead()">
+              Oznaci sve kao procitano
+            </button>
+            <button type="button" class="clinic-button-secondary" (click)="loadPage()">Osvjezi listu</button>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="clinic-shell-card p-6">
+    <div class="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+      <div>
+        <p class="clinic-label">Lista</p>
+        <h2 class="mt-3 text-[24px] font-black text-[var(--clinic-text)]">Sistemske obavijesti</h2>
+      </div>
+
+      <div class="rounded-full bg-[rgba(59,115,219,0.12)] px-4 py-2 text-sm font-black text-[#3b73db]">
+        Ukupno: {{ filteredNotifications.length }}
+      </div>
+    </div>
+
+    @if (isLoading) {
+      <div class="clinic-empty mt-5">
+        <app-loading-spinner label="Ucitavanje obavijesti..."></app-loading-spinner>
+      </div>
+    } @else if (!hasNotifications) {
+      <div class="clinic-empty mt-5">Trenutno nema obavijesti za prikaz.</div>
+    } @else {
+      <div class="mt-5 space-y-4">
+        @for (item of filteredNotifications; track item.id) {
+          <article class="rounded-[24px] border px-5 py-5 shadow-[0_18px_40px_rgba(15,23,42,0.05)]" [class.border-[rgba(59,115,219,0.18)]]="item.isRead" [class.bg-white]="item.isRead" [class.border-[rgba(59,115,219,0.24)]]="!item.isRead" [class.bg-[rgba(245,248,255,0.84)]]="!item.isRead">
+            <div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+              <div class="space-y-3">
+                <div class="flex flex-wrap items-center gap-3">
+                  <span class="dashboard-status-pill" [class.bg-[rgba(59,115,219,0.12)]]="item.type !== 'warning'" [class.text-[#3b73db]]="item.type !== 'warning'" [class.bg-[rgba(245,158,11,0.18)]]="item.type === 'warning'" [class.text-[#b45309]]="item.type === 'warning'">
+                    {{ item.type }}
+                  </span>
+                  @if (!item.isRead) {
+                    <span class="dashboard-status-pill bg-[rgba(239,68,68,0.14)] text-[#b91c1c]">
+                      Novo
+                    </span>
+                  }
+                </div>
+
+                <div>
+                  <h3 class="text-[22px] font-black text-[var(--clinic-text)]">{{ item.title }}</h3>
+                  <p class="mt-2 text-base leading-7 text-[var(--clinic-text-soft)]">{{ item.message }}</p>
+                </div>
+
+                <div class="text-sm font-semibold text-[var(--clinic-text-soft)]">
+                  {{ item.createdAt | date: 'dd.MM.yyyy HH:mm' }}
+                </div>
+              </div>
+
+              <div class="flex shrink-0 gap-3">
+                <button type="button" class="clinic-button-secondary" [disabled]="item.isRead" (click)="markAsRead(item)">
+                  {{ item.isRead ? 'Procitano' : 'Oznaci kao procitano' }}
+                </button>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    }
+  </section>
+</div>

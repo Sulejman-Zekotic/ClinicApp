@@ -1,0 +1,27 @@
+:host {
+  display: contents;
+}
+
+.confirm-toast {
+  z-index: 110;
+}
+
+.confirm-toast__icon-shell {
+  display: grid;
+  place-items: center;
+  min-height: 120px;
+  border: 1px dashed rgba(164, 190, 214, 0.72);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.54);
+}
+
+.confirm-toast__icon {
+  width: 66px;
+  height: 66px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(79, 179, 158, 0.18) 0%, rgba(59, 115, 219, 0.28) 100%);
+}
+
+.confirm-toast--danger .confirm-toast__icon {
+  background: linear-gradient(135deg, rgba(251, 113, 133, 0.18) 0%, rgba(239, 68, 68, 0.28) 100%);
+}

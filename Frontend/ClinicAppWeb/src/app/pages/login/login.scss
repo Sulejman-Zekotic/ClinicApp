@@ -1,0 +1,624 @@
+.login-page {
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+
+  .wave-wrap {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .wave {
+    position: absolute;
+    will-change: transform;
+    transform-origin: center bottom;
+    pointer-events: none;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+  }
+
+ .top-wave {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  width: 140vw;
+  min-width: 140vw;
+  height: 180px;
+  z-index: 1;
+  pointer-events: none;
+  will-change: transform;
+  transform: translate3d(-50%, 0, 0);
+  animation: topWaveFloat 11s ease-in-out infinite;
+}
+
+  .desktop-wave {
+    display: block;
+  }
+
+  .mobile-wave {
+    display: none;
+  }
+
+  .top-badge {
+    background: #3b73db;
+    backdrop-filter: blur(6px);
+  }
+
+  .doctor-badge-img {
+    filter: brightness(0) invert(1);
+  }
+
+  .logo-mark {
+    filter: drop-shadow(0 6px 12px rgba(36, 59, 99, 0.12));
+  }
+
+  .brand-title {
+    line-height: 1;
+  }
+
+  .brand-medi {
+    color: #243b63;
+  }
+
+  .brand-track {
+    color: #4fb39e;
+  }
+
+  .wave-back.desktop-wave {
+    left: -54%;
+    bottom: -250px;
+    width: 272%;
+    height: 140%;
+    min-width: 272%;
+    min-height: 140%;
+    z-index: 1;
+    opacity: 0.95;
+    animation: desktopWaveBack 18s linear infinite;
+  }
+
+  .wave-main.desktop-wave {
+    left: -64%;
+    bottom: -330px;
+    width: 312%;
+    height: 156%;
+    min-width: 312%;
+    min-height: 156%;
+    z-index: 2;
+    animation: desktopWaveMain 14s linear infinite;
+  }
+
+  .login-shell {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: clamp(4rem, 6vh, 5rem);
+    padding-bottom: clamp(3.5rem, 6vh, 4.75rem);
+  }
+
+  .login-card {
+    margin-top: 0;
+    background: rgba(255, 255, 255, 0.94);
+    overflow: visible;
+    backdrop-filter: blur(7px);
+  }
+
+  .meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: 24px;
+    position: relative;
+    z-index: 3;
+  }
+
+  .forgot-link {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.77rem;
+    font-weight: 600;
+    color: #2c466e;
+    line-height: 1;
+    letter-spacing: 0;
+    transition: color 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+    text-decoration: none;
+    text-shadow:
+      0 1px 2px rgba(255, 255, 255, 0.92),
+      0 0 3px rgba(255, 255, 255, 0.75);
+
+    &:hover {
+      color: #183455;
+      transform: translateY(-1px);
+    }
+  }
+
+  .remember-me {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 22px;
+    cursor: pointer;
+    position: relative;
+
+    input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .checkmark {
+      width: 15px;
+      height: 15px;
+      border-radius: 5px;
+      border: 1.5px solid #aac0e2;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(244, 247, 252, 0.96));
+      box-shadow: 0 4px 10px rgba(31, 41, 55, 0.07);
+      transition: all 0.2s ease;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .label-text {
+      font-weight: 600;
+      font-size: 0.77rem;
+      color: #2c466e;
+      line-height: 1;
+      white-space: nowrap;
+      letter-spacing: 0;
+      text-shadow:
+        0 1px 2px rgba(255, 255, 255, 0.92),
+        0 0 3px rgba(255, 255, 255, 0.75);
+    }
+
+    &:hover .checkmark {
+      border-color: #6f97dd;
+      box-shadow: 0 6px 14px rgba(59, 115, 219, 0.12);
+    }
+
+    input:checked + .checkmark {
+      background: linear-gradient(180deg, #4d82e7, #2f6edb);
+      border-color: #2f6edb;
+    }
+
+    input:checked + .checkmark::after {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 1px;
+      width: 4px;
+      height: 8px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+
+  .login-btn {
+    position: relative;
+    z-index: 4;
+    opacity: 1 !important;
+
+    &:disabled {
+      opacity: 1 !important;
+      filter: none !important;
+    }
+
+    .spinner-wrap {
+      line-height: 0;
+    }
+
+    .login-btn-text {
+      color: #ffffff;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    app-loading-spinner {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      filter: brightness(0) invert(1);
+    }
+  }
+
+  .error-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 14px;
+    padding: 11px 12px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 250, 248, 0.98),
+      rgba(255, 244, 240, 0.98)
+    );
+    border: 1px solid rgba(255, 132, 91, 0.18);
+    box-shadow: 0 10px 20px rgba(201, 95, 54, 0.08);
+    color: #c65432;
+    position: relative;
+    z-index: 4;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .error-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #ffe5dc, #ffd6ca);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .error-text {
+    font-size: 12.5px;
+    font-weight: 500;
+    line-height: 1.4;
+    min-width: 0;
+    word-break: break-word;
+  }
+
+  input,
+  button,
+  a,
+  h1,
+  span,
+  label {
+    font-family: inherit;
+  }
+}
+
+@keyframes topWaveFloat {
+  0% {
+    transform: translate3d(-50%, 0, 0) scaleX(1.02);
+  }
+
+  50% {
+    transform: translate3d(-51.5%, 6px, 0) scaleX(1.04);
+  }
+
+  100% {
+    transform: translate3d(-50%, 0, 0) scaleX(1.02);
+  }
+}
+
+@keyframes desktopWaveMain {
+  0% {
+    transform: translate3d(0, 0, 0) scaleX(1.03) scaleY(1.08);
+  }
+  25% {
+    transform: translate3d(-3%, -4px, 0) scaleX(1.045) scaleY(1.1);
+  }
+  50% {
+    transform: translate3d(-6%, -7px, 0) scaleX(1.06) scaleY(1.12);
+  }
+  75% {
+    transform: translate3d(-3%, -4px, 0) scaleX(1.045) scaleY(1.1);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scaleX(1.03) scaleY(1.08);
+  }
+}
+
+@keyframes desktopWaveBack {
+  0% {
+    transform: translate3d(0, 0, 0) scaleX(1.02) scaleY(1.05);
+  }
+  25% {
+    transform: translate3d(2.5%, 2px, 0) scaleX(1.03) scaleY(1.065);
+  }
+  50% {
+    transform: translate3d(5%, 4px, 0) scaleX(1.04) scaleY(1.08);
+  }
+  75% {
+    transform: translate3d(2.5%, 2px, 0) scaleX(1.03) scaleY(1.065);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scaleX(1.02) scaleY(1.05);
+  }
+}
+
+@keyframes mobileWaveMain {
+  0% {
+    transform: translate3d(0, 0, 0) scaleX(1.03) scaleY(1.05);
+  }
+  25% {
+    transform: translate3d(-2.4%, -2px, 0) scaleX(1.04) scaleY(1.065);
+  }
+  50% {
+    transform: translate3d(-4.8%, -4px, 0) scaleX(1.05) scaleY(1.08);
+  }
+  75% {
+    transform: translate3d(-2.4%, -2px, 0) scaleX(1.04) scaleY(1.065);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scaleX(1.03) scaleY(1.05);
+  }
+}
+
+@keyframes mobileWaveBack {
+  0% {
+    transform: translate3d(0, 0, 0) scaleX(1.02) scaleY(1.03);
+  }
+  25% {
+    transform: translate3d(2%, 1px, 0) scaleX(1.03) scaleY(1.04);
+  }
+  50% {
+    transform: translate3d(4%, 2px, 0) scaleX(1.04) scaleY(1.05);
+  }
+  75% {
+    transform: translate3d(2%, 1px, 0) scaleX(1.03) scaleY(1.04);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scaleX(1.02) scaleY(1.03);
+  }
+}
+
+@media (max-width: 900px) {
+  .login-page {
+    .top-wave {
+      height: 160px;
+    }
+
+    .wave-back.desktop-wave {
+      left: -58%;
+      bottom: -258px;
+      width: 286%;
+      height: 144%;
+      min-width: 286%;
+      min-height: 144%;
+    }
+
+    .wave-main.desktop-wave {
+      left: -68%;
+      bottom: -340px;
+      width: 326%;
+      height: 160%;
+      min-width: 326%;
+      min-height: 160%;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .login-page {
+      .top-wave {
+      height: 120px;
+    }
+
+    .login-shell {
+      align-items: center;
+      padding-top: 4rem;
+      padding-bottom: 3.5rem;
+    }
+
+    .login-card {
+      background: transparent !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      max-width: 390px;
+      padding-top: 4.2rem;
+      padding-bottom: 2rem;
+      margin-top: 0;
+    }
+
+    .desktop-wave {
+      display: none;
+    }
+
+    .mobile-wave {
+      display: block;
+    }
+
+    .top-badge {
+      height: 72px;
+      width: 72px;
+    }
+
+    .doctor-badge-img {
+      height: 46px !important;
+      width: 46px !important;
+    }
+
+    .logo-mark {
+      height: 82px !important;
+      width: 82px !important;
+    }
+
+    .brand-title {
+      font-size: 1.8rem;
+    }
+
+    .wave-back.mobile-wave {
+      left: -120%;
+      bottom: -88px;
+      width: 470%;
+      height: 76%;
+      min-width: 470%;
+      min-height: 76%;
+      z-index: 1;
+      animation: mobileWaveBack 16s linear infinite;
+    }
+
+    .wave-main.mobile-wave {
+      left: -150%;
+      bottom: -132px;
+      width: 560%;
+      height: 84%;
+      min-width: 560%;
+      min-height: 84%;
+      z-index: 2;
+      animation: mobileWaveMain 12s linear infinite;
+    }
+
+    .meta-row {
+      gap: 10px;
+      margin-top: 8px;
+      padding-bottom: 8px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .remember-me .label-text,
+    .forgot-link {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: #3b73db;
+      text-shadow: none;
+    }
+
+    .remember-me {
+      position: relative;
+      z-index: 5;
+    }
+
+    .forgot-link {
+      position: relative;
+      z-index: 5;
+    }
+
+    .remember-me .checkmark {
+      width: 15px;
+      height: 15px;
+      border-radius: 5px;
+      border-color: rgba(59, 115, 219, 0.72);
+      background: rgba(59, 115, 219, 0.08);
+      box-shadow:
+        0 0 0 1px rgba(59, 115, 219, 0.04),
+        0 4px 10px rgba(20, 36, 64, 0.08);
+    }
+
+    .remember-me input:checked + .checkmark::after {
+      left: 4px;
+      top: 1px;
+    }
+
+    .login-btn {
+      box-shadow: 0 14px 24px rgba(24, 41, 69, 0.26);
+      position: relative;
+      z-index: 5;
+    }
+
+    .login-btn .login-btn-text {
+      font-size: 0.93rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .error-box {
+      margin-top: 8px;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .login-page {
+    .top-wave {
+      height: 108px;
+    }
+    .login-shell {
+      padding-top: 4.5rem;
+      padding-bottom: 3.5rem;
+    }
+
+    .login-card {
+      max-width: 370px;
+      padding-left: 1.05rem;
+      padding-right: 1.05rem;
+      padding-top: 4rem;
+    }
+
+    .wave-back.mobile-wave {
+      left: -126%;
+      bottom: -94px;
+      width: 490%;
+      height: 78%;
+      min-width: 490%;
+      min-height: 78%;
+    }
+
+    .wave-main.mobile-wave {
+      left: -158%;
+      bottom: -138px;
+      width: 590%;
+      height: 86%;
+      min-width: 590%;
+      min-height: 86%;
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .login-page {
+      .top-wave {
+      height: 96px;
+    }
+
+    .login-card {
+      max-width: 100%;
+      padding-left: 0.95rem;
+      padding-right: 0.95rem;
+      padding-top: 3.9rem;
+      padding-bottom: 1rem;
+    }
+
+    .top-badge {
+      height: 68px;
+      width: 68px;
+    }
+
+    .doctor-badge-img {
+      height: 44px !important;
+      width: 44px !important;
+    }
+
+    .logo-mark {
+      height: 76px !important;
+      width: 76px !important;
+    }
+
+    .brand-title {
+      font-size: 1.65rem;
+    }
+
+    .wave-back.mobile-wave {
+      left: -132%;
+      bottom: -100px;
+      width: 515%;
+      height: 80%;
+      min-width: 515%;
+      min-height: 80%;
+    }
+
+    .wave-main.mobile-wave {
+      left: -165%;
+      bottom: -144px;
+      width: 620%;
+      height: 88%;
+      min-width: 620%;
+      min-height: 88%;
+    }
+
+    .remember-me .label-text,
+    .forgot-link {
+      font-size: 0.73rem;
+      color: #3b73db;
+    }
+
+    .error-box {
+      padding: 10px 11px;
+      border-radius: 13px;
+    }
+
+    .error-text {
+      font-size: 12px;
+    }
+  }
+}

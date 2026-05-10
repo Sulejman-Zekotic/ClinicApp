@@ -1,0 +1,97 @@
+@if (totalPages > 1 || (alwaysShow && totalPages > 0)) {
+  <section class="pagination-shell" aria-label="Paginacija">
+    <div class="pagination-shell__desktop">
+      <div class="pagination-shell__nav pagination-shell__nav--desktop">
+        @if (showJumpToFirst) {
+          <button
+            type="button"
+            class="pagination-button pagination-button--icon"
+            (click)="goToPage(1)"
+            aria-label="Prva stranica">
+            <span aria-hidden="true">&#171;</span>
+          </button>
+        }
+
+        <button
+          type="button"
+          class="pagination-button pagination-button--icon"
+          [disabled]="page <= 1"
+          (click)="goToPage(page - 1)"
+          aria-label="Prethodna stranica">
+          <span aria-hidden="true">&#8249;</span>
+        </button>
+
+        @for (item of visiblePages; track item) {
+          <button
+            type="button"
+            class="pagination-button"
+            [class.pagination-button--current]="item === page"
+            [attr.aria-current]="item === page ? 'page' : null"
+            (click)="goToPage(item)">
+            {{ item }}
+          </button>
+        }
+
+        <button
+          type="button"
+          class="pagination-button pagination-button--icon"
+          [disabled]="page >= totalPages"
+          (click)="goToPage(page + 1)"
+          aria-label="Sljedeća stranica">
+          <span aria-hidden="true">&#8250;</span>
+        </button>
+
+        @if (showJumpToLast) {
+          <button
+            type="button"
+            class="pagination-button pagination-button--icon"
+            (click)="goToPage(totalPages)"
+            aria-label="Zadnja stranica">
+            <span aria-hidden="true">&#187;</span>
+          </button>
+        }
+      </div>
+
+      <div class="pagination-shell__summary">
+        {{ startItem }}-{{ endItem }} od {{ totalCount }}
+      </div>
+    </div>
+
+    <div class="pagination-shell__mobile">
+      <div class="pagination-shell__nav pagination-shell__nav--mobile">
+        <button
+          type="button"
+          class="pagination-button pagination-button--icon"
+          [disabled]="page <= 1"
+          (click)="goToPage(page - 1)"
+          aria-label="Prethodna stranica">
+          <span aria-hidden="true">&#8249;</span>
+        </button>
+
+        @for (item of compactPages; track item) {
+          <button
+            type="button"
+            class="pagination-button"
+            [class.pagination-button--current]="item === page"
+            [attr.aria-current]="item === page ? 'page' : null"
+            (click)="goToPage(item)">
+            {{ item }}
+          </button>
+        }
+
+        <button
+          type="button"
+          class="pagination-button pagination-button--icon"
+          [disabled]="page >= totalPages"
+          (click)="goToPage(page + 1)"
+          aria-label="Sljedeća stranica">
+          <span aria-hidden="true">&#8250;</span>
+        </button>
+      </div>
+
+      <div class="pagination-shell__summary">
+        {{ startItem }}-{{ endItem }} od {{ totalCount }}
+      </div>
+    </div>
+  </section>
+}
