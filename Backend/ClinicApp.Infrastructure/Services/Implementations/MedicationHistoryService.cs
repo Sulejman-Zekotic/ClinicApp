@@ -313,13 +313,20 @@ public object TakeMedication(TakeMedicationDto dto, int userId, string username)
             DateTime? fromDate,
             DateTime? toDate,
             string? groupBy,
+            int? userId,
+            int? medicationId,
             int currentUserId,
             string? userRole)
         {
             var (start, end) = ResolveDateRange(range, fromDate, toDate);
             var resolvedGroupBy = ResolveGroupBy(groupBy, start, end);
 
-            var histories = BuildFilteredHistoryQuery(start, end, null, null, null, currentUserId, userRole)
+            if (userRole != "admin")
+            {
+                userId = currentUserId;
+            }
+
+            var histories = BuildFilteredHistoryQuery(start, end, userId, medicationId, null, currentUserId, userRole)
                 .Select(h => new
                 {
                     h.TakenAt,
@@ -371,12 +378,19 @@ public object TakeMedication(TakeMedicationDto dto, int userId, string username)
             string? range,
             DateTime? fromDate,
             DateTime? toDate,
+            int? userId,
+            int? medicationId,
             int currentUserId,
             string? userRole)
         {
             var (start, end) = ResolveDateRange(range, fromDate, toDate);
 
-            var data = BuildFilteredHistoryQuery(start, end, null, null, null, currentUserId, userRole)
+            if (userRole != "admin")
+            {
+                userId = currentUserId;
+            }
+
+            var data = BuildFilteredHistoryQuery(start, end, userId, medicationId, null, currentUserId, userRole)
                 .GroupBy(h => h.User.Username)
                 .Select(g => new
                 {
@@ -402,6 +416,54 @@ public object TakeMedication(TakeMedicationDto dto, int userId, string username)
                 fromDate = start,
                 toDate = end,
                 groupBy = "range"
+            };
+        }
+
+        public object GetTopReasonsChart(
+            string? range,
+            DateTime? fromDate,
+            DateTime? toDate,
+            int? userId,
+            int? medicationId,
+            int currentUserId,
+            string? userRole)
+        {
+            var (start, end) = ResolveDateRange(range, fromDate, toDate);
+
+            if (userRole != "admin")
+            {
+                userId = currentUserId;
+            }
+
+            var data = BuildFilteredHistoryQuery(start, end, userId, medicationId, null, currentUserId, userRole)
+                .Select(h => new
+                {
+                    Reason = h.ReasonText ?? h.Reason
+                })
+                .ToList()
+                .Where(x => !string.IsNullOrWhiteSpace(x.Reason))
+                .GroupBy(x => x.Reason!)
+                .Select(g => new
+                {
+                    Reason = g.Key,
+                    Count = g.Count()
+                })
+                .OrderByDescending(x => x.Count)
+                .ThenBy(x => x.Reason)
+                .Take(5)
+                .ToList();
+
+            return new
+            {
+                title = "Najcesci razlozi",
+                labels = data.Select(x => x.Reason).ToList(),
+                values = data.Select(x => x.Count).ToList(),
+                totalCount = data.Sum(x => x.Count),
+                topReason = data.FirstOrDefault()?.Reason ?? "-",
+                topCount = data.FirstOrDefault()?.Count ?? 0,
+                range = NormalizeRange(range),
+                fromDate = start,
+                toDate = end
             };
         }
 

@@ -35,7 +35,14 @@ namespace ClinicApp.API.Middleware
                 );
 
                 context.Response.ContentType = "application/json";
-                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                context.Response.StatusCode = ex switch
+                {
+                    UnauthorizedAccessException => (int)HttpStatusCode.Unauthorized,
+                    InvalidOperationException => (int)HttpStatusCode.BadRequest,
+                    ArgumentException => (int)HttpStatusCode.BadRequest,
+                    KeyNotFoundException => (int)HttpStatusCode.NotFound,
+                    _ => (int)HttpStatusCode.InternalServerError
+                };
 
                 object response;
 
@@ -43,7 +50,7 @@ namespace ClinicApp.API.Middleware
                 {
                     response = new
                     {
-                        message = "An unexpected error occurred.",
+                        message = ResolveMessage(ex),
                         error = ex.Message,
                         path = context.Request.Path.Value,
                         method = context.Request.Method
@@ -53,13 +60,25 @@ namespace ClinicApp.API.Middleware
                 {
                     response = new
                     {
-                        message = "An unexpected error occurred."
+                        message = ResolveMessage(ex)
                     };
                 }
 
                 var json = JsonSerializer.Serialize(response);
                 await context.Response.WriteAsync(json);
             }
+        }
+
+        private static string ResolveMessage(Exception ex)
+        {
+            return ex switch
+            {
+                UnauthorizedAccessException => ex.Message,
+                InvalidOperationException => ex.Message,
+                ArgumentException => ex.Message,
+                KeyNotFoundException => ex.Message,
+                _ => "Doslo je do neocekivane greske."
+            };
         }
     }
 }

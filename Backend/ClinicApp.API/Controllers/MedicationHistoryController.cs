@@ -23,7 +23,7 @@ namespace ClinicApp.API.Controllers
             var username = User.FindFirst(ClaimTypes.Name)?.Value ?? "unknown";
 
             if (string.IsNullOrWhiteSpace(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
-                return Unauthorized(new { message = "Invalid token." });
+                return Unauthorized(new { message = "Token nije ispravan." });
 
             try
             {
@@ -32,11 +32,11 @@ namespace ClinicApp.API.Controllers
             }
             catch (KeyNotFoundException)
             {
-                return NotFound(new { message = "Medication not found." });
+                return NotFound(new { message = "Lijek nije pronadjen." });
             }
             catch (InvalidOperationException)
             {
-                return BadRequest(new { message = "Medication out of stock." });
+                return BadRequest(new { message = "Lijek trenutno nije dostupan na stanju." });
             }
         }
 
@@ -47,7 +47,7 @@ namespace ClinicApp.API.Controllers
             var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
 
             if (string.IsNullOrWhiteSpace(userIdClaim) || !int.TryParse(userIdClaim, out int currentUserId))
-                return Unauthorized(new { message = "Invalid token." });
+                return Unauthorized(new { message = "Token nije ispravan." });
 
             var history = await _medicationHistoryService.GetPagedAsync(
                 request,
@@ -70,7 +70,7 @@ namespace ClinicApp.API.Controllers
             var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
 
             if (string.IsNullOrWhiteSpace(userIdClaim) || !int.TryParse(userIdClaim, out int currentUserId))
-                return Unauthorized(new { message = "Invalid token." });
+                return Unauthorized(new { message = "Token nije ispravan." });
 
             var bytes = _medicationHistoryService.ExportExcel(
                 fromDate, toDate, userId, medicationId, reason, currentUserId, userRole);
@@ -97,7 +97,7 @@ namespace ClinicApp.API.Controllers
             var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
 
             if (string.IsNullOrWhiteSpace(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
-                return Unauthorized(new { message = "Invalid token." });
+                return Unauthorized(new { message = "Token nije ispravan." });
 
             var stats = _medicationHistoryService.GetStats(userId, userRole);
             return Ok(stats);
@@ -108,15 +108,25 @@ namespace ClinicApp.API.Controllers
             [FromQuery] string? range,
             [FromQuery] DateTime? fromDate,
             [FromQuery] DateTime? toDate,
-            [FromQuery] string? groupBy)
+            [FromQuery] string? groupBy,
+            [FromQuery] int? userId,
+            [FromQuery] int? medicationId)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
 
             if (string.IsNullOrWhiteSpace(userIdClaim) || !int.TryParse(userIdClaim, out int currentUserId))
-                return Unauthorized(new { message = "Invalid token." });
+                return Unauthorized(new { message = "Token nije ispravan." });
 
-            var chart = _medicationHistoryService.GetMedicationTrendChart(range, fromDate, toDate, groupBy, currentUserId, userRole);
+            var chart = _medicationHistoryService.GetMedicationTrendChart(
+                range,
+                fromDate,
+                toDate,
+                groupBy,
+                userId,
+                medicationId,
+                currentUserId,
+                userRole);
             return Ok(chart);
         }
 
@@ -124,15 +134,50 @@ namespace ClinicApp.API.Controllers
         public IActionResult GetTopUsersChart(
             [FromQuery] string? range,
             [FromQuery] DateTime? fromDate,
-            [FromQuery] DateTime? toDate)
+            [FromQuery] DateTime? toDate,
+            [FromQuery] int? userId,
+            [FromQuery] int? medicationId)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
 
             if (string.IsNullOrWhiteSpace(userIdClaim) || !int.TryParse(userIdClaim, out int currentUserId))
-                return Unauthorized(new { message = "Invalid token." });
+                return Unauthorized(new { message = "Token nije ispravan." });
 
-            var chart = _medicationHistoryService.GetTopUsersChart(range, fromDate, toDate, currentUserId, userRole);
+            var chart = _medicationHistoryService.GetTopUsersChart(
+                range,
+                fromDate,
+                toDate,
+                userId,
+                medicationId,
+                currentUserId,
+                userRole);
+            return Ok(chart);
+        }
+
+        [HttpGet("chart/top-reasons")]
+        public IActionResult GetTopReasonsChart(
+            [FromQuery] string? range,
+            [FromQuery] DateTime? fromDate,
+            [FromQuery] DateTime? toDate,
+            [FromQuery] int? userId,
+            [FromQuery] int? medicationId)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (string.IsNullOrWhiteSpace(userIdClaim) || !int.TryParse(userIdClaim, out int currentUserId))
+                return Unauthorized(new { message = "Token nije ispravan." });
+
+            var chart = _medicationHistoryService.GetTopReasonsChart(
+                range,
+                fromDate,
+                toDate,
+                userId,
+                medicationId,
+                currentUserId,
+                userRole);
+
             return Ok(chart);
         }
 
@@ -149,7 +194,7 @@ namespace ClinicApp.API.Controllers
             var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
 
             if (string.IsNullOrWhiteSpace(userIdClaim) || !int.TryParse(userIdClaim, out int currentUserId))
-                return Unauthorized(new { message = "Invalid token." });
+                return Unauthorized(new { message = "Token nije ispravan." });
 
             var chart = _medicationHistoryService.GetDetailedChart(range, fromDate, toDate, userId, medicationId, groupBy, currentUserId, userRole);
             return Ok(chart);

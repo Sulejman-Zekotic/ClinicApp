@@ -19,15 +19,15 @@ export class ToastService {
 
   readonly items$ = this.itemsSubject.asObservable();
 
-  success(message: string, title = 'Completed'): void {
+  success(message: string, title = 'Uspjesno'): void {
     this.push({ message, title, tone: 'success' });
   }
 
-  error(message: string, title = 'Something went wrong'): void {
+  error(message: string, title = 'Greska'): void {
     this.push({ message, title, tone: 'error' });
   }
 
-  info(message: string, title = 'Heads up'): void {
+  info(message: string, title = 'Info'): void {
     this.push({ message, title, tone: 'info' });
   }
 

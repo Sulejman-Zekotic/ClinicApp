@@ -1,8 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
-import { LucideDynamicIcon } from '@lucide/angular';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormsModule } from '@angular/forms';
+import { Subject, debounceTime, forkJoin } from 'rxjs';
 import { AuthService } from '../../services/auth';
-import { AdminDashboardStats, MedicationHistoryService } from '../../services/medication-history';
+import {
+  DetailedChart,
+  MedicationHistoryService,
+  MedicationTrendChart,
+  TopReasonsChart,
+  TopUsersChart
+} from '../../services/medication-history';
+import { Medication, MedicationsService } from '../../services/medications';
+import { UserSummary, UsersService } from '../../services/users';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner';
 
 interface AnalyticsSegment {
@@ -15,30 +25,49 @@ interface AnalyticsSegment {
 @Component({
   selector: 'app-analytics',
   standalone: true,
-  imports: [CommonModule, LucideDynamicIcon, LoadingSpinnerComponent],
+  imports: [CommonModule, FormsModule, LoadingSpinnerComponent],
   templateUrl: './analytics.html',
   styleUrl: './analytics.scss'
 })
 export class AnalyticsComponent implements OnInit {
   private historyService = inject(MedicationHistoryService);
+  private medicationsService = inject(MedicationsService);
+  private usersService = inject(UsersService);
   private auth = inject(AuthService);
+  private destroyRef = inject(DestroyRef);
+  private filterChanges = new Subject<void>();
 
   readonly isAdmin = this.auth.isAdmin();
   readonly reasonColors = ['#245fef', '#34a885', '#f59e0b', '#7257ff', '#ff6a2b'];
 
-  adminStats: AdminDashboardStats | null = null;
-  summaryLoading = false;
+  medications: Medication[] = [];
+  users: UserSummary[] = [];
+
+  range = '30d';
+  groupBy = 'day';
+  fromDate = '';
+  toDate = '';
+  selectedUserId: number | null = null;
+  selectedMedicationId: number | null = null;
+
+  medicationTrendChart: MedicationTrendChart | null = null;
+  topUsersChart: TopUsersChart | null = null;
+  topReasonsChart: TopReasonsChart | null = null;
+  detailedChart: DetailedChart | null = null;
+
+  isLoading = false;
   errorMessage = '';
 
   get reasonSegments(): AnalyticsSegment[] {
-    const items = this.adminStats?.topReasons.slice(0, 5) ?? [];
-    const total = items.reduce((sum, item) => sum + item.count, 0) || 1;
+    const labels = this.topReasonsChart?.labels ?? [];
+    const values = this.topReasonsChart?.values ?? [];
+    const total = values.reduce((sum, value) => sum + value, 0) || 1;
 
-    return items.map((item, index) => ({
-      label: item.reason,
-      value: item.count,
+    return labels.map((label, index) => ({
+      label,
+      value: values[index] ?? 0,
       color: this.reasonColors[index % this.reasonColors.length],
-      percentage: (item.count / total) * 100
+      percentage: ((values[index] ?? 0) / total) * 100
     }));
   }
 
@@ -57,20 +86,48 @@ export class AnalyticsComponent implements OnInit {
     return `conic-gradient(${parts.join(', ')})`;
   }
 
-  get reasonTotal(): number {
+  get reasonsTotal(): number {
     return this.reasonSegments.reduce((sum, segment) => sum + segment.value, 0);
   }
 
-  get topMedicationMax(): number {
-    return Math.max(...(this.adminStats?.topMedications.map((item) => item.count) ?? [0]), 1);
+  get medicationBars(): Array<{ label: string; value: number }> {
+    return (
+      this.medicationTrendChart?.datasets
+        .map((dataset) => ({
+          label: dataset.label,
+          value: dataset.totalCount
+        }))
+        .sort((left, right) => right.value - left.value)
+        .slice(0, 5) ?? []
+    );
   }
 
-  get topUserMax(): number {
-    return Math.max(...(this.adminStats?.topUsers.map((item) => item.count) ?? [0]), 1);
+  get medicationMax(): number {
+    return Math.max(...this.medicationBars.map((item) => item.value), 1);
   }
 
-  get last7DaysMax(): number {
-    return Math.max(...(this.adminStats?.last7Days.map((item) => item.count) ?? [0]), 1);
+  get usersMax(): number {
+    return Math.max(...(this.topUsersChart?.values ?? [0]), 1);
+  }
+
+  get topUserLabels(): string[] {
+    return this.topUsersChart?.labels ?? [];
+  }
+
+  get topUserValues(): number[] {
+    return this.topUsersChart?.values ?? [];
+  }
+
+  get detailedLabels(): string[] {
+    return this.detailedChart?.labels ?? [];
+  }
+
+  get detailedValues(): number[] {
+    return this.detailedChart?.values ?? [];
+  }
+
+  get timeMax(): number {
+    return Math.max(...(this.detailedChart?.values ?? [0]), 1);
   }
 
   ngOnInit(): void {
@@ -78,37 +135,118 @@ export class AnalyticsComponent implements OnInit {
       return;
     }
 
-    this.loadSummary();
+    this.setDefaultDates();
+    this.loadLookupOptions();
+
+    this.filterChanges
+      .pipe(debounceTime(260), takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.loadAnalytics());
+
+    this.loadAnalytics();
   }
 
-  loadSummary(): void {
-    this.summaryLoading = true;
-    this.errorMessage = '';
+  queueRefresh(): void {
+    this.filterChanges.next();
+  }
 
-    this.historyService.getAdminDashboardStats().subscribe({
-      next: (stats) => {
-        this.adminStats = stats;
+  resetFilters(): void {
+    this.range = '30d';
+    this.groupBy = 'day';
+    this.selectedMedicationId = null;
+    this.selectedUserId = null;
+    this.setDefaultDates();
+    this.loadAnalytics();
+  }
+
+  medicationBarHeight(value: number): string {
+    return `${Math.max((value / this.medicationMax) * 100, value > 0 ? 16 : 6)}%`;
+  }
+
+  userBarWidth(value: number): string {
+    return `${Math.max((value / this.usersMax) * 100, value > 0 ? 18 : 0)}%`;
+  }
+
+  timeBarHeight(value: number): string {
+    return `${Math.max((value / this.timeMax) * 100, value > 0 ? 16 : 6)}%`;
+  }
+
+  shortLabel(label: string): string {
+    return label.length > 10 ? label.slice(0, 10) : label;
+  }
+
+  private loadLookupOptions(): void {
+    this.medicationsService.getAll().subscribe({
+      next: (items) => {
+        this.medications = items;
       },
-      error: (error) => {
-        this.errorMessage = error?.error?.message || 'Učitavanje analitike nije uspjelo.';
-        this.adminStats = null;
-        this.summaryLoading = false;
+      error: () => {
+        this.medications = [];
+      }
+    });
+
+    this.usersService.getAll().subscribe({
+      next: (items) => {
+        this.users = items;
       },
-      complete: () => {
-        this.summaryLoading = false;
+      error: () => {
+        this.users = [];
       }
     });
   }
 
-  medicationBarHeight(value: number): string {
-    return `${Math.max((value / this.topMedicationMax) * 100, value > 0 ? 16 : 6)}%`;
+  private loadAnalytics(): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    const filters = this.buildFilters();
+
+    forkJoin({
+      medicationTrend: this.historyService.getMedicationTrendChart(filters),
+      topUsers: this.historyService.getTopUsersChart(filters),
+      topReasons: this.historyService.getTopReasonsChart(filters),
+      detailed: this.historyService.getDetailedChart(filters)
+    }).subscribe({
+      next: (result) => {
+        this.medicationTrendChart = result.medicationTrend;
+        this.topUsersChart = result.topUsers;
+        this.topReasonsChart = result.topReasons;
+        this.detailedChart = result.detailed;
+      },
+      error: (error) => {
+        this.errorMessage = error?.error?.message || 'Ucitavanje analitike nije uspjelo.';
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
   }
 
-  userBarWidth(value: number): string {
-    return `${Math.max((value / this.topUserMax) * 100, value > 0 ? 18 : 0)}%`;
+  private buildFilters() {
+    const useCustomRange = this.range === 'custom';
+
+    return {
+      range: this.range,
+      groupBy: this.groupBy,
+      fromDate: useCustomRange ? this.fromDate || undefined : undefined,
+      toDate: useCustomRange ? this.toDate || undefined : undefined,
+      userId: this.selectedUserId,
+      medicationId: this.selectedMedicationId
+    };
   }
 
-  dayBarHeight(value: number): string {
-    return `${Math.max((value / this.last7DaysMax) * 100, value > 0 ? 16 : 6)}%`;
+  private setDefaultDates(): void {
+    const end = new Date();
+    const start = new Date();
+    start.setDate(end.getDate() - 29);
+    this.fromDate = this.formatDate(start);
+    this.toDate = this.formatDate(end);
+  }
+
+  private formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 }

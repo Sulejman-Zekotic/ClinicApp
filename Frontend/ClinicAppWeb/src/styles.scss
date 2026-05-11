@@ -17,6 +17,8 @@
   --clinic-primary-dark: #243b63;
   --clinic-primary-soft: rgba(36, 95, 239, 0.1);
   --clinic-primary-gradient: linear-gradient(135deg, #243b63 0%, #245fef 100%);
+  --clinic-primary-action: #243b63;
+  --clinic-primary-action-hover: #1b2f4f;
 
   --clinic-secondary: #34a885;
   --clinic-danger: #ef4444;
@@ -178,11 +180,25 @@ svg {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
+
+  &--centered {
+    justify-content: center;
+  }
 }
 
 .auth-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   font-weight: 800;
   color: var(--clinic-primary-dark);
+}
+
+.auth-link__icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
 }
 
 /* =========================================================
@@ -279,8 +295,8 @@ svg {
 
 .clinic-button-primary {
   color: #ffffff;
-  background: var(--clinic-primary-gradient);
-  box-shadow: 0 12px 24px rgba(36, 59, 99, 0.16);
+  background: var(--clinic-primary-action);
+  box-shadow: 0 12px 22px rgba(24, 41, 69, 0.22);
 }
 
 .clinic-button-secondary {
@@ -300,6 +316,11 @@ svg {
 .clinic-button-secondary:hover,
 .clinic-button-danger:hover {
   transform: translateY(-1px);
+}
+
+.clinic-button-primary:hover:not(:disabled),
+.clinic-button-primary:focus-visible {
+  background: var(--clinic-primary-action-hover);
 }
 
 .clinic-button-primary:disabled,

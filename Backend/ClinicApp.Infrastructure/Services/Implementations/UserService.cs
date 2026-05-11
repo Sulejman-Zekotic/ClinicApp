@@ -27,13 +27,13 @@ namespace ClinicApp.Infrastructure.Services.Implementations
 
         public object Login(LoginDto dto)
         {
-            var username = dto.Username.ToLower();
+            var username = dto.Username.Trim().ToLowerInvariant();
 
             var user = _context.Users.FirstOrDefault(x =>
                 x.Username.ToLower() == username);
 
             if (user == null || !PasswordHelper.VerifyPassword(dto.Password, user.PasswordHash))
-                throw new UnauthorizedAccessException("Invalid username or password.");
+                throw new UnauthorizedAccessException("Pogresan username ili lozinka.");
 
             var token = GenerateJwtToken(user);
             var refreshToken = GenerateRefreshToken();
@@ -62,7 +62,7 @@ namespace ClinicApp.Infrastructure.Services.Implementations
                 x.RefreshToken == dto.RefreshToken);
 
             if (user == null || user.RefreshTokenExpiryTime < DateTime.UtcNow)
-                throw new UnauthorizedAccessException("Invalid refresh token.");
+                throw new UnauthorizedAccessException("Refresh token nije ispravan.");
 
             var newToken = GenerateJwtToken(user);
             var newRefresh = GenerateRefreshToken();
@@ -98,7 +98,7 @@ namespace ClinicApp.Infrastructure.Services.Implementations
         public object GetMe(int userId)
         {
             var user = _context.Users.Find(userId);
-            if (user == null) throw new Exception("User not found");
+            if (user == null) throw new Exception("Korisnik nije pronadjen.");
 
             return new
             {
@@ -190,26 +190,32 @@ namespace ClinicApp.Infrastructure.Services.Implementations
         public object ChangePassword(int userId, ChangePasswordDto dto)
         {
             var user = _context.Users.Find(userId);
-            if (user == null) throw new Exception("User not found");
+            if (user == null) throw new Exception("Korisnik nije pronadjen.");
 
             if (!PasswordHelper.VerifyPassword(dto.CurrentPassword, user.PasswordHash))
-                throw new Exception("Wrong password");
+                throw new UnauthorizedAccessException("Trenutna lozinka nije ispravna.");
 
             user.PasswordHash = PasswordHelper.HashPassword(dto.NewPassword);
             user.MustChangePassword = false;
 
             _context.SaveChanges();
 
-            return new { message = "Password changed" };
+            return new { message = "Lozinka je uspjesno promijenjena." };
         }
 
-        public object RequestPasswordReset(RequestPasswordResetDto dto)
+        public async Task<object> RequestPasswordResetAsync(RequestPasswordResetDto dto)
         {
+            var lookup = dto.UsernameOrEmail.Trim().ToLowerInvariant();
+
             var user = _context.Users.FirstOrDefault(x =>
-                x.Username == dto.UsernameOrEmail || x.Email == dto.UsernameOrEmail);
+                x.Username.ToLower() == lookup ||
+                (x.Email != null && x.Email.ToLower() == lookup));
 
             if (user == null)
-                return new { message = "If account exists, email sent." };
+                return new { message = "Ako nalog postoji, reset link je poslan na email." };
+
+            if (string.IsNullOrWhiteSpace(user.Email))
+                return new { message = "Ako nalog postoji, reset link je poslan na email." };
 
             var token = Guid.NewGuid().ToString();
 
@@ -219,14 +225,11 @@ namespace ClinicApp.Infrastructure.Services.Implementations
             _context.SaveChanges();
 
             var frontendBaseUrl = RequireSetting("App:FrontendBaseUrl").TrimEnd('/');
-            var link = $"{frontendBaseUrl}/reset-password?token={token}";
+            var link = $"{frontendBaseUrl}/reset-password?token={Uri.EscapeDataString(token)}";
 
-            _emailService
-                .SendPasswordResetEmailAsync(user.Email!, user.Username, link)
-                .GetAwaiter()
-                .GetResult();
+            await _emailService.SendPasswordResetEmailAsync(user.Email!, user.Username, link);
 
-            return new { message = "Reset link sent." };
+            return new { message = "Ako nalog postoji, reset link je poslan na email." };
         }
 
         public object ConfirmPasswordReset(ConfirmPasswordResetDto dto)
@@ -236,20 +239,22 @@ namespace ClinicApp.Infrastructure.Services.Implementations
                 PasswordHelper.VerifyPassword(dto.Token, u.PasswordResetTokenHash));
 
             if (user == null || user.PasswordResetTokenExpiryTime < DateTime.UtcNow)
-                throw new Exception("Invalid or expired token");
+                throw new InvalidOperationException("Reset link nije ispravan ili je istekao.");
 
             user.PasswordHash = PasswordHelper.HashPassword(dto.NewPassword);
             user.PasswordResetTokenHash = null;
+            user.PasswordResetTokenExpiryTime = null;
+            user.MustChangePassword = false;
 
             _context.SaveChanges();
 
-            return new { message = "Password reset successful" };
+            return new { message = "Lozinka je uspjesno resetovana." };
         }
 
         public object ResetUserPassword(int userId, string adminUsername)
         {
             var user = _context.Users.Find(userId);
-            if (user == null) throw new Exception("User not found");
+            if (user == null) throw new Exception("Korisnik nije pronadjen.");
 
             var tempPassword = PasswordHelper.GenerateTemporaryPassword();
 

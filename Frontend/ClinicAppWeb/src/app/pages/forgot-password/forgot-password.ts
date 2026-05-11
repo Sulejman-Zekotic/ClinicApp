@@ -28,7 +28,7 @@ export class ForgotPasswordComponent {
     }
 
     if (!this.usernameOrEmail.trim()) {
-      this.errorMessage = 'Enter your username or email address first.';
+      this.errorMessage = 'Unesi username ili email.';
       return;
     }
 
@@ -38,13 +38,14 @@ export class ForgotPasswordComponent {
 
     this.auth.requestPasswordReset(this.usernameOrEmail.trim()).subscribe({
       next: (response) => {
-        this.successMessage = response.message;
-        this.toast.success('Password reset instructions have been sent.');
+        this.successMessage = response.message || 'Ako nalog postoji, reset link je poslan na email.';
+        this.toast.success(this.successMessage);
       },
       error: (error) => {
         this.errorMessage =
-          error?.error?.message || 'Reset request failed. Please try again in a moment.';
+          error?.error?.message || 'Slanje reset linka nije uspjelo.';
         this.toast.error(this.errorMessage);
+        this.isSubmitting = false;
       },
       complete: () => {
         this.isSubmitting = false;

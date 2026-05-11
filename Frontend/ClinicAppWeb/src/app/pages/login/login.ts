@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
     this.errorMessage = '';
 
     if (!this.username.trim() || !this.password.trim()) {
-      this.errorMessage = 'Please enter your username and password.';
+      this.errorMessage = 'Unesi username i lozinku.';
       return;
     }
 
@@ -73,15 +73,15 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.username, this.password).subscribe({
       next: (res) => {
         this.auth.saveSession(res, this.rememberMe);
-        this.toast.success(`Welcome back, ${res.username}.`);
+        this.toast.success(`Dobrodosli nazad, ${res.username}.`);
         this.router.navigateByUrl(res.mustChangePassword ? '/account?forced=1' : this.returnUrl);
       },
       error: (err: any) => {
         this.errorMessage =
           err?.error?.message ||
           err?.error?.title ||
-          'Login failed. Please check your credentials and try again.';
-        this.toast.error(this.errorMessage, 'Login failed');
+          'Pogresan username ili lozinka.';
+        this.toast.error(this.errorMessage, 'Prijava nije uspjela');
         this.isLoading = false;
       },
       complete: () => {

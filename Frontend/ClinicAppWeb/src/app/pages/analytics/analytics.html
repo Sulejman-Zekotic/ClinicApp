@@ -1,6 +1,6 @@
 <div class="analytics-page">
   @if (!isAdmin) {
-    <div class="clinic-empty">Analitika je dostupna admin korisniku.</div>
+    <div class="clinic-empty">Analitika je dostupna samo admin korisniku.</div>
   } @else {
     @if (errorMessage) {
       <div class="ui-alert ui-alert--danger analytics-page__alert">
@@ -8,81 +8,74 @@
       </div>
     }
 
-    @if (summaryLoading) {
-      <div class="clinic-empty analytics-page__loading">
-        <app-loading-spinner label="Učitavanje analitike..."></app-loading-spinner>
+    <section class="analytics-filter-panel">
+      <div class="analytics-filter-panel__header">
+        <div>
+          <h2 class="analytics-filter-panel__title">Analitika</h2>
+          <p class="analytics-filter-panel__subtitle">Filtriraj grafikone po periodu, korisniku i lijeku.</p>
+        </div>
+
+        <div class="analytics-filter-panel__actions">
+          <button type="button" class="clinic-button-secondary" (click)="resetFilters()">Ocisti</button>
+        </div>
       </div>
-    } @else if (adminStats) {
-      <section class="analytics-metrics">
-        <article class="analytics-stat-card analytics-stat-card--blue">
-          <div class="analytics-stat-card__icon">
-            <svg lucideIcon="clipboard-list" class="h-7 w-7"></svg>
-          </div>
-          <div class="analytics-stat-card__body">
-            <div class="analytics-stat-card__label">Danas</div>
-            <div class="analytics-stat-card__value">{{ adminStats.todayCount }}</div>
-          </div>
-        </article>
 
-        <article class="analytics-stat-card analytics-stat-card--green">
-          <div class="analytics-stat-card__icon">
-            <svg lucideIcon="calendar-range" class="h-7 w-7"></svg>
-          </div>
-          <div class="analytics-stat-card__body">
-            <div class="analytics-stat-card__label">Sedmica</div>
-            <div class="analytics-stat-card__value">{{ adminStats.weekCount }}</div>
-          </div>
-        </article>
+      <div class="analytics-filters">
+        <select class="clinic-select" [(ngModel)]="range" (ngModelChange)="queueRefresh()" name="range">
+          <option value="7d">Zadnjih 7 dana</option>
+          <option value="30d">Zadnjih 30 dana</option>
+          <option value="90d">Zadnjih 90 dana</option>
+          <option value="365d">Zadnjih 12 mjeseci</option>
+          <option value="custom">Rucni period</option>
+        </select>
 
-        <article class="analytics-stat-card analytics-stat-card--orange">
-          <div class="analytics-stat-card__icon">
-            <svg lucideIcon="badge-check" class="h-7 w-7"></svg>
-          </div>
-          <div class="analytics-stat-card__body">
-            <div class="analytics-stat-card__label">Mjesec</div>
-            <div class="analytics-stat-card__value">{{ adminStats.monthCount }}</div>
-          </div>
-        </article>
+        <select class="clinic-select" [(ngModel)]="groupBy" (ngModelChange)="queueRefresh()" name="groupBy">
+          <option value="day">Po danu</option>
+          <option value="week">Po sedmici</option>
+          <option value="month">Po mjesecu</option>
+        </select>
 
-        <article class="analytics-stat-card analytics-stat-card--purple">
-          <div class="analytics-stat-card__icon">
-            <svg lucideIcon="triangle-alert" class="h-7 w-7"></svg>
-          </div>
-          <div class="analytics-stat-card__body">
-            <div class="analytics-stat-card__label">Pri kraju</div>
-            <div class="analytics-stat-card__value">{{ adminStats.lowStockCount }}</div>
-          </div>
-        </article>
-      </section>
+        <select class="clinic-select" [(ngModel)]="selectedMedicationId" (ngModelChange)="queueRefresh()" name="selectedMedicationId">
+          <option [ngValue]="null">Svi lijekovi</option>
+          @for (medication of medications; track medication.id) {
+            <option [ngValue]="medication.id">{{ medication.name }}</option>
+          }
+        </select>
 
-      <section class="analytics-insights">
-        <article class="analytics-highlight analytics-highlight--primary">
-          <div class="analytics-highlight__label">Najkorišteniji lijek</div>
-          <div class="analytics-highlight__value">{{ adminStats.mostUsedMedication || '-' }}</div>
-          <div class="analytics-highlight__meta">{{ adminStats.mostUsedMedicationCount }} izdavanja</div>
-        </article>
+        <select class="clinic-select" [(ngModel)]="selectedUserId" (ngModelChange)="queueRefresh()" name="selectedUserId">
+          <option [ngValue]="null">Svi korisnici</option>
+          @for (user of users; track user.id) {
+            <option [ngValue]="user.id">{{ user.username }}</option>
+          }
+        </select>
 
-        <article class="analytics-highlight analytics-highlight--accent">
-          <div class="analytics-highlight__label">Najčešći razlog</div>
-          <div class="analytics-highlight__value">{{ adminStats.mostCommonReason || '-' }}</div>
-          <div class="analytics-highlight__meta">{{ adminStats.mostCommonReasonCount }} unosa</div>
-        </article>
-      </section>
+        <input class="clinic-input" [(ngModel)]="fromDate" (ngModelChange)="queueRefresh()" name="fromDate" type="date" [disabled]="range !== 'custom'" />
+        <input class="clinic-input" [(ngModel)]="toDate" (ngModelChange)="queueRefresh()" name="toDate" type="date" [disabled]="range !== 'custom'" />
+      </div>
+    </section>
 
-      <section class="analytics-grid analytics-grid--wide">
+    @if (isLoading) {
+      <div class="clinic-empty analytics-page__loading">
+        <app-loading-spinner label="Ucitavanje analitike..."></app-loading-spinner>
+      </div>
+    } @else {
+      <section class="analytics-grid">
         <article class="analytics-panel">
           <div class="analytics-panel__header">
-            <h2 class="analytics-panel__title">Razlozi izdavanja</h2>
+            <div>
+              <h2 class="analytics-panel__title">Najcesci razlozi</h2>
+              <p class="analytics-panel__meta">{{ topReasonsChart?.topReason || '-' }}</p>
+            </div>
           </div>
 
-          @if (reasonSegments.length === 0) {
-            <div class="clinic-empty analytics-panel__empty">Nema podataka.</div>
+          @if (!reasonSegments.length) {
+            <div class="clinic-empty analytics-panel__empty">Nema podataka za odabrane filtere.</div>
           } @else {
             <div class="analytics-donut">
               <div class="analytics-donut__chart" [style.background]="reasonChartBackground">
                 <div class="analytics-donut__center">
                   <span class="analytics-donut__center-label">Ukupno</span>
-                  <strong class="analytics-donut__center-value">{{ reasonTotal }}</strong>
+                  <strong class="analytics-donut__center-value">{{ reasonsTotal }}</strong>
                 </div>
               </div>
 
@@ -101,44 +94,48 @@
 
         <article class="analytics-panel">
           <div class="analytics-panel__header">
-            <h2 class="analytics-panel__title">Top lijekovi</h2>
+            <div>
+              <h2 class="analytics-panel__title">Najkoristeniji lijekovi</h2>
+              <p class="analytics-panel__meta">{{ medicationTrendChart?.topMedication || '-' }}</p>
+            </div>
           </div>
 
-          @if (!adminStats.topMedications.length) {
-            <div class="clinic-empty analytics-panel__empty">Nema podataka.</div>
+          @if (!medicationBars.length) {
+            <div class="clinic-empty analytics-panel__empty">Nema podataka za odabrane filtere.</div>
           } @else {
             <div class="analytics-columns">
-              @for (item of adminStats.topMedications.slice(0, 5); track item.medication) {
+              @for (item of medicationBars; track item.label) {
                 <article class="analytics-columns__item">
-                  <div class="analytics-columns__value">{{ item.count }}</div>
+                  <div class="analytics-columns__value">{{ item.value }}</div>
                   <div class="analytics-columns__bar-shell">
-                    <div class="analytics-columns__bar" [style.height]="medicationBarHeight(item.count)"></div>
+                    <div class="analytics-columns__bar" [style.height]="medicationBarHeight(item.value)"></div>
                   </div>
-                  <div class="analytics-columns__label" [title]="item.medication">{{ item.medication }}</div>
+                  <div class="analytics-columns__label" [title]="item.label">{{ item.label }}</div>
                 </article>
               }
             </div>
           }
         </article>
-      </section>
 
-      <section class="analytics-grid analytics-grid--balanced">
         <article class="analytics-panel">
           <div class="analytics-panel__header">
-            <h2 class="analytics-panel__title">Aktivni korisnici</h2>
+            <div>
+              <h2 class="analytics-panel__title">Najaktivniji korisnici</h2>
+              <p class="analytics-panel__meta">{{ topUsersChart?.topUsername || '-' }}</p>
+            </div>
           </div>
 
-          @if (!adminStats.topUsers.length) {
-            <div class="clinic-empty analytics-panel__empty">Nema podataka.</div>
+          @if (!topUserLabels.length) {
+            <div class="clinic-empty analytics-panel__empty">Nema podataka za odabrane filtere.</div>
           } @else {
             <div class="analytics-bars">
-              @for (item of adminStats.topUsers.slice(0, 5); track item.username) {
+              @for (label of topUserLabels; track label; let index = $index) {
                 <article class="analytics-bars__row">
-                  <div class="analytics-bars__label" [title]="item.username">{{ item.username }}</div>
+                  <div class="analytics-bars__label" [title]="label">{{ label }}</div>
                   <div class="analytics-bars__track">
-                    <div class="analytics-bars__fill" [style.width]="userBarWidth(item.count)"></div>
+                    <div class="analytics-bars__fill" [style.width]="userBarWidth(topUserValues[index])"></div>
                   </div>
-                  <div class="analytics-bars__value">{{ item.count }}</div>
+                  <div class="analytics-bars__value">{{ topUserValues[index] }}</div>
                 </article>
               }
             </div>
@@ -147,28 +144,29 @@
 
         <article class="analytics-panel">
           <div class="analytics-panel__header">
-            <h2 class="analytics-panel__title">Zadnjih 7 dana</h2>
+            <div>
+              <h2 class="analytics-panel__title">Kretanje kroz vrijeme</h2>
+              <p class="analytics-panel__meta">{{ detailedChart?.title || '-' }}</p>
+            </div>
           </div>
 
-          @if (!adminStats.last7Days.length) {
-            <div class="clinic-empty analytics-panel__empty">Nema podataka.</div>
+          @if (!detailedLabels.length) {
+            <div class="clinic-empty analytics-panel__empty">Nema podataka za odabrane filtere.</div>
           } @else {
             <div class="analytics-mini-bars">
-              @for (item of adminStats.last7Days; track item.date) {
+              @for (label of detailedLabels; track label; let index = $index) {
                 <article class="analytics-mini-bars__item">
-                  <div class="analytics-mini-bars__value">{{ item.count }}</div>
+                  <div class="analytics-mini-bars__value">{{ detailedValues[index] }}</div>
                   <div class="analytics-mini-bars__bar-shell">
-                    <div class="analytics-mini-bars__bar" [style.height]="dayBarHeight(item.count)"></div>
+                    <div class="analytics-mini-bars__bar" [style.height]="timeBarHeight(detailedValues[index])"></div>
                   </div>
-                  <div class="analytics-mini-bars__label">{{ item.date | date: 'dd.MM' }}</div>
+                  <div class="analytics-mini-bars__label">{{ shortLabel(label) }}</div>
                 </article>
               }
             </div>
           }
         </article>
       </section>
-    } @else {
-      <div class="clinic-empty">Analitika nije dostupna.</div>
     }
   }
 </div>

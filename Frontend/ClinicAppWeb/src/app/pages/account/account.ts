@@ -45,7 +45,7 @@ export class AccountComponent implements OnInit {
         this.forcedPasswordChange = this.forcedPasswordChange || profile.mustChangePassword;
       },
       error: (error) => {
-        this.errorMessage = error?.error?.message || 'Profile details could not be loaded.';
+        this.errorMessage = error?.error?.message || 'Detalji naloga nisu ucitani.';
       },
       complete: () => {
         this.isLoading = false;
@@ -59,12 +59,17 @@ export class AccountComponent implements OnInit {
     }
 
     if (!this.currentPassword.trim() || !this.newPassword.trim()) {
-      this.errorMessage = 'Enter both your current and new password.';
+      this.errorMessage = 'Unesi trenutnu i novu lozinku.';
+      return;
+    }
+
+    if (this.newPassword.trim().length < 8) {
+      this.errorMessage = 'Nova lozinka mora imati najmanje 8 znakova.';
       return;
     }
 
     if (this.newPassword !== this.confirmPassword) {
-      this.errorMessage = 'Password confirmation does not match.';
+      this.errorMessage = 'Potvrda lozinke se ne poklapa.';
       return;
     }
 
@@ -83,13 +88,13 @@ export class AccountComponent implements OnInit {
           this.confirmPassword = '';
           this.auth.setMustChangePassword(false);
           this.forcedPasswordChange = false;
-          this.toast.success(response.message || 'Password changed successfully.');
+          this.toast.success(response.message || 'Lozinka je uspjesno promijenjena.');
           this.loadProfile();
           this.router.navigate(['/dashboard']);
         },
         error: (error) => {
           this.errorMessage =
-            error?.error?.message || 'Password change failed. Please verify your current password.';
+            error?.error?.message || 'Promjena lozinke nije uspjela. Provjeri trenutnu lozinku.';
           this.toast.error(this.errorMessage);
         },
         complete: () => {

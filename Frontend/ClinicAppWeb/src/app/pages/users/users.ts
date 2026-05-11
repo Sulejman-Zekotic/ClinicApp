@@ -5,17 +5,13 @@ import { FormsModule } from '@angular/forms';
 import { LucideDynamicIcon } from '@lucide/angular';
 import { Router } from '@angular/router';
 import { Subject, debounceTime } from 'rxjs';
-import {
-  MedicationHistoryRecord,
-  MedicationHistoryService
-} from '../../services/medication-history';
 import { AuthService } from '../../services/auth';
 import { AddUserRequest, UserSummary, UsersService } from '../../services/users';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner';
 import { PaginationComponent } from '../../shared/pagination/pagination';
 import { ToastService } from '../../shared/toast/toast.service';
 
-type UsersPanelMode = 'form' | 'activity' | 'credentials' | null;
+type UsersPanelMode = 'form' | 'credentials' | null;
 
 @Component({
   selector: 'app-users',
@@ -26,7 +22,6 @@ type UsersPanelMode = 'form' | 'activity' | 'credentials' | null;
 })
 export class UsersComponent implements OnInit {
   private usersService = inject(UsersService);
-  private historyService = inject(MedicationHistoryService);
   private auth = inject(AuthService);
   private router = inject(Router);
   private toast = inject(ToastService);
@@ -36,13 +31,10 @@ export class UsersComponent implements OnInit {
   readonly isAdmin = this.auth.isAdmin();
 
   users: UserSummary[] = [];
-  activityPreview: MedicationHistoryRecord[] = [];
-  selectedActivityUser: UserSummary | null = null;
   generatedCredential: { username: string; password: string; email?: string | null } | null = null;
 
   isLoading = false;
   isSaving = false;
-  activityLoading = false;
   errorMessage = '';
   formSubmitted = false;
   search = '';
@@ -95,7 +87,7 @@ export class UsersComponent implements OnInit {
           this.page = result.page;
         },
         error: (error) => {
-          this.errorMessage = error?.error?.message || 'Učitavanje korisnika nije uspjelo.';
+          this.errorMessage = error?.error?.message || 'Ucitavanje korisnika nije uspjelo.';
           this.isLoading = false;
         },
         complete: () => {
@@ -135,8 +127,6 @@ export class UsersComponent implements OnInit {
     this.errorMessage = '';
     this.formSubmitted = false;
     this.activePanel = null;
-    this.selectedActivityUser = null;
-    this.activityPreview = [];
     this.generatedCredential = null;
   }
 
@@ -170,7 +160,7 @@ export class UsersComponent implements OnInit {
           email: user.email,
           password: user.temporaryPassword
         };
-        this.toast.success(`Korisnik ${user.username} je dodan.`, 'Dodano');
+        this.toast.success(`Korisnik ${user.username} je dodat.`);
         this.activePanel = 'credentials';
         this.loadUsers();
       },
@@ -181,24 +171,6 @@ export class UsersComponent implements OnInit {
       },
       complete: () => {
         this.isSaving = false;
-      }
-    });
-  }
-
-  previewActivity(user: UserSummary): void {
-    this.activityLoading = true;
-    this.selectedActivityUser = user;
-    this.activePanel = 'activity';
-
-    this.historyService.getByUser(user.id).subscribe({
-      next: (records) => {
-        this.activityPreview = records.slice(0, 8);
-      },
-      error: () => {
-        this.activityPreview = [];
-      },
-      complete: () => {
-        this.activityLoading = false;
       }
     });
   }
@@ -246,15 +218,15 @@ export class UsersComponent implements OnInit {
     switch (field) {
       case 'username':
         if (!username) {
-          return 'Unesi korisničko ime.';
+          return 'Unesi korisnicko ime.';
         }
 
         if (username.length < 2) {
-          return 'Korisničko ime mora imati najmanje 2 znaka.';
+          return 'Korisnicko ime mora imati najmanje 2 znaka.';
         }
 
         if (username.length > 60) {
-          return 'Korisničko ime može imati najviše 60 znakova.';
+          return 'Korisnicko ime moze imati najvise 60 znakova.';
         }
 
         return '';

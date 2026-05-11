@@ -37,10 +37,10 @@ namespace ClinicApp.API.Controllers
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrWhiteSpace(userIdClaim) || !int.TryParse(userIdClaim, out var userId))
-                return Unauthorized(new { message = "Invalid token." });
+                return Unauthorized(new { message = "Token nije ispravan." });
 
             _userService.Logout(userId);
-            return Ok(new { message = "Logged out successfully." });
+            return Ok(new { message = "Uspjesno ste odjavljeni." });
         }
 
         [Authorize]
@@ -49,7 +49,7 @@ namespace ClinicApp.API.Controllers
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrWhiteSpace(userIdClaim) || !int.TryParse(userIdClaim, out var userId))
-                return Unauthorized(new { message = "Invalid token." });
+                return Unauthorized(new { message = "Token nije ispravan." });
 
             return Ok(_userService.GetMe(userId));
         }
@@ -74,15 +74,15 @@ namespace ClinicApp.API.Controllers
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrWhiteSpace(userIdClaim) || !int.TryParse(userIdClaim, out var userId))
-                return Unauthorized(new { message = "Invalid token." });
+                return Unauthorized(new { message = "Token nije ispravan." });
 
             return Ok(_userService.ChangePassword(userId, dto));
         }
 
         [HttpPost("request-password-reset")]
-        public IActionResult RequestReset([FromBody] RequestPasswordResetDto dto)
+        public async Task<IActionResult> RequestReset([FromBody] RequestPasswordResetDto dto)
         {
-            return Ok(_userService.RequestPasswordReset(dto));
+            return Ok(await _userService.RequestPasswordResetAsync(dto));
         }
 
         [HttpPost("confirm-password-reset")]

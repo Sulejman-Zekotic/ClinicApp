@@ -151,7 +151,7 @@ export class HistoryComponent implements OnInit {
           this.page = result.page;
         },
         error: (error) => {
-          this.errorMessage = error?.error?.message || 'Učitavanje historije nije uspjelo.';
+          this.errorMessage = error?.error?.message || 'Ucitavanje historije nije uspjelo.';
           this.isLoading = false;
         },
         complete: () => {

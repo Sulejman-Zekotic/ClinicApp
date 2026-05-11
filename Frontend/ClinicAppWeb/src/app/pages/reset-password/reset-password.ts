@@ -35,17 +35,22 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     if (!this.token) {
-      this.errorMessage = 'This reset link is missing the security token.';
+      this.errorMessage = 'Reset link nema sigurnosni token.';
       return;
     }
 
     if (!this.newPassword.trim()) {
-      this.errorMessage = 'Enter a new password.';
+      this.errorMessage = 'Unesi novu lozinku.';
+      return;
+    }
+
+    if (this.newPassword.trim().length < 8) {
+      this.errorMessage = 'Lozinka mora imati najmanje 8 znakova.';
       return;
     }
 
     if (this.newPassword !== this.confirmPassword) {
-      this.errorMessage = 'Password confirmation does not match.';
+      this.errorMessage = 'Potvrda lozinke se ne poklapa.';
       return;
     }
 
@@ -54,13 +59,14 @@ export class ResetPasswordComponent implements OnInit {
 
     this.auth.confirmPasswordReset(this.token, this.newPassword).subscribe({
       next: (response) => {
-        this.toast.success(response.message || 'Your password has been updated.');
+        this.toast.success(response.message || 'Lozinka je uspjesno azurirana.');
         this.router.navigate(['/login']);
       },
       error: (error) => {
         this.errorMessage =
-          error?.error?.message || 'Password reset failed. Request a new reset link and try again.';
+          error?.error?.message || 'Reset lozinke nije uspio. Zatrazi novi link i pokusaj ponovo.';
         this.toast.error(this.errorMessage);
+        this.isSubmitting = false;
       },
       complete: () => {
         this.isSubmitting = false;

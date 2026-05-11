@@ -70,6 +70,18 @@ export interface TopUsersChart {
   groupBy: string;
 }
 
+export interface TopReasonsChart {
+  title: string;
+  labels: string[];
+  values: number[];
+  totalCount: number;
+  topReason: string;
+  topCount: number;
+  range: string;
+  fromDate: string;
+  toDate: string;
+}
+
 export interface DetailedChart {
   title: string;
   groupBy: string;
@@ -171,6 +183,12 @@ export class MedicationHistoryService {
 
   getTopUsersChart(filters: ChartFilters): Observable<TopUsersChart> {
     return this.http.get<TopUsersChart>(`${this.baseUrl}/chart/top-users`, {
+      params: this.createParams(filters)
+    });
+  }
+
+  getTopReasonsChart(filters: ChartFilters): Observable<TopReasonsChart> {
+    return this.http.get<TopReasonsChart>(`${this.baseUrl}/chart/top-reasons`, {
       params: this.createParams(filters)
     });
   }

@@ -42,7 +42,7 @@
       <h2 class="history-panel__title">Historija lijekova</h2>
 
       <div class="history-toolbar-actions">
-        <button type="button" class="clinic-button-secondary" (click)="clearFilters()">Očisti</button>
+        <button type="button" class="clinic-button-secondary" (click)="clearFilters()">Ocisti</button>
         <button type="button" class="clinic-button-primary" (click)="exportExcel()">Izvoz</button>
       </div>
     </div>
@@ -84,7 +84,7 @@
 
     @if (isLoading) {
       <div class="clinic-empty history-panel__empty">
-        <app-loading-spinner label="Učitavanje historije..."></app-loading-spinner>
+        <app-loading-spinner label="Ucitavanje historije..."></app-loading-spinner>
       </div>
     } @else if (records.length === 0) {
       <div class="clinic-empty history-panel__empty">Nema podataka za odabrane filtere.</div>
@@ -97,7 +97,7 @@
                 <th class="history-table__col-medication">Lijek</th>
                 <th class="history-table__col-user">Korisnik</th>
                 <th class="history-table__col-reason">Razlog</th>
-                <th class="history-table__col-quantity">Količina</th>
+                <th class="history-table__col-quantity">Kolicina</th>
                 <th class="history-table__col-date">Datum</th>
                 <th class="history-table__col-actions">Pregled</th>
               </tr>
@@ -167,7 +167,7 @@
             </article>
 
             <article class="workspace-toast-meta">
-              <div class="workspace-toast-meta__label">Količina</div>
+              <div class="workspace-toast-meta__label">Kolicina</div>
               <div class="workspace-toast-meta__value">{{ selectedRecord.quantity }}</div>
             </article>
 

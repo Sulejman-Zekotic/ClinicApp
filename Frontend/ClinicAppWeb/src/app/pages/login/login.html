@@ -141,7 +141,7 @@
               name="username"
               type="text"
               [(ngModel)]="username"
-              placeholder="Username"
+              placeholder="Korisnicko ime"
               autocomplete="username"
               class="h-[52px] sm:h-[54px] w-full rounded-[16px] sm:rounded-[16px] border border-[#dbe3f0] bg-[#f7f9fc] pl-12 pr-4 text-[14px] sm:text-[15px] text-[#22324d] outline-none transition focus:border-[#4b7de3] focus:bg-white focus:ring-4 focus:ring-[rgba(59,115,219,0.12)]"
             />
@@ -158,7 +158,7 @@
               name="password"
               [type]="showPassword ? 'text' : 'password'"
               [(ngModel)]="password"
-              placeholder="Password"
+              placeholder="Lozinka"
               autocomplete="current-password"
               class="h-[52px] sm:h-[54px] w-full rounded-[16px] sm:rounded-[16px] border border-[#dbe3f0] bg-[#f7f9fc] pl-12 pr-12 text-[14px] sm:text-[15px] text-[#22324d] outline-none transition focus:border-[#4b7de3] focus:bg-white focus:ring-4 focus:ring-[rgba(59,115,219,0.12)]"
             />
@@ -167,7 +167,7 @@
               type="button"
               class="absolute right-3 top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full bg-transparent p-0 transition hover:bg-[#eef4ff]"
               (click)="togglePasswordVisibility()"
-              [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+              [attr.aria-label]="showPassword ? 'Sakrij lozinku' : 'Prikazi lozinku'"
             >
               <svg
                 [lucideIcon]="showPassword ? EyeOffIcon : EyeIcon"
@@ -184,11 +184,11 @@
                 name="rememberMe"
               />
               <span class="checkmark"></span>
-              <span class="label-text">Remember me</span>
+              <span class="label-text">Zapamti me</span>
             </label>
 
             <a routerLink="/forgot-password" class="forgot-link">
-              Forgot password?
+              Zaboravili ste lozinku?
             </a>
           </div>
 
@@ -203,7 +203,7 @@
                   <app-loading-spinner [inline]="true" size="sm"></app-loading-spinner>
                 </span>
               }
-              <span class="login-btn-text">{{ isLoading ? 'Logging in...' : 'LOGIN' }}</span>
+              <span class="login-btn-text">{{ isLoading ? 'Prijava...' : 'PRIJAVA' }}</span>
             </span>
           </button>
 

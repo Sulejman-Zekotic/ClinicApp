@@ -1,38 +1,20 @@
 :host {
   display: block;
   width: 100%;
-  height: 100%;
-  min-height: 0;
+  min-height: 100%;
 }
 
 .history-page {
   display: grid;
   gap: 22px;
   width: 100%;
-  height: 100%;
-  min-height: 0;
+  min-height: 100%;
   padding: 28px;
-  overflow-y: auto;
   overflow-x: hidden;
 
   &__alert {
     position: relative;
     z-index: 2;
-  }
-
-  .clinic-button-primary {
-    border-color: #2452c9;
-    background: #2452c9;
-    color: #ffffff;
-    box-shadow: none;
-
-    &:hover:not(:disabled),
-    &:focus-visible {
-      border-color: #1f47b4;
-      background: #1f47b4;
-      box-shadow: none;
-      transform: none;
-    }
   }
 }
 
@@ -162,7 +144,6 @@
   grid-template-rows: minmax(0, 1fr) auto;
   width: 100%;
   min-width: 0;
-  min-height: 0;
   overflow: hidden;
   border: 1px solid rgba(164, 190, 214, 0.68);
   border-radius: 22px;
@@ -177,20 +158,11 @@
     app-pagination {
       width: 100%;
     }
-
-    :host ::ng-deep .pagination-shell {
-      width: 100%;
-      margin-top: 0;
-    }
   }
 }
 
 .history-table-scroll {
-  min-height: 0;
-  overflow-y: auto;
   overflow-x: hidden;
-  max-height: clamp(340px, calc(100dvh - 420px), 560px);
-  scrollbar-gutter: stable;
 }
 
 .history-table {
@@ -270,16 +242,9 @@
 }
 
 @media (max-width: 1200px) {
-  :host {
-    height: auto;
-    min-height: 100dvh;
-  }
-
   .history-page {
-    height: auto;
     min-height: 100dvh;
     padding: 76px 22px 24px;
-    overflow: visible;
   }
 
   .history-metrics {
@@ -337,10 +302,6 @@
 
   .history-toolbar__search::placeholder {
     font-size: 14px;
-  }
-
-  .history-table-scroll {
-    max-height: min(48dvh, 430px);
   }
 
   .history-table-card__pagination {
@@ -404,14 +365,6 @@
 
   .history-panel {
     padding: 14px;
-  }
-
-  .history-toolbar__search::placeholder {
-    font-size: 13px;
-  }
-
-  .history-table-scroll {
-    max-height: min(46dvh, 390px);
   }
 
   .history-table-card__pagination {

@@ -196,4 +196,3 @@ C:\Users\sulej\Desktop\ClinicApp\Backend\ClinicApp.API\obj\Release\net9.0\refint
 C:\Users\sulej\Desktop\ClinicApp\Backend\ClinicApp.API\obj\Release\net9.0\ClinicApp.API.pdb
 C:\Users\sulej\Desktop\ClinicApp\Backend\ClinicApp.API\obj\Release\net9.0\ClinicApp.API.genruntimeconfig.cache
 C:\Users\sulej\Desktop\ClinicApp\Backend\ClinicApp.API\obj\Release\net9.0\ref\ClinicApp.API.dll
-C:\Users\sulej\Desktop\ClinicApp\Backend\ClinicApp.API\obj\Release\net9.0\staticwebassets.upToDateCheck.txt

@@ -3,15 +3,18 @@ using ClinicApp.Application.DTOs;
 using ClinicApp.Domain.Entities;
 using ClinicApp.Infrastructure.Data;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 namespace ClinicApp.Infrastructure.Services.Implementations
 {
     public class EmailService : IEmailService
     {
         private readonly IConfiguration _configuration;
+        private readonly ILogger<EmailService> _logger;
 
-        public EmailService(IConfiguration configuration)
+        public EmailService(IConfiguration configuration, ILogger<EmailService> logger)
         {
             _configuration = configuration;
+            _logger = logger;
         }
 
         public async Task SendPasswordResetEmailAsync(string toEmail, string username, string resetLink)
@@ -24,16 +27,23 @@ namespace ClinicApp.Infrastructure.Services.Implementations
             var usernameSmtp = _configuration["Email:Username"];
             var passwordSmtp = _configuration["Email:Password"];
 
+            if (string.IsNullOrWhiteSpace(toEmail))
+            {
+                throw new InvalidOperationException("Korisnik nema email adresu za slanje reset linka.");
+            }
+
             if (string.IsNullOrWhiteSpace(host) ||
                 string.IsNullOrWhiteSpace(portText) ||
-                string.IsNullOrWhiteSpace(fromEmail))
+                string.IsNullOrWhiteSpace(fromEmail) ||
+                string.IsNullOrWhiteSpace(usernameSmtp) ||
+                string.IsNullOrWhiteSpace(passwordSmtp))
             {
-                throw new InvalidOperationException("Email SMTP settings are not configured.");
+                throw new InvalidOperationException("SMTP postavke za email nisu ispravno podesene.");
             }
 
             if (!int.TryParse(portText, out int port))
             {
-                throw new InvalidOperationException("Email:SmtpPort is invalid.");
+                throw new InvalidOperationException("SMTP port nije ispravan.");
             }
 
             bool enableSsl = true;
@@ -56,7 +66,7 @@ namespace ClinicApp.Infrastructure.Services.Implementations
     <p>Kliknite na dugme ispod kako biste postavili novu lozinku:</p>
     <p>
         <a href='{WebUtility.HtmlEncode(resetLink)}'
-           style='display:inline-block;padding:12px 18px;background:#5b3fd3;color:#ffffff;text-decoration:none;border-radius:8px;'>
+           style='display:inline-block;padding:12px 18px;background:#243b63;color:#ffffff;text-decoration:none;border-radius:8px;'>
            Resetuj lozinku
         </a>
     </p>
@@ -89,7 +99,21 @@ namespace ClinicApp.Infrastructure.Services.Implementations
                 client.Credentials = new NetworkCredential(usernameSmtp, passwordSmtp);
             }
 
-            await client.SendMailAsync(message);
+            try
+            {
+                await client.SendMailAsync(message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(
+                    ex,
+                    "Slanje reset emaila nije uspjelo za korisnika {Username} na adresu {Email}.",
+                    username,
+                    toEmail
+                );
+
+                throw new InvalidOperationException("Slanje reset linka nije uspjelo. Provjeri email postavke.");
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 <div class="users-page">
   @if (!isAdmin) {
-    <div class="clinic-empty">Samo admin može upravljati korisnicima.</div>
+    <div class="clinic-empty">Samo admin moze upravljati korisnicima.</div>
   } @else {
     @if (errorMessage) {
       <div class="ui-alert ui-alert--danger users-page__alert">
@@ -63,12 +63,12 @@
           <option value="user">Korisnik</option>
         </select>
 
-        <button type="button" class="clinic-button-secondary" (click)="clearFilters()">Očisti</button>
+        <button type="button" class="clinic-button-secondary" (click)="clearFilters()">Ocisti</button>
       </div>
 
       @if (isLoading) {
         <div class="clinic-empty users-panel__empty">
-          <app-loading-spinner label="Učitavanje korisnika..."></app-loading-spinner>
+          <app-loading-spinner label="Ucitavanje korisnika..."></app-loading-spinner>
         </div>
       } @else if (users.length === 0) {
         <div class="clinic-empty users-panel__empty">Nema rezultata za odabrane filtere.</div>
@@ -104,13 +104,6 @@
                     </td>
                     <td class="users-table__col-actions">
                       <div class="users-table__actions">
-                        <button
-                          type="button"
-                          class="table-icon-button table-icon-button--primary"
-                          title="Aktivnost"
-                          (click)="previewActivity(user)">
-                          <svg lucideIcon="activity" class="h-4 w-4"></svg>
-                        </button>
                         <button
                           type="button"
                           class="table-icon-button"
@@ -155,7 +148,7 @@
           }
 
           <label class="workspace-field" [class.workspace-field--error]="showFieldError('username')">
-            <span class="workspace-field__label">Korisničko ime</span>
+            <span class="workspace-field__label">Korisnicko ime</span>
             <input
               class="clinic-input"
               [class.clinic-input--invalid]="showFieldError('username')"
@@ -207,44 +200,6 @@
             }
             {{ isSaving ? 'Spremanje...' : 'Dodaj korisnika' }}
           </button>
-        </div>
-      </section>
-    </div>
-  }
-
-  @if (activePanel === 'activity') {
-    <div class="workspace-toast-backdrop" (click)="closePanel()">
-      <section class="workspace-toast workspace-toast--narrow" (click)="$event.stopPropagation()">
-        <div class="workspace-toast__header">
-          <h2 class="workspace-toast__title">
-            {{ selectedActivityUser ? selectedActivityUser.username : 'Aktivnost' }}
-          </h2>
-        </div>
-
-        <div class="workspace-toast__body">
-          @if (activityLoading) {
-            <div class="clinic-empty">
-              <app-loading-spinner label="Učitavanje aktivnosti..."></app-loading-spinner>
-            </div>
-          } @else if (activityPreview.length === 0) {
-            <div class="clinic-empty">Nema aktivnosti.</div>
-          } @else {
-            <div class="users-log-list">
-              @for (record of activityPreview; track record.id) {
-                <article class="users-log-item">
-                  <div>
-                    <div class="users-log-item__title">{{ record.medicationName }}</div>
-                    <div class="users-log-item__meta">{{ record.reason }} · {{ record.takenAt | date: 'dd.MM.yyyy HH:mm' }}</div>
-                  </div>
-                  <span class="status-chip status-chip--info">{{ record.quantity }}</span>
-                </article>
-              }
-            </div>
-          }
-        </div>
-
-        <div class="workspace-toast__footer">
-          <button type="button" class="clinic-button-secondary" (click)="closePanel()">Zatvori</button>
         </div>
       </section>
     </div>

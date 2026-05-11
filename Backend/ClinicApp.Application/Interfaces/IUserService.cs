@@ -15,7 +15,7 @@ namespace ClinicApp.Application.Interfaces
      CancellationToken ct = default);
         object ChangePassword(int userId, ChangePasswordDto dto);
 
-        object RequestPasswordReset(RequestPasswordResetDto dto);
+        Task<object> RequestPasswordResetAsync(RequestPasswordResetDto dto);
 
         object ConfirmPasswordReset(ConfirmPasswordResetDto dto);
 
