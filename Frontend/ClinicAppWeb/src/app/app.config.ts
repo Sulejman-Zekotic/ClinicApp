@@ -37,6 +37,9 @@ import {
   LucidePackage,
   LucidePenLine,
   LucidePill,
+  LucidePlus,
+  LucideRefreshCw,
+  LucideRotateCcw,
   LucideSearch,
   LucideSettings,
   LucideShieldCheck,
@@ -47,6 +50,7 @@ import {
   LucideTrash2,
   LucideUpload,
   LucideUser,
+  LucideUserRound,
   LucideUsers
 } from '@lucide/angular';
 
@@ -90,6 +94,9 @@ export const appConfig: ApplicationConfig = {
       LucidePackage,
       LucidePenLine,
       LucidePill,
+      LucidePlus,
+      LucideRefreshCw,
+      LucideRotateCcw,
       LucideSearch,
       LucideSettings,
       LucideShieldCheck,
@@ -100,6 +107,7 @@ export const appConfig: ApplicationConfig = {
       LucideTrash2,
       LucideUpload,
       LucideUser,
+      LucideUserRound,
       LucideUsers
     )
   ]
