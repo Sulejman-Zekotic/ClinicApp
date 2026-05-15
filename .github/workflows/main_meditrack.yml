@@ -30,34 +30,31 @@ jobs:
         run: dotnet build ./Backend/ClinicApp.API/ClinicApp.API.csproj --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish ./Backend/ClinicApp.API/ClinicApp.API.csproj -c Release -o "${{env.DOTNET_ROOT}}/myapp" --no-build
+        run: dotnet publish ./Backend/ClinicApp.API/ClinicApp.API.csproj --configuration Release --output ./publish --no-build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          name: net-app
+          path: ./publish
 
   deploy:
     runs-on: windows-latest
     needs: build
     permissions:
-      id-token: write
       contents: read
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: .net-app
-
-     
+          name: net-app
+          path: ./publish
 
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'mediTrack'
-          slot-name: 'Production'
-          package: .
+          app-name: mediTrack
+          slot-name: Production
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ./publish
