@@ -53,6 +53,7 @@
   align-items: center;
   justify-content: flex-start;
   gap: 12px;
+  min-width: 0;
 }
 
 .analytics-filter-panel__header {
@@ -88,30 +89,6 @@
   gap: 8px;
 }
 
-.analytics-panel__icon {
-  display: grid;
-  width: 34px;
-  height: 34px;
-  flex: 0 0 34px;
-  place-items: center;
-  border-radius: 13px;
-
-  &--green {
-    color: #15956d;
-    background: rgba(52, 168, 133, 0.12);
-  }
-
-  &--blue {
-    color: #245fef;
-    background: rgba(36, 95, 239, 0.12);
-  }
-
-  &--purple {
-    color: #7c43d8;
-    background: rgba(124, 67, 216, 0.12);
-  }
-}
-
 .analytics-filters {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -138,6 +115,11 @@
   overflow: hidden;
 }
 
+.analytics-panel {
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+}
+
 .analytics-panel__empty {
   min-height: 280px;
   display: grid;
@@ -147,15 +129,17 @@
 .analytics-donut {
   display: grid;
   gap: 16px;
-  grid-template-columns: minmax(150px, 0.72fr) minmax(0, 1fr);
+  grid-template-columns: minmax(148px, 0.62fr) minmax(210px, 1fr);
   align-items: center;
   min-height: 290px;
+  min-width: 0;
+  overflow: hidden;
 
   &__chart {
     position: relative;
     display: grid;
-    width: 172px;
-    height: 172px;
+    width: 158px;
+    height: 158px;
     place-items: center;
     border-radius: 50%;
     margin: 0 auto;
@@ -164,7 +148,7 @@
   &__chart::after {
     content: '';
     position: absolute;
-    inset: 30px;
+    inset: 26px;
     z-index: 1;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.96);
@@ -200,6 +184,7 @@
     display: grid;
     gap: 10px;
     min-width: 0;
+    overflow: hidden;
   }
 
   &__item {
@@ -230,7 +215,7 @@
 
   &__label {
     white-space: normal;
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
   }
 
   &__percentage {
@@ -246,6 +231,8 @@
   grid-template-columns: 26px minmax(0, 1fr);
   gap: 10px;
   min-height: 290px;
+  min-width: 0;
+  overflow: hidden;
 
   &__axis {
     display: grid;
@@ -334,6 +321,8 @@
   display: grid;
   gap: 12px;
   min-height: 290px;
+  min-width: 0;
+  overflow: hidden;
 
   &__row {
     display: grid;
@@ -394,34 +383,6 @@
     height: 100%;
     border-radius: inherit;
     background: linear-gradient(90deg, #8055d8 0%, #9b55de 100%);
-  }
-}
-
-.analytics-summary {
-  display: flex;
-  min-height: 48px;
-  align-items: center;
-  gap: 10px;
-  margin-top: auto;
-  padding: 12px 14px;
-  border: 1px solid rgba(217, 228, 241, 0.72);
-  border-radius: 14px;
-  font-size: 13px;
-  font-weight: 950;
-
-  &--green {
-    color: #13885f;
-    background: linear-gradient(135deg, rgba(52, 168, 133, 0.12), rgba(52, 168, 133, 0.04));
-  }
-
-  &--blue {
-    color: #0f5ff0;
-    background: linear-gradient(135deg, rgba(36, 95, 239, 0.12), rgba(36, 95, 239, 0.04));
-  }
-
-  &--purple {
-    color: #7441c8;
-    background: linear-gradient(135deg, rgba(124, 67, 216, 0.12), rgba(124, 67, 216, 0.04));
   }
 }
 

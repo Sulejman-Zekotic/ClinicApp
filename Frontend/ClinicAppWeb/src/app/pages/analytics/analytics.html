@@ -75,9 +75,6 @@
       <section class="analytics-grid">
         <article class="analytics-panel">
           <div class="analytics-panel__header">
-            <div class="analytics-panel__icon analytics-panel__icon--green">
-              <svg lucideIcon="chart-no-axes-combined" class="h-5 w-5"></svg>
-            </div>
             <div>
               <h2 class="analytics-panel__title">Najcesci razlozi</h2>
               <p class="analytics-panel__meta">{{ topReasonsChart?.topReason || '-' }}</p>
@@ -106,21 +103,11 @@
                 }
               </div>
             </div>
-
-            @if (topReasonSegment) {
-              <div class="analytics-summary analytics-summary--green">
-                <svg lucideIcon="trending-up" class="h-4 w-4"></svg>
-                Najcesci razlog: {{ topReasonSegment.label }} ({{ topReasonSegment.percentage | number: '1.0-1' }}%)
-              </div>
-            }
           }
         </article>
 
         <article class="analytics-panel">
           <div class="analytics-panel__header">
-            <div class="analytics-panel__icon analytics-panel__icon--blue">
-              <svg lucideIcon="circle-gauge" class="h-5 w-5"></svg>
-            </div>
             <div>
               <h2 class="analytics-panel__title">Najkoristeniji lijekovi</h2>
               <p class="analytics-panel__meta">{{ medicationTrendChart?.topMedication || '-' }}</p>
@@ -150,21 +137,11 @@
                 }
               </div>
             </div>
-
-            @if (topMedicationBar) {
-              <div class="analytics-summary analytics-summary--blue">
-                <svg lucideIcon="star" class="h-4 w-4"></svg>
-                Najkoristeniji lijek: {{ topMedicationBar.label }} ({{ topMedicationBar.value }})
-              </div>
-            }
           }
         </article>
 
         <article class="analytics-panel">
           <div class="analytics-panel__header">
-            <div class="analytics-panel__icon analytics-panel__icon--purple">
-              <svg lucideIcon="user-round-check" class="h-5 w-5"></svg>
-            </div>
             <div>
               <h2 class="analytics-panel__title">Najaktivniji korisnici</h2>
               <p class="analytics-panel__meta">{{ topUsersChart?.topUsername || '-' }}</p>
@@ -189,13 +166,6 @@
                 </article>
               }
             </div>
-
-            @if (topUserRow) {
-              <div class="analytics-summary analytics-summary--purple">
-                <svg lucideIcon="trending-up" class="h-4 w-4"></svg>
-                Najaktivniji korisnik: {{ topUserRow.label }} ({{ topUserRow.percentage | number: '1.0-0' }}%)
-              </div>
-            }
           }
         </article>
       </section>

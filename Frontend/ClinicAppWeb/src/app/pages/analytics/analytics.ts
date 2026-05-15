@@ -236,6 +236,8 @@ export class AnalyticsComponent implements OnInit {
 
     const filters = this.buildFilters();
 
+    this.loadFallbackAnalytics();
+
     forkJoin({
       medicationTrend: this.historyService.getMedicationTrendChart(filters).pipe(catchError(() => of(null))),
       topUsers: this.historyService.getTopUsersChart(filters).pipe(catchError(() => of(null))),
@@ -243,22 +245,24 @@ export class AnalyticsComponent implements OnInit {
       detailed: this.historyService.getDetailedChart(filters).pipe(catchError(() => of(null)))
     }).subscribe({
       next: (result) => {
-        if (Object.values(result).some((chart) => chart === null)) {
-          this.loadFallbackAnalytics();
-          return;
+        if (result.medicationTrend) {
+          this.medicationTrendChart = result.medicationTrend;
         }
 
-        this.medicationTrendChart = result.medicationTrend;
-        this.topUsersChart = result.topUsers;
-        this.topReasonsChart = result.topReasons;
-        this.detailedChart = result.detailed;
-        this.errorMessage = '';
+        if (result.topUsers) {
+          this.topUsersChart = result.topUsers;
+        }
+
+        if (result.topReasons) {
+          this.topReasonsChart = result.topReasons;
+        }
+
+        if (result.detailed) {
+          this.detailedChart = result.detailed;
+        }
       },
       error: (error) => {
         this.errorMessage = error?.error?.message || 'Ucitavanje analitike nije uspjelo.';
-        this.isLoading = false;
-      },
-      complete: () => {
         this.isLoading = false;
       }
     });
