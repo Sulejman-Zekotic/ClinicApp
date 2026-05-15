@@ -93,6 +93,10 @@ export class AnalyticsComponent implements OnInit {
     return this.reasonSegments.reduce((sum, segment) => sum + segment.value, 0);
   }
 
+  get topReasonSegment(): AnalyticsSegment | null {
+    return this.reasonSegments[0] ?? null;
+  }
+
   get medicationBars(): Array<{ label: string; value: number }> {
     return (
       this.medicationTrendChart?.datasets
@@ -109,6 +113,15 @@ export class AnalyticsComponent implements OnInit {
     return Math.max(...this.medicationBars.map((item) => item.value), 1);
   }
 
+  get medicationTicks(): number[] {
+    const max = Math.max(this.medicationMax, 5);
+    return Array.from({ length: max + 1 }, (_, index) => max - index);
+  }
+
+  get topMedicationBar(): { label: string; value: number } | null {
+    return this.medicationBars[0] ?? null;
+  }
+
   get usersMax(): number {
     return Math.max(...(this.topUsersChart?.values ?? [0]), 1);
   }
@@ -119,6 +132,20 @@ export class AnalyticsComponent implements OnInit {
 
   get topUserValues(): number[] {
     return this.topUsersChart?.values ?? [];
+  }
+
+  get topUserRows(): Array<{ label: string; value: number; percentage: number }> {
+    const total = this.topUserValues.reduce((sum, value) => sum + value, 0) || 1;
+
+    return this.topUserLabels.map((label, index) => ({
+      label,
+      value: this.topUserValues[index] ?? 0,
+      percentage: ((this.topUserValues[index] ?? 0) / total) * 100
+    }));
+  }
+
+  get topUserRow(): { label: string; value: number; percentage: number } | null {
+    return this.topUserRows[0] ?? null;
   }
 
   get detailedLabels(): string[] {

@@ -13,7 +13,10 @@
         </div>
 
         <div class="analytics-filter-panel__actions">
-          <button type="button" class="clinic-button-secondary" (click)="resetFilters()">Ocisti</button>
+          <button type="button" class="clinic-button-secondary analytics-reset-button" (click)="resetFilters()">
+            <svg lucideIcon="refresh-cw" class="h-4 w-4"></svg>
+            Ocisti
+          </button>
         </div>
       </div>
 
@@ -72,6 +75,9 @@
       <section class="analytics-grid">
         <article class="analytics-panel">
           <div class="analytics-panel__header">
+            <div class="analytics-panel__icon analytics-panel__icon--green">
+              <svg lucideIcon="chart-no-axes-combined" class="h-5 w-5"></svg>
+            </div>
             <div>
               <h2 class="analytics-panel__title">Najcesci razlozi</h2>
               <p class="analytics-panel__meta">{{ topReasonsChart?.topReason || '-' }}</p>
@@ -95,15 +101,26 @@
                     <span class="analytics-donut__dot" [style.background]="segment.color"></span>
                     <span class="analytics-donut__label">{{ segment.label }}</span>
                     <span class="analytics-donut__value">{{ segment.value }}</span>
+                    <span class="analytics-donut__percentage">{{ segment.percentage | number: '1.0-1' }}%</span>
                   </article>
                 }
               </div>
             </div>
+
+            @if (topReasonSegment) {
+              <div class="analytics-summary analytics-summary--green">
+                <svg lucideIcon="trending-up" class="h-4 w-4"></svg>
+                Najcesci razlog: {{ topReasonSegment.label }} ({{ topReasonSegment.percentage | number: '1.0-1' }}%)
+              </div>
+            }
           }
         </article>
 
         <article class="analytics-panel">
           <div class="analytics-panel__header">
+            <div class="analytics-panel__icon analytics-panel__icon--blue">
+              <svg lucideIcon="circle-gauge" class="h-5 w-5"></svg>
+            </div>
             <div>
               <h2 class="analytics-panel__title">Najkoristeniji lijekovi</h2>
               <p class="analytics-panel__meta">{{ medicationTrendChart?.topMedication || '-' }}</p>
@@ -114,21 +131,40 @@
             <div class="clinic-empty analytics-panel__empty">Nema podataka za odabrane filtere.</div>
           } @else {
             <div class="analytics-columns">
-              @for (item of medicationBars; track item.label) {
-                <article class="analytics-columns__item">
-                  <div class="analytics-columns__value">{{ item.value }}</div>
-                  <div class="analytics-columns__bar-shell">
-                    <div class="analytics-columns__bar" [style.height]="medicationBarHeight(item.value)"></div>
-                  </div>
-                  <div class="analytics-columns__label" [title]="item.label">{{ item.label }}</div>
-                </article>
-              }
+              <div class="analytics-columns__axis">
+                @for (tick of medicationTicks; track tick) {
+                  <span>{{ tick }}</span>
+                }
+              </div>
+              <div class="analytics-columns__plot">
+                @for (item of medicationBars; track item.label) {
+                  <article class="analytics-columns__item">
+                    <div class="analytics-columns__value">{{ item.value }}</div>
+                    <div class="analytics-columns__bar-shell">
+                      <div class="analytics-columns__bar" [style.height]="medicationBarHeight(item.value)">
+                        <span></span>
+                      </div>
+                    </div>
+                    <div class="analytics-columns__label" [title]="item.label">{{ item.label }}</div>
+                  </article>
+                }
+              </div>
             </div>
+
+            @if (topMedicationBar) {
+              <div class="analytics-summary analytics-summary--blue">
+                <svg lucideIcon="star" class="h-4 w-4"></svg>
+                Najkoristeniji lijek: {{ topMedicationBar.label }} ({{ topMedicationBar.value }})
+              </div>
+            }
           }
         </article>
 
         <article class="analytics-panel">
           <div class="analytics-panel__header">
+            <div class="analytics-panel__icon analytics-panel__icon--purple">
+              <svg lucideIcon="user-round-check" class="h-5 w-5"></svg>
+            </div>
             <div>
               <h2 class="analytics-panel__title">Najaktivniji korisnici</h2>
               <p class="analytics-panel__meta">{{ topUsersChart?.topUsername || '-' }}</p>
@@ -139,16 +175,27 @@
             <div class="clinic-empty analytics-panel__empty">Nema podataka za odabrane filtere.</div>
           } @else {
             <div class="analytics-bars">
-              @for (label of topUserLabels; track label; let index = $index) {
+              @for (user of topUserRows; track user.label) {
                 <article class="analytics-bars__row">
-                  <div class="analytics-bars__label" [title]="label">{{ label }}</div>
-                  <div class="analytics-bars__track">
-                    <div class="analytics-bars__fill" [style.width]="userBarWidth(topUserValues[index])"></div>
+                  <div class="analytics-bars__avatar">
+                    <svg lucideIcon="user-round" class="h-4 w-4"></svg>
                   </div>
-                  <div class="analytics-bars__value">{{ topUserValues[index] }}</div>
+                  <div class="analytics-bars__label" [title]="user.label">{{ user.label }}</div>
+                  <div class="analytics-bars__track">
+                    <div class="analytics-bars__fill" [style.width]="userBarWidth(user.value)"></div>
+                  </div>
+                  <div class="analytics-bars__value">{{ user.value }}</div>
+                  <div class="analytics-bars__percentage">{{ user.percentage | number: '1.0-0' }}%</div>
                 </article>
               }
             </div>
+
+            @if (topUserRow) {
+              <div class="analytics-summary analytics-summary--purple">
+                <svg lucideIcon="trending-up" class="h-4 w-4"></svg>
+                Najaktivniji korisnik: {{ topUserRow.label }} ({{ topUserRow.percentage | number: '1.0-0' }}%)
+              </div>
+            }
           }
         </article>
       </section>
