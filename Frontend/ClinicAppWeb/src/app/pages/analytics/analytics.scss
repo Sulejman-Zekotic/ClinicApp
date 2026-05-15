@@ -69,8 +69,7 @@
   letter-spacing: -0.02em;
 }
 
-.analytics-filter-panel__subtitle,
-.analytics-panel__meta {
+.analytics-filter-panel__subtitle {
   margin: 4px 0 0;
   color: #607690;
   font-size: 12px;
@@ -121,25 +120,25 @@
 }
 
 .analytics-panel__empty {
-  min-height: 280px;
+  min-height: 260px;
   display: grid;
   align-items: center;
 }
 
 .analytics-donut {
   display: grid;
-  gap: 16px;
-  grid-template-columns: minmax(148px, 0.62fr) minmax(210px, 1fr);
+  gap: 12px;
+  grid-template-columns: 150px minmax(0, 1fr);
   align-items: center;
-  min-height: 290px;
+  min-height: 270px;
   min-width: 0;
   overflow: hidden;
 
   &__chart {
     position: relative;
     display: grid;
-    width: 158px;
-    height: 158px;
+    width: 146px;
+    height: 146px;
     place-items: center;
     border-radius: 50%;
     margin: 0 auto;
@@ -148,7 +147,7 @@
   &__chart::after {
     content: '';
     position: absolute;
-    inset: 26px;
+    inset: 24px;
     z-index: 1;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.96);
@@ -174,7 +173,7 @@
 
   &__center-value {
     color: #0f315a;
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 950;
     line-height: 1;
     letter-spacing: -0.04em;
@@ -189,18 +188,18 @@
 
   &__item {
     display: grid;
-    grid-template-columns: 12px minmax(0, 1fr) auto auto;
+    grid-template-columns: 10px minmax(0, 1fr) auto auto;
     align-items: center;
-    gap: 10px;
-    padding: 10px 12px;
+    gap: 8px;
+    padding: 9px 10px;
     border: 1px solid rgba(217, 228, 241, 0.82);
     border-radius: 14px;
     background: rgba(255, 255, 255, 0.58);
   }
 
   &__dot {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
   }
 
@@ -230,7 +229,7 @@
   display: grid;
   grid-template-columns: 26px minmax(0, 1fr);
   gap: 10px;
-  min-height: 290px;
+  min-height: 270px;
   min-width: 0;
   overflow: hidden;
 
@@ -250,7 +249,7 @@
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
     align-items: end;
-    gap: 14px;
+    gap: 10px;
     min-width: 0;
     padding-top: 10px;
     background-image: repeating-linear-gradient(
@@ -271,17 +270,23 @@
   }
 
   &__value {
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
     color: #18355d;
     font-size: 14px;
     font-weight: 900;
+    line-height: 1;
+    white-space: nowrap;
   }
 
   &__bar-shell {
     display: flex;
     align-items: end;
     width: 100%;
-    height: 178px;
-    padding: 0 10px;
+    height: 168px;
+    padding: 0 8px;
     border-radius: 13px;
     background: linear-gradient(180deg, rgba(240, 245, 252, 0.24) 0%, rgba(231, 239, 248, 0.76) 100%);
   }
@@ -308,29 +313,31 @@
 
   &__label {
     width: 100%;
+    overflow: hidden;
     color: #5f7696;
     font-size: 12px;
     font-weight: 800;
-    line-height: 1.35;
+    line-height: 1.2;
     text-align: center;
-    overflow-wrap: anywhere;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
 .analytics-bars {
   display: grid;
-  gap: 12px;
-  min-height: 290px;
+  gap: 10px;
+  min-height: 270px;
   min-width: 0;
   overflow: hidden;
 
   &__row {
     display: grid;
-    gap: 12px;
-    grid-template-columns: 38px minmax(92px, 1fr) minmax(96px, 1.35fr) 28px 42px;
+    gap: 8px;
+    grid-template-columns: 34px minmax(74px, 0.9fr) minmax(64px, 1fr) 24px 34px;
     align-items: center;
-    min-height: 58px;
-    padding: 10px 12px;
+    min-height: 52px;
+    padding: 9px 10px;
     border: 1px solid rgba(217, 228, 241, 0.82);
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.58);
@@ -338,8 +345,8 @@
 
   &__avatar {
     display: grid;
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
     place-items: center;
     border-radius: 50%;
     color: #ffffff;
@@ -367,13 +374,14 @@
 
   &__percentage {
     color: #657a98;
-    font-size: 13px;
+    overflow: hidden;
+    font-size: 12px;
     font-weight: 900;
     white-space: nowrap;
   }
 
   &__track {
-    height: 10px;
+    height: 9px;
     overflow: hidden;
     border-radius: 999px;
     background: rgba(218, 228, 243, 0.9);
@@ -494,6 +502,8 @@
 
   .analytics-donut {
     grid-template-columns: 1fr;
+    min-height: 0;
+    overflow: visible;
   }
 
   .analytics-donut__chart {
@@ -501,9 +511,18 @@
     height: 170px;
   }
 
+  .analytics-donut__legend {
+    overflow: visible;
+  }
+
+  .analytics-donut__item {
+    grid-template-columns: 10px minmax(0, 1fr) auto auto;
+  }
+
   .analytics-columns {
     grid-template-columns: 24px minmax(0, 1fr);
     min-height: 220px;
+    overflow: visible;
   }
 
   .analytics-columns__plot {
@@ -516,6 +535,7 @@
 
   .analytics-bars__row {
     grid-template-columns: 34px 1fr;
+    overflow: hidden;
   }
 
   .analytics-bars__label,
@@ -526,6 +546,11 @@
 
   .analytics-bars__track {
     grid-column: 1 / -1;
+  }
+
+  .analytics-bars__value,
+  .analytics-bars__percentage {
+    justify-self: start;
   }
 
   .analytics-mini-bars {
@@ -549,7 +574,11 @@
   }
 
   .analytics-columns {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 24px minmax(0, 1fr);
+  }
+
+  .analytics-columns__plot {
+    gap: 8px;
   }
 
   .analytics-mini-bars {

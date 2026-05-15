@@ -77,7 +77,6 @@
           <div class="analytics-panel__header">
             <div>
               <h2 class="analytics-panel__title">Najcesci razlozi</h2>
-              <p class="analytics-panel__meta">{{ topReasonsChart?.topReason || '-' }}</p>
             </div>
           </div>
 
@@ -110,7 +109,6 @@
           <div class="analytics-panel__header">
             <div>
               <h2 class="analytics-panel__title">Najkoristeniji lijekovi</h2>
-              <p class="analytics-panel__meta">{{ medicationTrendChart?.topMedication || '-' }}</p>
             </div>
           </div>
 
@@ -126,10 +124,10 @@
               <div class="analytics-columns__plot">
                 @for (item of medicationBars; track item.label) {
                   <article class="analytics-columns__item">
-                    <div class="analytics-columns__value">{{ item.value }}</div>
                     <div class="analytics-columns__bar-shell">
                       <div class="analytics-columns__bar" [style.height]="medicationBarHeight(item.value)">
                         <span></span>
+                        <strong class="analytics-columns__value">{{ item.value }}</strong>
                       </div>
                     </div>
                     <div class="analytics-columns__label" [title]="item.label">{{ item.label }}</div>
@@ -144,7 +142,6 @@
           <div class="analytics-panel__header">
             <div>
               <h2 class="analytics-panel__title">Najaktivniji korisnici</h2>
-              <p class="analytics-panel__meta">{{ topUsersChart?.topUsername || '-' }}</p>
             </div>
           </div>
 
