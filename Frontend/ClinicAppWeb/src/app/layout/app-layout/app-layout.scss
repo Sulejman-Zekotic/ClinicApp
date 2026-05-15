@@ -43,6 +43,10 @@
   overflow: hidden;
 }
 
+.dashboard-sidebar-backdrop {
+  display: none;
+}
+
 .dashboard-sidebar__close {
   display: none;
 }
@@ -359,7 +363,7 @@
   .dashboard-sidebar {
     position: fixed;
     inset: 0;
-    z-index: 40;
+    z-index: 80;
     width: 100%;
     max-width: 100%;
     height: 100dvh;
@@ -379,7 +383,7 @@
     position: absolute;
     top: 18px;
     right: 18px;
-    z-index: 45;
+    z-index: 85;
     display: grid;
     width: 42px;
     height: 42px;
@@ -405,6 +409,31 @@
   .dashboard-mobile-menu {
     display: block;
   }
+
+  .dashboard-sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    display: block;
+    width: 100%;
+    min-width: 100%;
+    height: 100dvh;
+    padding: 0;
+    border: 0;
+    background: rgba(7, 31, 62, 0.18);
+    cursor: default;
+    touch-action: none;
+  }
+}
+
+:host-context(body.dashboard-mobile-nav-open) {
+  overflow: hidden;
+}
+
+:host-context(body.dashboard-mobile-nav-open) .dashboard-main,
+:host-context(body.dashboard-mobile-nav-open) .dashboard-content {
+  overflow: hidden;
+  touch-action: none;
 }
 
 @media (max-width: 760px) {

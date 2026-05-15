@@ -1,7 +1,4 @@
 <div class="analytics-page">
-  @if (!isAdmin) {
-    <div class="clinic-empty">Analitika je dostupna samo admin korisniku.</div>
-  } @else {
     @if (errorMessage) {
       <div class="ui-alert ui-alert--danger analytics-page__alert">
         {{ errorMessage }}
@@ -42,12 +39,14 @@
           }
         </select>
 
-        <select class="clinic-select" [(ngModel)]="selectedUserId" (ngModelChange)="queueRefresh()" name="selectedUserId">
-          <option [ngValue]="null">Svi korisnici</option>
-          @for (user of users; track user.id) {
-            <option [ngValue]="user.id">{{ user.username }}</option>
-          }
-        </select>
+        @if (isAdmin) {
+          <select class="clinic-select" [(ngModel)]="selectedUserId" (ngModelChange)="queueRefresh()" name="selectedUserId">
+            <option [ngValue]="null">Svi korisnici</option>
+            @for (user of users; track user.id) {
+              <option [ngValue]="user.id">{{ user.username }}</option>
+            }
+          </select>
+        }
 
         <input class="clinic-input" [(ngModel)]="fromDate" (ngModelChange)="queueRefresh()" name="fromDate" type="date" [disabled]="range !== 'custom'" />
         <input class="clinic-input" [(ngModel)]="toDate" (ngModelChange)="queueRefresh()" name="toDate" type="date" [disabled]="range !== 'custom'" />
@@ -168,5 +167,4 @@
         </article>
       </section>
     }
-  }
 </div>

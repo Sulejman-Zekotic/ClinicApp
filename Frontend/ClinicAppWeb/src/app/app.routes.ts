@@ -45,7 +45,9 @@ export const routes: Routes = [
       },
       {
         path: 'users',
-        component: UsersComponent
+        component: UsersComponent,
+        canActivate: [authGuard],
+        data: { adminOnly: true }
       },
       {
         path: 'history',

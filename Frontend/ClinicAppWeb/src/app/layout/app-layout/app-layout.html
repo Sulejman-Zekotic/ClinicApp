@@ -1,4 +1,13 @@
 <div class="dashboard-shell">
+  @if (mobileNavOpen) {
+    <button
+      type="button"
+      class="dashboard-sidebar-backdrop"
+      (click)="closeMobileNav()"
+      aria-label="Zatvori meni">
+    </button>
+  }
+
   <aside class="dashboard-sidebar" [class.dashboard-sidebar--open]="mobileNavOpen">
     <button type="button" class="dashboard-sidebar__close" (click)="closeMobileNav()" aria-label="Zatvori meni">
       <svg viewBox="0 0 24 24" aria-hidden="true">

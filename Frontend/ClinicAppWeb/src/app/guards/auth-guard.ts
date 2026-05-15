@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth';
 
-export const authGuard: CanActivateFn = (_route, state) => {
+export const authGuard: CanActivateFn = (route, state) => {
   const auth = inject(AuthService);
   const router = inject(Router);
 
@@ -19,6 +19,10 @@ export const authGuard: CanActivateFn = (_route, state) => {
     return router.createUrlTree(['/account'], {
       queryParams: { forced: '1' }
     });
+  }
+
+  if (route.data?.['adminOnly'] && !auth.isAdmin()) {
+    return router.createUrlTree(['/dashboard']);
   }
 
   return true;

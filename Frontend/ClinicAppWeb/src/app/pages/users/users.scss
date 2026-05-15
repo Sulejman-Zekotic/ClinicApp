@@ -1,16 +1,20 @@
 :host {
   display: block;
   width: 100%;
-  min-height: 100%;
+  height: 100%;
+  min-height: 0;
 }
 
 .users-page {
   display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
   gap: 22px;
   width: 100%;
-  min-height: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: 100dvh;
   padding: 28px;
-  overflow-x: hidden;
+  overflow: hidden;
 
   > * {
     min-width: 0;
@@ -100,8 +104,11 @@
 
 .users-panel {
   display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
   gap: 18px;
   min-width: 0;
+  min-height: 0;
+  overflow: hidden;
   padding: 26px;
   border: 1px solid rgba(164, 190, 214, 0.82);
   border-radius: 24px;
@@ -149,30 +156,40 @@
   min-width: 0;
 }
 
-.users-table-card {
+.users-list-stack {
   display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-rows: minmax(0, 1fr) 60px;
+  gap: 4px;
   width: 100%;
   min-width: 0;
+  min-height: 0;
+  height: 100%;
+}
+
+.users-table-card {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
   overflow: hidden;
   border: 1px solid rgba(164, 190, 214, 0.68);
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.72);
 
   &__pagination {
-    display: flex;
-    align-items: center;
-    border-top: 1px solid rgba(217, 228, 241, 0.72);
-    background: rgba(255, 255, 255, 0.74);
-
-    app-pagination {
-      width: 100%;
-    }
+    display: none;
   }
 }
 
 .users-table-scroll {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: clamp(300px, calc(100dvh - 430px), 520px);
   overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
 }
 
 .users-table {
@@ -269,6 +286,51 @@
   height: 18px;
 }
 
+.users-pagination-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 60px;
+  padding: 6px 0 18px;
+  overflow: visible;
+  background: transparent;
+  border: 0;
+}
+
+:host ::ng-deep .users-pagination-strip app-pagination {
+  width: 100%;
+}
+
+:host ::ng-deep .users-pagination-strip .pagination {
+  justify-content: center;
+  gap: 10px;
+}
+
+:host ::ng-deep .users-pagination-strip .pagination-button {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 13px;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+:host ::ng-deep .users-pagination-strip .pagination__summary,
+:host ::ng-deep .users-pagination-strip .pagination-summary,
+:host ::ng-deep .users-pagination-strip .pagination-info,
+:host ::ng-deep .users-pagination-strip p,
+:host ::ng-deep .users-pagination-strip small {
+  display: block;
+  margin-top: 7px;
+  color: #64748b;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+}
+
 .users-credentials__password {
   letter-spacing: 0.08em;
   overflow-wrap: anywhere;
@@ -294,8 +356,11 @@
 
 @media (max-width: 1200px) {
   .users-page {
+    height: auto;
     min-height: 100dvh;
+    max-height: none;
     padding: 76px 22px 24px;
+    overflow: visible;
   }
 
   .users-metrics {
@@ -338,6 +403,7 @@
   .users-panel {
     padding: 18px 16px;
     border-radius: 20px;
+    overflow: visible;
   }
 
   .users-panel__header {
@@ -357,8 +423,13 @@
     font-size: 14px;
   }
 
-  .users-table-card__pagination {
-    min-height: 78px;
+  .users-list-stack {
+    grid-template-rows: minmax(0, 1fr) 52px;
+    height: auto;
+  }
+
+  .users-table-scroll {
+    max-height: min(48dvh, 430px);
   }
 
   .users-table {
@@ -390,10 +461,38 @@
   }
 
   .users-table__actions .table-icon-button {
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
     border-radius: 10px;
+  }
+
+  .users-pagination-strip {
+    min-height: 52px;
+    padding: 1px 0 9px;
+  }
+
+  :host ::ng-deep .users-pagination-strip .pagination-button,
+  :host ::ng-deep .users-pagination-strip button {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    max-width: 26px;
+    min-height: 26px;
+    max-height: 26px;
+    border-radius: 9px;
+    font-size: 12px;
+  }
+
+  :host ::ng-deep .users-pagination-strip .pagination__summary,
+  :host ::ng-deep .users-pagination-strip .pagination-summary,
+  :host ::ng-deep .users-pagination-strip .pagination-info,
+  :host ::ng-deep .users-pagination-strip p,
+  :host ::ng-deep .users-pagination-strip small {
+    margin-top: 3px;
+    font-size: 12px;
+    line-height: 1.1;
+    white-space: nowrap;
   }
 }
 

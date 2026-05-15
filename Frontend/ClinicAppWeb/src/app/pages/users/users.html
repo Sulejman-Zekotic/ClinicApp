@@ -73,53 +73,55 @@
       } @else if (users.length === 0) {
         <div class="clinic-empty users-panel__empty">Nema rezultata za odabrane filtere.</div>
       } @else {
-        <div class="users-table-card">
-          <div class="users-table-scroll">
-            <table class="users-table">
-              <thead>
-                <tr>
-                  <th class="users-table__col-user">Korisnik</th>
-                  <th class="users-table__col-email">Email</th>
-                  <th class="users-table__col-role">Uloga</th>
-                  <th class="users-table__col-actions">Akcije</th>
-                </tr>
-              </thead>
-              <tbody>
-                @for (user of users; track user.id) {
+        <div class="users-list-stack">
+          <div class="users-table-card">
+            <div class="users-table-scroll">
+              <table class="users-table">
+                <thead>
                   <tr>
-                    <td class="users-table__col-user">
-                      <div class="users-table__identity">
-                        <div class="icon-avatar">{{ initials(user.username) }}</div>
-                        <div class="users-table__identity-copy">
-                          <div class="users-table__title">{{ user.username }}</div>
-                          <div class="users-table__meta">{{ roleLabel(user.role) }}</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="users-table__col-email">
-                      <div class="users-table__title">{{ user.email }}</div>
-                    </td>
-                    <td class="users-table__col-role">
-                      <span [class]="getRoleClass(user.role)">{{ roleLabel(user.role) }}</span>
-                    </td>
-                    <td class="users-table__col-actions">
-                      <div class="users-table__actions">
-                        <button
-                          type="button"
-                          class="table-icon-button"
-                          title="Historija"
-                          (click)="openHistory(user)">
-                          <svg lucideIcon="history" class="h-4 w-4"></svg>
-                        </button>
-                      </div>
-                    </td>
+                    <th class="users-table__col-user">Korisnik</th>
+                    <th class="users-table__col-email">Email</th>
+                    <th class="users-table__col-role">Uloga</th>
+                    <th class="users-table__col-actions">Akcije</th>
                   </tr>
-                }
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  @for (user of users; track user.id) {
+                    <tr>
+                      <td class="users-table__col-user">
+                        <div class="users-table__identity">
+                          <div class="icon-avatar">{{ initials(user.username) }}</div>
+                          <div class="users-table__identity-copy">
+                            <div class="users-table__title">{{ user.username }}</div>
+                            <div class="users-table__meta">{{ roleLabel(user.role) }}</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="users-table__col-email">
+                        <div class="users-table__title">{{ user.email }}</div>
+                      </td>
+                      <td class="users-table__col-role">
+                        <span [class]="getRoleClass(user.role)">{{ roleLabel(user.role) }}</span>
+                      </td>
+                      <td class="users-table__col-actions">
+                        <div class="users-table__actions">
+                          <button
+                            type="button"
+                            class="table-icon-button"
+                            title="Historija"
+                            (click)="openHistory(user)">
+                            <svg lucideIcon="history" class="h-4 w-4"></svg>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
           </div>
 
-          <div class="users-table-card__pagination">
+          <div class="users-pagination-strip">
             <app-pagination
               [page]="page"
               [pageSize]="pageSize"

@@ -52,6 +52,11 @@ body {
     sans-serif;
 }
 
+body.dashboard-mobile-nav-open {
+  overflow: hidden;
+  touch-action: none;
+}
+
 app-root {
   display: block;
   width: 100%;

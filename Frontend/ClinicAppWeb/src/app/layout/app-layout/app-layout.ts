@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { Component, DestroyRef, OnDestroy, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   NavigationEnd,
@@ -27,7 +27,7 @@ interface NavItem {
   templateUrl: './app-layout.html',
   styleUrl: './app-layout.scss'
 })
-export class AppLayoutComponent implements OnInit {
+export class AppLayoutComponent implements OnInit, OnDestroy {
   private auth = inject(AuthService);
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
@@ -63,16 +63,20 @@ export class AppLayoutComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(() => {
-        this.mobileNavOpen = false;
+        this.setMobileNavOpen(false);
       });
   }
 
+  ngOnDestroy(): void {
+    this.setMobileNavOpen(false);
+  }
+
   toggleMobileNav(): void {
-    this.mobileNavOpen = !this.mobileNavOpen;
+    this.setMobileNavOpen(!this.mobileNavOpen);
   }
 
   closeMobileNav(): void {
-    this.mobileNavOpen = false;
+    this.setMobileNavOpen(false);
   }
 
   logout(): void {
@@ -86,5 +90,15 @@ export class AppLayoutComponent implements OnInit {
         this.router.navigateByUrl('/login');
       }
     });
+  }
+
+  private setMobileNavOpen(isOpen: boolean): void {
+    this.mobileNavOpen = isOpen;
+
+    if (typeof document === 'undefined') {
+      return;
+    }
+
+    document.body.classList.toggle('dashboard-mobile-nav-open', isOpen);
   }
 }

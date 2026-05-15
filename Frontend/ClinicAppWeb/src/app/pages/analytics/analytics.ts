@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { Subject, debounceTime, forkJoin } from 'rxjs';
+import { Subject, catchError, debounceTime, forkJoin, of } from 'rxjs';
 import { AuthService } from '../../services/auth';
 import {
   DetailedChart,
@@ -131,10 +131,6 @@ export class AnalyticsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.isAdmin) {
-      return;
-    }
-
     this.setDefaultDates();
     this.loadLookupOptions();
 
@@ -184,14 +180,16 @@ export class AnalyticsComponent implements OnInit {
       }
     });
 
-    this.usersService.getAll().subscribe({
-      next: (items) => {
-        this.users = items;
-      },
-      error: () => {
-        this.users = [];
-      }
-    });
+    if (this.isAdmin) {
+      this.usersService.getAll().subscribe({
+        next: (items) => {
+          this.users = items;
+        },
+        error: () => {
+          this.users = [];
+        }
+      });
+    }
   }
 
   private loadAnalytics(): void {
@@ -201,16 +199,19 @@ export class AnalyticsComponent implements OnInit {
     const filters = this.buildFilters();
 
     forkJoin({
-      medicationTrend: this.historyService.getMedicationTrendChart(filters),
-      topUsers: this.historyService.getTopUsersChart(filters),
-      topReasons: this.historyService.getTopReasonsChart(filters),
-      detailed: this.historyService.getDetailedChart(filters)
+      medicationTrend: this.historyService.getMedicationTrendChart(filters).pipe(catchError(() => of(null))),
+      topUsers: this.historyService.getTopUsersChart(filters).pipe(catchError(() => of(null))),
+      topReasons: this.historyService.getTopReasonsChart(filters).pipe(catchError(() => of(null))),
+      detailed: this.historyService.getDetailedChart(filters).pipe(catchError(() => of(null)))
     }).subscribe({
       next: (result) => {
         this.medicationTrendChart = result.medicationTrend;
         this.topUsersChart = result.topUsers;
         this.topReasonsChart = result.topReasons;
         this.detailedChart = result.detailed;
+        this.errorMessage = Object.values(result).some((chart) => chart === null)
+          ? 'Dio analitike trenutno nije dostupan.'
+          : '';
       },
       error: (error) => {
         this.errorMessage = error?.error?.message || 'Ucitavanje analitike nije uspjelo.';
@@ -230,7 +231,7 @@ export class AnalyticsComponent implements OnInit {
       groupBy: this.groupBy,
       fromDate: useCustomRange ? this.fromDate || undefined : undefined,
       toDate: useCustomRange ? this.toDate || undefined : undefined,
-      userId: this.selectedUserId,
+      userId: this.isAdmin ? this.selectedUserId : null,
       medicationId: this.selectedMedicationId
     };
   }
