@@ -144,6 +144,10 @@
   gap: 10px;
 }
 
+.users-mobile-controls {
+  display: none;
+}
+
 .users-toolbar {
   display: grid;
   grid-template-columns: minmax(240px, 1.4fr) minmax(180px, 0.8fr) minmax(120px, 0.55fr);
@@ -154,6 +158,11 @@
 .users-toolbar .clinic-select,
 .users-toolbar .clinic-button-secondary {
   min-width: 0;
+}
+
+.users-filter-sheet__body {
+  display: grid;
+  gap: 14px;
 }
 
 .users-list-stack {
@@ -417,6 +426,30 @@
 
   .users-toolbar {
     grid-template-columns: 1fr;
+  }
+
+  .users-toolbar--desktop {
+    display: none;
+  }
+
+  .users-mobile-controls {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .users-mobile-controls__search,
+  .users-mobile-controls__button {
+    width: 100%;
+    min-height: 50px;
+    border-radius: 16px;
+  }
+
+  .users-mobile-controls__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
   }
 
   .users-toolbar .clinic-input::placeholder {

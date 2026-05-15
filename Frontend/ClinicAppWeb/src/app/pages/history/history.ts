@@ -57,6 +57,7 @@ export class HistoryComponent implements OnInit {
   isLoading = false;
   errorMessage = '';
   selectedRecord: MedicationHistoryRecord | null = null;
+  filtersOpen = false;
 
   get totalRecords(): number {
     return this.totalCount;
@@ -188,6 +189,14 @@ export class HistoryComponent implements OnInit {
     this.setDefaultDates();
     this.page = 1;
     this.loadHistory();
+  }
+
+  openFilters(): void {
+    this.filtersOpen = true;
+  }
+
+  closeFilters(): void {
+    this.filtersOpen = false;
   }
 
   changePage(page: number): void {

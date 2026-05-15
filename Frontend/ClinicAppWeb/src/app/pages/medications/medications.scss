@@ -1016,10 +1016,18 @@
   }
 
   .medications-mobile-controls__search,
-  .medications-mobile-controls__filter {
+  .medications-mobile-controls__filter,
+  .medications-mobile-controls__reset {
     width: 100%;
     min-height: 58px;
     border-radius: 16px;
+  }
+
+  .medications-mobile-controls__reset {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
   }
 
   .medications-mobile-controls__filter svg {
@@ -1796,7 +1804,8 @@
   }
 
   .medications-mobile-controls__search,
-  .medications-mobile-controls__filter {
+  .medications-mobile-controls__filter,
+  .medications-mobile-controls__reset {
     width: 100% !important;
     max-width: none !important;
   }
@@ -1818,7 +1827,8 @@
   }
 
   .medications-mobile-controls__search,
-  .medications-mobile-controls__filter {
+  .medications-mobile-controls__filter,
+  .medications-mobile-controls__reset {
     min-height: 50px !important;
     height: 50px !important;
     border-radius: 16px !important;

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
+import { LucideDynamicIcon } from '@lucide/angular';
 import { Subject, catchError, debounceTime, forkJoin, of } from 'rxjs';
 import { AuthService } from '../../services/auth';
 import {
@@ -26,7 +27,7 @@ interface AnalyticsSegment {
 @Component({
   selector: 'app-analytics',
   standalone: true,
-  imports: [CommonModule, FormsModule, LoadingSpinnerComponent],
+  imports: [CommonModule, FormsModule, LucideDynamicIcon, LoadingSpinnerComponent],
   templateUrl: './analytics.html',
   styleUrl: './analytics.scss'
 })
@@ -58,6 +59,7 @@ export class AnalyticsComponent implements OnInit {
 
   isLoading = false;
   errorMessage = '';
+  filtersOpen = false;
 
   get reasonSegments(): AnalyticsSegment[] {
     const labels = this.topReasonsChart?.labels ?? [];
@@ -153,6 +155,14 @@ export class AnalyticsComponent implements OnInit {
     this.selectedUserId = null;
     this.setDefaultDates();
     this.loadAnalytics();
+  }
+
+  openFilters(): void {
+    this.filtersOpen = true;
+  }
+
+  closeFilters(): void {
+    this.filtersOpen = false;
   }
 
   medicationBarHeight(value: number): string {

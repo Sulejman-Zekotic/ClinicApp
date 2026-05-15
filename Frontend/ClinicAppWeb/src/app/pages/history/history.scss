@@ -121,6 +121,10 @@
   gap: 10px;
 }
 
+.history-mobile-controls {
+  display: none;
+}
+
 .history-toolbar {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -137,6 +141,11 @@
       font-size: 15px;
     }
   }
+}
+
+.history-filter-sheet__body {
+  display: grid;
+  gap: 14px;
 }
 
 .history-table-card {
@@ -295,9 +304,32 @@
     gap: 16px;
   }
 
-  .history-toolbar,
-  .history-toolbar--user {
+  .history-toolbar-actions .clinic-button-secondary {
+    display: none;
+  }
+
+  .history-toolbar--desktop {
+    display: none;
+  }
+
+  .history-mobile-controls {
+    display: grid;
     grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .history-mobile-controls__search,
+  .history-mobile-controls__button {
+    width: 100%;
+    min-height: 50px;
+    border-radius: 16px;
+  }
+
+  .history-mobile-controls__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
   }
 
   .history-toolbar__search::placeholder {

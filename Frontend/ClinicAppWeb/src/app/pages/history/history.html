@@ -47,7 +47,26 @@
       </div>
     </div>
 
-    <div class="history-toolbar" [class.history-toolbar--user]="isAdmin">
+    <div class="history-mobile-controls">
+      <input
+        class="clinic-input history-mobile-controls__search"
+        [(ngModel)]="search"
+        (ngModelChange)="queueFilterRefresh()"
+        name="mobileSearch"
+        placeholder="Pretraga historije" />
+
+      <button type="button" class="clinic-button-secondary history-mobile-controls__button" (click)="openFilters()">
+        <svg lucideIcon="sliders-horizontal" class="h-4 w-4"></svg>
+        Filteri
+      </button>
+
+      <button type="button" class="clinic-button-secondary history-mobile-controls__button" (click)="clearFilters()">
+        <svg lucideIcon="rotate-ccw" class="h-4 w-4"></svg>
+        Reset filtera
+      </button>
+    </div>
+
+    <div class="history-toolbar history-toolbar--desktop" [class.history-toolbar--user]="isAdmin">
       @if (isAdmin) {
         <select class="clinic-select" [(ngModel)]="selectedUserId" (ngModelChange)="queueFilterRefresh()" name="selectedUserId">
           <option [ngValue]="null">Svi korisnici</option>
@@ -185,6 +204,68 @@
 
         <div class="workspace-toast__footer">
           <button type="button" class="clinic-button-secondary" (click)="closeRecord()">Zatvori</button>
+        </div>
+      </section>
+    </div>
+  }
+
+  @if (filtersOpen) {
+    <div class="workspace-toast-backdrop" (click)="closeFilters()">
+      <section class="workspace-toast workspace-toast--narrow history-filter-sheet" (click)="$event.stopPropagation()">
+        <div class="workspace-toast__header">
+          <h2 class="workspace-toast__title">Filteri historije</h2>
+        </div>
+
+        <div class="workspace-toast__body history-filter-sheet__body">
+          @if (isAdmin) {
+            <label class="workspace-field">
+              <span class="workspace-field__label">Korisnik</span>
+              <select class="clinic-select" [(ngModel)]="selectedUserId" (ngModelChange)="queueFilterRefresh()" name="mobileSelectedUserId">
+                <option [ngValue]="null">Svi korisnici</option>
+                @for (user of users; track user.id) {
+                  <option [ngValue]="user.id">{{ user.username }}</option>
+                }
+              </select>
+            </label>
+          }
+
+          <label class="workspace-field">
+            <span class="workspace-field__label">Lijek</span>
+            <select class="clinic-select" [(ngModel)]="selectedMedicationId" (ngModelChange)="queueFilterRefresh()" name="mobileSelectedMedicationId">
+              <option [ngValue]="null">Svi lijekovi</option>
+              @for (medication of medications; track medication.id) {
+                <option [ngValue]="medication.id">{{ medication.name }}</option>
+              }
+            </select>
+          </label>
+
+          <label class="workspace-field">
+            <span class="workspace-field__label">Razlog</span>
+            <select class="clinic-select" [(ngModel)]="selectedReasonId" (ngModelChange)="queueFilterRefresh()" name="mobileSelectedReasonId">
+              <option [ngValue]="null">Svi razlozi</option>
+              @for (reason of reasonOptions; track reason.id) {
+                <option [ngValue]="reason.id">{{ reason.name }}</option>
+              }
+            </select>
+          </label>
+
+          <label class="workspace-field">
+            <span class="workspace-field__label">Od datuma</span>
+            <input class="clinic-input" [(ngModel)]="fromDate" (ngModelChange)="queueFilterRefresh()" name="mobileFromDate" type="date" />
+          </label>
+
+          <label class="workspace-field">
+            <span class="workspace-field__label">Do datuma</span>
+            <input class="clinic-input" [(ngModel)]="toDate" (ngModelChange)="queueFilterRefresh()" name="mobileToDate" type="date" />
+          </label>
+        </div>
+
+        <div class="workspace-toast__footer">
+          <button type="button" class="clinic-button-secondary" (click)="clearFilters(); closeFilters()">
+            <svg lucideIcon="rotate-ccw" class="h-4 w-4"></svg>
+            Reset
+          </button>
+          <button type="button" class="clinic-button-primary" (click)="closeFilters()">Primijeni</button>
         </div>
       </section>
     </div>

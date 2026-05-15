@@ -11,7 +11,7 @@ import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-sp
 import { PaginationComponent } from '../../shared/pagination/pagination';
 import { ToastService } from '../../shared/toast/toast.service';
 
-type UsersPanelMode = 'form' | 'credentials' | null;
+type UsersPanelMode = 'form' | 'credentials' | 'filters' | null;
 
 @Component({
   selector: 'app-users',
@@ -121,6 +121,11 @@ export class UsersComponent implements OnInit {
       role: 'user'
     };
     this.activePanel = 'form';
+  }
+
+  openFiltersPanel(): void {
+    this.errorMessage = '';
+    this.activePanel = 'filters';
   }
 
   closePanel(): void {

@@ -17,7 +17,18 @@
         </div>
       </div>
 
-      <div class="analytics-filters">
+      <div class="analytics-mobile-controls">
+        <button type="button" class="clinic-button-secondary analytics-mobile-controls__button" (click)="openFilters()">
+          <svg lucideIcon="sliders-horizontal" class="h-4 w-4"></svg>
+          Filteri
+        </button>
+        <button type="button" class="clinic-button-secondary analytics-mobile-controls__button" (click)="resetFilters()">
+          <svg lucideIcon="rotate-ccw" class="h-4 w-4"></svg>
+          Reset filtera
+        </button>
+      </div>
+
+      <div class="analytics-filters analytics-filters--desktop">
         <select class="clinic-select" [(ngModel)]="range" (ngModelChange)="queueRefresh()" name="range">
           <option value="7d">Zadnjih 7 dana</option>
           <option value="30d">Zadnjih 30 dana</option>
@@ -166,5 +177,77 @@
           }
         </article>
       </section>
+    }
+
+    @if (filtersOpen) {
+      <div class="workspace-toast-backdrop" (click)="closeFilters()">
+        <section class="workspace-toast workspace-toast--narrow analytics-filter-sheet" (click)="$event.stopPropagation()">
+          <div class="workspace-toast__header">
+            <h2 class="workspace-toast__title">Filteri analitike</h2>
+          </div>
+
+          <div class="workspace-toast__body analytics-filter-sheet__body">
+            <label class="workspace-field">
+              <span class="workspace-field__label">Period</span>
+              <select class="clinic-select" [(ngModel)]="range" (ngModelChange)="queueRefresh()" name="mobileRange">
+                <option value="7d">Zadnjih 7 dana</option>
+                <option value="30d">Zadnjih 30 dana</option>
+                <option value="90d">Zadnjih 90 dana</option>
+                <option value="365d">Zadnjih 12 mjeseci</option>
+                <option value="custom">Rucni period</option>
+              </select>
+            </label>
+
+            <label class="workspace-field">
+              <span class="workspace-field__label">Grupisanje</span>
+              <select class="clinic-select" [(ngModel)]="groupBy" (ngModelChange)="queueRefresh()" name="mobileGroupBy">
+                <option value="day">Po danu</option>
+                <option value="week">Po sedmici</option>
+                <option value="month">Po mjesecu</option>
+              </select>
+            </label>
+
+            <label class="workspace-field">
+              <span class="workspace-field__label">Lijek</span>
+              <select class="clinic-select" [(ngModel)]="selectedMedicationId" (ngModelChange)="queueRefresh()" name="mobileMedicationId">
+                <option [ngValue]="null">Svi lijekovi</option>
+                @for (medication of medications; track medication.id) {
+                  <option [ngValue]="medication.id">{{ medication.name }}</option>
+                }
+              </select>
+            </label>
+
+            @if (isAdmin) {
+              <label class="workspace-field">
+                <span class="workspace-field__label">Korisnik</span>
+                <select class="clinic-select" [(ngModel)]="selectedUserId" (ngModelChange)="queueRefresh()" name="mobileUserId">
+                  <option [ngValue]="null">Svi korisnici</option>
+                  @for (user of users; track user.id) {
+                    <option [ngValue]="user.id">{{ user.username }}</option>
+                  }
+                </select>
+              </label>
+            }
+
+            <label class="workspace-field">
+              <span class="workspace-field__label">Od datuma</span>
+              <input class="clinic-input" [(ngModel)]="fromDate" (ngModelChange)="queueRefresh()" name="mobileFromDate" type="date" [disabled]="range !== 'custom'" />
+            </label>
+
+            <label class="workspace-field">
+              <span class="workspace-field__label">Do datuma</span>
+              <input class="clinic-input" [(ngModel)]="toDate" (ngModelChange)="queueRefresh()" name="mobileToDate" type="date" [disabled]="range !== 'custom'" />
+            </label>
+          </div>
+
+          <div class="workspace-toast__footer">
+            <button type="button" class="clinic-button-secondary" (click)="resetFilters(); closeFilters()">
+              <svg lucideIcon="rotate-ccw" class="h-4 w-4"></svg>
+              Reset
+            </button>
+            <button type="button" class="clinic-button-primary" (click)="closeFilters()">Primijeni</button>
+          </div>
+        </section>
+      </div>
     }
 </div>
