@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth';
 import {
   DetailedChart,
   MedicationHistoryService,
+  MedicationHistoryRecord,
   MedicationTrendChart,
   TopReasonsChart,
   TopUsersChart
@@ -205,13 +206,16 @@ export class AnalyticsComponent implements OnInit {
       detailed: this.historyService.getDetailedChart(filters).pipe(catchError(() => of(null)))
     }).subscribe({
       next: (result) => {
+        if (Object.values(result).some((chart) => chart === null)) {
+          this.loadFallbackAnalytics();
+          return;
+        }
+
         this.medicationTrendChart = result.medicationTrend;
         this.topUsersChart = result.topUsers;
         this.topReasonsChart = result.topReasons;
         this.detailedChart = result.detailed;
-        this.errorMessage = Object.values(result).some((chart) => chart === null)
-          ? 'Dio analitike trenutno nije dostupan.'
-          : '';
+        this.errorMessage = '';
       },
       error: (error) => {
         this.errorMessage = error?.error?.message || 'Ucitavanje analitike nije uspjelo.';
@@ -221,6 +225,126 @@ export class AnalyticsComponent implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  private loadFallbackAnalytics(): void {
+    const { start, end } = this.resolveSelectedDateRange();
+
+    this.historyService
+      .getAll({
+        page: 1,
+        pageSize: 100,
+        fromDate: this.formatDate(start),
+        toDate: this.formatDate(end),
+        userId: this.isAdmin ? this.selectedUserId : null,
+        medicationId: this.selectedMedicationId
+      })
+      .subscribe({
+        next: (records) => {
+          this.buildFallbackCharts(records, start, end);
+          this.errorMessage = '';
+        },
+        error: (error) => {
+          this.errorMessage = error?.error?.message || 'Ucitavanje analitike nije uspjelo.';
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      });
+  }
+
+  private buildFallbackCharts(records: MedicationHistoryRecord[], start: Date, end: Date): void {
+    const groupBy = this.resolveGroupBy(start, end);
+    const buckets = this.generateBuckets(start, end, groupBy);
+    const labels = buckets.map((bucket) => this.formatBucketLabel(bucket, groupBy));
+
+    const medicationCounts = this.countBy(records, (record) => record.medicationName || '-');
+    const topMedications = [...medicationCounts.entries()]
+      .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
+      .slice(0, 5);
+
+    this.medicationTrendChart = {
+      title: this.isAdmin ? 'Najkoristeniji lijekovi kroz vrijeme' : 'Moji najkoristeniji lijekovi kroz vrijeme',
+      groupBy,
+      labels,
+      datasets: topMedications.map(([label, totalCount]) => ({
+        label,
+        totalCount,
+        values: buckets.map(
+          (bucket) =>
+            records.filter(
+              (record) =>
+                record.medicationName === label &&
+                this.sameDate(this.getBucketStart(new Date(record.takenAt), groupBy), bucket)
+            ).length
+        )
+      })),
+      totalCount: records.length,
+      topMedication: topMedications[0]?.[0] ?? '-',
+      topMedicationCount: topMedications[0]?.[1] ?? 0,
+      range: this.range,
+      fromDate: this.formatDate(start),
+      toDate: this.formatDate(end)
+    };
+
+    const userCounts = this.countBy(records, (record) => record.username || '-');
+    const topUsers = [...userCounts.entries()]
+      .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
+      .slice(0, 10);
+
+    this.topUsersChart = {
+      title: this.isAdmin ? 'Najaktivniji korisnici' : 'Moja aktivnost',
+      labels: topUsers.map(([label]) => label),
+      values: topUsers.map(([, value]) => value),
+      totalCount: topUsers.reduce((sum, [, value]) => sum + value, 0),
+      topUsername: topUsers[0]?.[0] ?? '-',
+      topCount: topUsers[0]?.[1] ?? 0,
+      range: this.range,
+      fromDate: this.formatDate(start),
+      toDate: this.formatDate(end),
+      groupBy: 'range'
+    };
+
+    const reasonCounts = this.countBy(records, (record) => record.medicationTakeReasonName || record.reason || '-');
+    const topReasons = [...reasonCounts.entries()]
+      .filter(([label]) => label !== '-')
+      .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
+      .slice(0, 5);
+
+    this.topReasonsChart = {
+      title: 'Najcesci razlozi',
+      labels: topReasons.map(([label]) => label),
+      values: topReasons.map(([, value]) => value),
+      totalCount: topReasons.reduce((sum, [, value]) => sum + value, 0),
+      topReason: topReasons[0]?.[0] ?? '-',
+      topCount: topReasons[0]?.[1] ?? 0,
+      range: this.range,
+      fromDate: this.formatDate(start),
+      toDate: this.formatDate(end)
+    };
+
+    const detailedValues = buckets.map(
+      (bucket) =>
+        records.filter((record) =>
+          this.sameDate(this.getBucketStart(new Date(record.takenAt), groupBy), bucket)
+        ).length
+    );
+    const peakValue = Math.max(...detailedValues, 0);
+    const peakIndex = peakValue > 0 ? detailedValues.indexOf(peakValue) : -1;
+
+    this.detailedChart = {
+      title: this.isAdmin ? 'Detaljni pregled svih uzimanja' : 'Moj detaljni pregled',
+      groupBy,
+      labels,
+      values: detailedValues,
+      totalCount: records.length,
+      peakValue,
+      peakLabel: peakIndex >= 0 ? labels[peakIndex] : '',
+      peakLabelHuman: peakIndex >= 0 ? labels[peakIndex] : '',
+      range: this.range,
+      fromDate: this.formatDate(start),
+      toDate: this.formatDate(end)
+    };
   }
 
   private buildFilters() {
@@ -234,6 +358,101 @@ export class AnalyticsComponent implements OnInit {
       userId: this.isAdmin ? this.selectedUserId : null,
       medicationId: this.selectedMedicationId
     };
+  }
+
+  private resolveSelectedDateRange(): { start: Date; end: Date } {
+    const end = new Date();
+    const start = new Date(end);
+
+    if (this.range === 'custom') {
+      return {
+        start: this.fromDate ? new Date(`${this.fromDate}T00:00:00`) : start,
+        end: this.toDate ? new Date(`${this.toDate}T23:59:59`) : end
+      };
+    }
+
+    const dayCount = this.range === '7d' ? 7 : this.range === '90d' ? 90 : this.range === '365d' ? 365 : 30;
+    start.setDate(end.getDate() - dayCount + 1);
+    start.setHours(0, 0, 0, 0);
+
+    return { start, end };
+  }
+
+  private resolveGroupBy(start: Date, end: Date): string {
+    if (this.groupBy === 'day' || this.groupBy === 'week' || this.groupBy === 'month') {
+      return this.groupBy;
+    }
+
+    const totalDays = Math.max(1, Math.round((end.getTime() - start.getTime()) / 86400000) + 1);
+    return totalDays <= 31 ? 'day' : totalDays <= 180 ? 'week' : 'month';
+  }
+
+  private generateBuckets(start: Date, end: Date, groupBy: string): Date[] {
+    const buckets: Date[] = [];
+    const current = this.getBucketStart(start, groupBy);
+    const limit = this.getBucketStart(end, groupBy);
+
+    while (current <= limit) {
+      buckets.push(new Date(current));
+
+      if (groupBy === 'month') {
+        current.setMonth(current.getMonth() + 1);
+      } else {
+        current.setDate(current.getDate() + (groupBy === 'week' ? 7 : 1));
+      }
+    }
+
+    return buckets;
+  }
+
+  private getBucketStart(date: Date, groupBy: string): Date {
+    const bucket = new Date(date);
+    bucket.setHours(0, 0, 0, 0);
+
+    if (groupBy === 'month') {
+      bucket.setDate(1);
+      return bucket;
+    }
+
+    if (groupBy === 'week') {
+      const diff = bucket.getDay() === 0 ? 6 : bucket.getDay() - 1;
+      bucket.setDate(bucket.getDate() - diff);
+    }
+
+    return bucket;
+  }
+
+  private formatBucketLabel(bucket: Date, groupBy: string): string {
+    const day = String(bucket.getDate()).padStart(2, '0');
+    const month = String(bucket.getMonth() + 1).padStart(2, '0');
+    const year = bucket.getFullYear();
+
+    if (groupBy === 'month') {
+      return `${month}.${year}`;
+    }
+
+    if (groupBy === 'week') {
+      return `Sedmica ${day}.${month}`;
+    }
+
+    return `${day}.${month}.${year}`;
+  }
+
+  private countBy(records: MedicationHistoryRecord[], selector: (record: MedicationHistoryRecord) => string): Map<string, number> {
+    const counts = new Map<string, number>();
+
+    for (const record of records) {
+      const key = selector(record).trim() || '-';
+      counts.set(key, (counts.get(key) ?? 0) + 1);
+    }
+
+    return counts;
+  }
+
+  private sameDate(left: Date, right: Date): boolean {
+    return left.getFullYear() === right.getFullYear() &&
+      left.getMonth() === right.getMonth() &&
+      left.getDate() === right.getDate();
   }
 
   private setDefaultDates(): void {
