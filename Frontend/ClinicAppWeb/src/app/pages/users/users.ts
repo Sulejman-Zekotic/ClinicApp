@@ -87,7 +87,7 @@ export class UsersComponent implements OnInit {
           this.page = result.page;
         },
         error: (error) => {
-          this.errorMessage = error?.error?.message || 'Ucitavanje korisnika nije uspjelo.';
+          this.errorMessage = error?.error?.message || 'Učitavanje korisnika nije uspjelo.';
           this.isLoading = false;
         },
         complete: () => {
@@ -227,11 +227,11 @@ export class UsersComponent implements OnInit {
         }
 
         if (username.length < 2) {
-          return 'Korisnicko ime mora imati najmanje 2 znaka.';
+          return 'Korisničko ime mora imati najmanje 2 znaka.';
         }
 
         if (username.length > 60) {
-          return 'Korisnicko ime moze imati najvise 60 znakova.';
+          return 'Korisničko ime može imati najviše 60 znakova.';
         }
 
         return '';

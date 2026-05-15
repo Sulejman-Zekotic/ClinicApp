@@ -175,6 +175,10 @@
   min-width: 0;
 
   &__clear {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     width: 100%;
   }
 }
@@ -336,6 +340,13 @@
 .medications-filter-sheet__body {
   display: grid;
   gap: 14px;
+}
+
+.medications-filter-sheet__clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 @media (max-width: 1280px) {

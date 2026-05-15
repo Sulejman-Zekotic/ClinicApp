@@ -1,6 +1,6 @@
 <div class="users-page">
   @if (!isAdmin) {
-    <div class="clinic-empty">Samo admin moze upravljati korisnicima.</div>
+    <div class="clinic-empty">Samo admin može upravljati korisnicima.</div>
   } @else {
     @if (errorMessage) {
       <div class="ui-alert ui-alert--danger users-page__alert">
@@ -82,12 +82,15 @@
           <option value="user">Korisnik</option>
         </select>
 
-        <button type="button" class="clinic-button-secondary" (click)="clearFilters()">Ocisti</button>
+        <button type="button" class="clinic-button-secondary users-toolbar__clear" (click)="clearFilters()">
+          <svg lucideIcon="refresh-cw" class="h-4 w-4"></svg>
+          Očisti
+        </button>
       </div>
 
       @if (isLoading) {
         <div class="clinic-empty users-panel__empty">
-          <app-loading-spinner label="Ucitavanje korisnika..."></app-loading-spinner>
+          <app-loading-spinner label="Učitavanje korisnika..."></app-loading-spinner>
         </div>
       } @else if (users.length === 0) {
         <div class="clinic-empty users-panel__empty">Nema rezultata za odabrane filtere.</div>
@@ -169,7 +172,7 @@
           }
 
           <label class="workspace-field" [class.workspace-field--error]="showFieldError('username')">
-            <span class="workspace-field__label">Korisnicko ime</span>
+            <span class="workspace-field__label">Korisničko ime</span>
             <input
               class="clinic-input"
               [class.clinic-input--invalid]="showFieldError('username')"

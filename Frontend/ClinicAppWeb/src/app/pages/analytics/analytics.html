@@ -15,7 +15,7 @@
         <div class="analytics-filter-panel__actions">
           <button type="button" class="clinic-button-secondary analytics-reset-button" (click)="resetFilters()">
             <svg lucideIcon="refresh-cw" class="h-4 w-4"></svg>
-            Ocisti
+            Očisti
           </button>
         </div>
       </div>
@@ -69,14 +69,14 @@
 
     @if (isLoading) {
       <div class="clinic-empty analytics-page__loading">
-        <app-loading-spinner label="Ucitavanje analitike..."></app-loading-spinner>
+        <app-loading-spinner label="Učitavanje analitike..."></app-loading-spinner>
       </div>
     } @else {
       <section class="analytics-grid">
         <article class="analytics-panel">
           <div class="analytics-panel__header">
             <div>
-              <h2 class="analytics-panel__title">Najcesci razlozi</h2>
+              <h2 class="analytics-panel__title">Najčešći razlozi</h2>
             </div>
           </div>
 
@@ -108,7 +108,7 @@
         <article class="analytics-panel">
           <div class="analytics-panel__header">
             <div>
-              <h2 class="analytics-panel__title">Najkoristeniji lijekovi</h2>
+              <h2 class="analytics-panel__title">Najkorišteniji lijekovi</h2>
             </div>
           </div>
 
@@ -123,9 +123,9 @@
               </div>
               <div class="analytics-columns__plot">
                 @for (item of medicationBars; track item.label) {
-                  <article class="analytics-columns__item">
-                    <div class="analytics-columns__bar-shell">
-                      <div class="analytics-columns__bar" [style.height]="medicationBarHeight(item.value)">
+                  <article class="analytics-columns__item" [title]="item.label">
+                    <div class="analytics-columns__bar-shell" [title]="item.label">
+                      <div class="analytics-columns__bar" [style.height]="medicationBarHeight(item.value)" [title]="item.label">
                         <span></span>
                         <strong class="analytics-columns__value">{{ item.value }}</strong>
                       </div>

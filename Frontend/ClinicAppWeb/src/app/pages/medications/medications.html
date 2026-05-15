@@ -120,6 +120,7 @@
       </select>
 
       <button type="button" class="clinic-button-secondary medications-toolbar__clear" (click)="clearFilters()">
+        <svg lucideIcon="refresh-cw" class="h-4 w-4"></svg>
         Očisti
       </button>
     </div>
@@ -329,7 +330,10 @@
         </div>
 
         <div class="workspace-toast__footer">
-          <button type="button" class="clinic-button-secondary" (click)="clearFilters(); closePanel()">Očisti</button>
+          <button type="button" class="clinic-button-secondary medications-filter-sheet__clear" (click)="clearFilters(); closePanel()">
+            <svg lucideIcon="refresh-cw" class="h-4 w-4"></svg>
+            Očisti
+          </button>
           <button type="button" class="clinic-button-primary" (click)="closePanel()">Primijeni</button>
         </div>
       </section>

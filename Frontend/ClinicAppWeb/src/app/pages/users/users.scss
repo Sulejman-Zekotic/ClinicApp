@@ -160,6 +160,13 @@
   min-width: 0;
 }
 
+.users-toolbar__clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
 .users-filter-sheet__body {
   display: grid;
   gap: 14px;

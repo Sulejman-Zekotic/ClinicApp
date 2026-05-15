@@ -92,7 +92,7 @@ export class NotificationsComponent implements OnInit {
         this.preferences = preferences;
       },
       error: (error) => {
-        this.errorMessage = error?.error?.message || 'Ucitavanje postavki nije uspjelo.';
+        this.errorMessage = error?.error?.message || 'Učitavanje postavki nije uspjelo.';
       }
     });
 
@@ -102,7 +102,7 @@ export class NotificationsComponent implements OnInit {
         this.notificationsService.setUnreadCount(this.unreadCount);
       },
       error: (error) => {
-        this.errorMessage = error?.error?.message || 'Ucitavanje obavijesti nije uspjelo.';
+        this.errorMessage = error?.error?.message || 'Učitavanje obavijesti nije uspjelo.';
         this.isLoading = false;
       },
       complete: () => {

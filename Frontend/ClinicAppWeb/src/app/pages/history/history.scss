@@ -121,6 +121,13 @@
   gap: 10px;
 }
 
+.history-toolbar-actions__clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
 .history-mobile-controls {
   display: none;
 }

@@ -262,7 +262,7 @@ export class AnalyticsComponent implements OnInit {
         }
       },
       error: (error) => {
-        this.errorMessage = error?.error?.message || 'Ucitavanje analitike nije uspjelo.';
+        this.errorMessage = error?.error?.message || 'Učitavanje analitike nije uspjelo.';
         this.isLoading = false;
       }
     });
@@ -286,7 +286,7 @@ export class AnalyticsComponent implements OnInit {
           this.errorMessage = '';
         },
         error: (error) => {
-          this.errorMessage = error?.error?.message || 'Ucitavanje analitike nije uspjelo.';
+          this.errorMessage = error?.error?.message || 'Učitavanje analitike nije uspjelo.';
         },
         complete: () => {
           this.isLoading = false;
@@ -305,7 +305,7 @@ export class AnalyticsComponent implements OnInit {
       .slice(0, 5);
 
     this.medicationTrendChart = {
-      title: this.isAdmin ? 'Najkoristeniji lijekovi kroz vrijeme' : 'Moji najkoristeniji lijekovi kroz vrijeme',
+      title: this.isAdmin ? 'Najkorišteniji lijekovi kroz vrijeme' : 'Moji najkorišteniji lijekovi kroz vrijeme',
       groupBy,
       labels,
       datasets: topMedications.map(([label, totalCount]) => ({
@@ -353,7 +353,7 @@ export class AnalyticsComponent implements OnInit {
       .slice(0, 5);
 
     this.topReasonsChart = {
-      title: 'Najcesci razlozi',
+      title: 'Najčešći razlozi',
       labels: topReasons.map(([label]) => label),
       values: topReasons.map(([, value]) => value),
       totalCount: topReasons.reduce((sum, [, value]) => sum + value, 0),
