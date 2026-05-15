@@ -11,7 +11,7 @@ import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-sp
 import { PaginationComponent } from '../../shared/pagination/pagination';
 import { ToastService } from '../../shared/toast/toast.service';
 
-type UsersPanelMode = 'form' | 'credentials' | 'filters' | null;
+type UsersPanelMode = 'form' | 'filters' | 'details' | 'delete' | null;
 
 @Component({
   selector: 'app-users',
@@ -29,12 +29,15 @@ export class UsersComponent implements OnInit {
   private filterChanges = new Subject<void>();
 
   readonly isAdmin = this.auth.isAdmin();
+  readonly currentUserId = this.auth.getUserId();
 
   users: UserSummary[] = [];
-  generatedCredential: { username: string; password: string; email?: string | null } | null = null;
+  selectedUser: UserSummary | null = null;
+  pendingDeleteUser: UserSummary | null = null;
 
   isLoading = false;
   isSaving = false;
+  deletingUserId: number | null = null;
   errorMessage = '';
   formSubmitted = false;
   search = '';
@@ -132,7 +135,8 @@ export class UsersComponent implements OnInit {
     this.errorMessage = '';
     this.formSubmitted = false;
     this.activePanel = null;
-    this.generatedCredential = null;
+    this.selectedUser = null;
+    this.pendingDeleteUser = null;
   }
 
   submit(): void {
@@ -160,13 +164,8 @@ export class UsersComponent implements OnInit {
 
     this.usersService.add(this.form).subscribe({
       next: (user) => {
-        this.generatedCredential = {
-          username: user.username,
-          email: user.email,
-          password: user.temporaryPassword
-        };
-        this.toast.success(`Korisnik ${user.username} je dodat.`);
-        this.activePanel = 'credentials';
+        this.toast.success(`Korisnik ${user.username} je dodat. Link za postavku lozinke je poslan na njegov email.`);
+        this.activePanel = null;
         this.loadUsers();
       },
       error: (error) => {
@@ -188,9 +187,43 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  copyPassword(password: string): void {
-    navigator.clipboard?.writeText(password);
-    this.toast.info('Lozinka je kopirana.', 'Kopirano');
+  openDetails(user: UserSummary): void {
+    this.selectedUser = user;
+    this.activePanel = 'details';
+  }
+
+  deleteUser(user: UserSummary): void {
+    this.pendingDeleteUser = user;
+    this.activePanel = 'delete';
+  }
+
+  confirmDeleteUser(): void {
+    if (!this.pendingDeleteUser || this.deletingUserId) {
+      return;
+    }
+
+    const user = this.pendingDeleteUser;
+    this.deletingUserId = user.id;
+
+    this.usersService.delete(user.id).subscribe({
+      next: () => {
+        this.toast.success(`Korisnik ${user.username} je obrisan.`);
+        this.closePanel();
+        this.loadUsers();
+      },
+      error: (error) => {
+        const message = error?.error?.message || 'Brisanje korisnika nije uspjelo.';
+        this.toast.error(message);
+        this.deletingUserId = null;
+      },
+      complete: () => {
+        this.deletingUserId = null;
+      }
+    });
+  }
+
+  canDeleteUser(user: UserSummary): boolean {
+    return user.id !== this.currentUserId;
   }
 
   initials(username: string): string {

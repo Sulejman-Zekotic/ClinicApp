@@ -20,7 +20,7 @@ export interface AddUserRequest {
 }
 
 export interface CreatedUserResponse extends UserSummary {
-  temporaryPassword: string;
+  setupLinkSent: boolean;
 }
 
 export interface ResetUserPasswordResponse {
@@ -106,6 +106,10 @@ export class UsersService {
 
   resetPassword(id: number): Observable<ResetUserPasswordResponse> {
     return this.http.post<ResetUserPasswordResponse>(`${this.baseUrl}/${id}/reset-password`, {});
+  }
+
+  delete(id: number): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.baseUrl}/${id}`);
   }
 
   getLogs(): Observable<UserLog[]> {

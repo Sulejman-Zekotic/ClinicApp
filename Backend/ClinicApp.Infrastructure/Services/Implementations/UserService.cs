@@ -161,9 +161,10 @@ namespace ClinicApp.Infrastructure.Services.Implementations
             };
         }
 
-        public object AddUser(AddUserDto dto, string adminUsername)
+        public async Task<object> AddUserAsync(AddUserDto dto, string adminUsername)
         {
             var tempPassword = PasswordHelper.GenerateTemporaryPassword();
+            var token = Guid.NewGuid().ToString();
 
             var user = new User
             {
@@ -171,11 +172,22 @@ namespace ClinicApp.Infrastructure.Services.Implementations
                 Email = dto.Email,
                 Role = dto.Role,
                 PasswordHash = PasswordHelper.HashPassword(tempPassword),
-                MustChangePassword = true
+                MustChangePassword = true,
+                PasswordResetTokenHash = PasswordHelper.HashPassword(token),
+                PasswordResetTokenExpiryTime = DateTime.UtcNow.AddMinutes(30),
+                PasswordResetRequestedAt = DateTime.UtcNow
             };
+
+            using var transaction = _context.Database.BeginTransaction();
 
             _context.Users.Add(user);
             _context.SaveChanges();
+
+            var frontendBaseUrl = RequireSetting("App:FrontendBaseUrl").TrimEnd('/');
+            var link = $"{frontendBaseUrl}/reset-password?token={Uri.EscapeDataString(token)}";
+
+            await _emailService.SendPasswordSetupEmailAsync(user.Email!, user.Username, link);
+            transaction.Commit();
 
             return new
             {
@@ -183,7 +195,7 @@ namespace ClinicApp.Infrastructure.Services.Implementations
                 user.Username,
                 user.Email,
                 user.Role,
-                temporaryPassword = tempPassword
+                setupLinkSent = true
             };
         }
 
@@ -268,6 +280,27 @@ namespace ClinicApp.Infrastructure.Services.Implementations
                 user.Username,
                 temporaryPassword = tempPassword
             };
+        }
+
+        public object DeleteUser(int userId, int currentUserId)
+        {
+            if (userId == currentUserId)
+                throw new InvalidOperationException("Ne možete obrisati vlastiti nalog.");
+
+            var user = _context.Users.Find(userId);
+            if (user == null) throw new Exception("Korisnik nije pronadjen.");
+
+            if (user.Role.ToLower() == "admin")
+            {
+                var adminCount = _context.Users.Count(x => x.Role.ToLower() == "admin");
+                if (adminCount <= 1)
+                    throw new InvalidOperationException("Ne možete obrisati zadnjeg admin korisnika.");
+            }
+
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+
+            return new { message = "Korisnik je obrisan." };
         }
 
         public object GetLogs()

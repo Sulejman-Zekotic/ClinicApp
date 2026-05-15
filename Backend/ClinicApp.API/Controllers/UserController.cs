@@ -62,10 +62,10 @@ namespace ClinicApp.API.Controllers
         }
         [Authorize(Roles = "admin")]
         [HttpPost]
-        public IActionResult Add([FromBody] AddUserDto dto)
+        public async Task<IActionResult> Add([FromBody] AddUserDto dto)
         {
             var adminUsername = User.Identity?.Name ?? "unknown";
-            return Ok(_userService.AddUser(dto, adminUsername));
+            return Ok(await _userService.AddUserAsync(dto, adminUsername));
         }
 
         [Authorize]
@@ -97,6 +97,17 @@ namespace ClinicApp.API.Controllers
         {
             var adminUsername = User.Identity?.Name ?? "unknown";
             return Ok(_userService.ResetUserPassword(id, adminUsername));
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpDelete("{id}")]
+        public IActionResult DeleteUser(int id)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrWhiteSpace(userIdClaim) || !int.TryParse(userIdClaim, out var currentUserId))
+                return Unauthorized(new { message = "Token nije ispravan." });
+
+            return Ok(_userService.DeleteUser(id, currentUserId));
         }
 
         [Authorize(Roles = "admin")]

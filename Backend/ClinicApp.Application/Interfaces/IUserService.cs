@@ -9,7 +9,7 @@ namespace ClinicApp.Application.Interfaces
         void Logout(int userId);
         object GetMe(int userId);
 
-        object AddUser(AddUserDto dto, string adminUsername);
+        Task<object> AddUserAsync(AddUserDto dto, string adminUsername);
         Task<PagedResultDto<UserListItemDto>> GetPagedUsersAsync(
      ListUsersRequestDto request,
      CancellationToken ct = default);
@@ -20,6 +20,8 @@ namespace ClinicApp.Application.Interfaces
         object ConfirmPasswordReset(ConfirmPasswordResetDto dto);
 
         object ResetUserPassword(int userId, string adminUsername);
+
+        object DeleteUser(int userId, int currentUserId);
 
         object GetLogs();
     }

@@ -19,6 +19,43 @@ namespace ClinicApp.Infrastructure.Services.Implementations
 
         public async Task SendPasswordResetEmailAsync(string toEmail, string username, string resetLink)
         {
+            await SendPasswordLinkEmailAsync(
+                toEmail,
+                username,
+                resetLink,
+                "Reset lozinke - ClinicApp",
+                "Reset lozinke",
+                "Primili smo zahtjev za reset lozinke za vaš račun.",
+                "Kliknite na dugme ispod kako biste postavili novu lozinku:",
+                "Resetuj lozinku",
+                "Ako niste vi tražili reset, slobodno zanemarite ovu poruku.");
+        }
+
+        public async Task SendPasswordSetupEmailAsync(string toEmail, string username, string setupLink)
+        {
+            await SendPasswordLinkEmailAsync(
+                toEmail,
+                username,
+                setupLink,
+                "Postavka lozinke - ClinicApp",
+                "Postavka lozinke",
+                "Za vaš račun je kreiran pristup aplikaciji.",
+                "Kliknite na dugme ispod kako biste postavili lozinku:",
+                "Postavi lozinku",
+                "Ako niste očekivali ovaj poziv, slobodno zanemarite ovu poruku.");
+        }
+
+        private async Task SendPasswordLinkEmailAsync(
+            string toEmail,
+            string username,
+            string link,
+            string subject,
+            string heading,
+            string intro,
+            string instruction,
+            string buttonText,
+            string footerText)
+        {
             var host = _configuration["Email:SmtpHost"];
             var portText = _configuration["Email:SmtpPort"];
             var enableSslText = _configuration["Email:EnableSsl"];
@@ -52,28 +89,26 @@ namespace ClinicApp.Infrastructure.Services.Implementations
                 bool.TryParse(enableSslText, out enableSsl);
             }
 
-            var subject = "Reset lozinke - ClinicApp";
-
             var body = $@"
 <html>
 <head>
     <meta charset='utf-8' />
 </head>
 <body style='font-family: Arial, sans-serif; color: #1f2937;'>
-    <h2>Reset lozinke</h2>
+    <h2>{WebUtility.HtmlEncode(heading)}</h2>
     <p>Pozdrav <strong>{WebUtility.HtmlEncode(username)}</strong>,</p>
-    <p>Primili smo zahtjev za reset lozinke za vaš račun.</p>
-    <p>Kliknite na dugme ispod kako biste postavili novu lozinku:</p>
+    <p>{WebUtility.HtmlEncode(intro)}</p>
+    <p>{WebUtility.HtmlEncode(instruction)}</p>
     <p>
-        <a href='{WebUtility.HtmlEncode(resetLink)}'
+        <a href='{WebUtility.HtmlEncode(link)}'
            style='display:inline-block;padding:12px 18px;background:#243b63;color:#ffffff;text-decoration:none;border-radius:8px;'>
-           Resetuj lozinku
+           {WebUtility.HtmlEncode(buttonText)}
         </a>
     </p>
     <p>Ako dugme ne radi, kopirajte ovaj link u browser:</p>
-    <p>{WebUtility.HtmlEncode(resetLink)}</p>
+    <p>{WebUtility.HtmlEncode(link)}</p>
    <p>Link važi 30 minuta i može se iskoristiti samo jednom.</p>
-    <p>Ako niste vi tražili reset, slobodno zanemarite ovu poruku.</p>
+    <p>{WebUtility.HtmlEncode(footerText)}</p>
 </body>
 </html>";
 

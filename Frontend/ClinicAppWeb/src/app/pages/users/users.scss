@@ -238,11 +238,11 @@
   }
 
   &__col-user {
-    width: 38%;
+    width: 34%;
   }
 
   &__col-email {
-    width: 32%;
+    width: 30%;
   }
 
   &__col-role {
@@ -250,7 +250,7 @@
   }
 
   &__col-actions {
-    width: 16%;
+    width: 22%;
   }
 
   &__identity {
@@ -286,8 +286,13 @@
 
   &__actions {
     display: flex;
+    gap: 6px;
     justify-content: center;
   }
+}
+
+.users-table__details-button {
+  display: none;
 }
 
 .users-table__actions .table-icon-button {
@@ -484,11 +489,11 @@
     }
 
     &__col-user {
-      width: calc(100% - 72px);
+      width: calc(100% - 108px);
     }
 
     &__col-actions {
-      width: 72px;
+      width: 108px;
     }
 
     &__title {
@@ -498,6 +503,11 @@
 
   .users-table__actions {
     justify-content: flex-end;
+    gap: 4px;
+  }
+
+  .users-table__details-button {
+    display: inline-grid;
   }
 
   .users-table__actions .table-icon-button {
