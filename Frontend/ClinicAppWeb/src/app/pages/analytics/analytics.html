@@ -123,7 +123,7 @@
               </div>
               <div class="analytics-columns__plot">
                 @for (item of medicationBars; track item.label) {
-                  <article class="analytics-columns__item" [title]="item.label">
+                  <article class="analytics-columns__item" tabindex="0" [attr.aria-label]="item.label">
                     <div class="analytics-columns__bar-shell" [title]="item.label">
                       <div class="analytics-columns__bar" [style.height]="medicationBarHeight(item.value)" [title]="item.label">
                         <span></span>
@@ -131,6 +131,7 @@
                       </div>
                     </div>
                     <div class="analytics-columns__label" [title]="item.label">{{ item.label }}</div>
+                    <div class="analytics-columns__tooltip">{{ item.label }}</div>
                   </article>
                 }
               </div>
