@@ -127,6 +127,39 @@ ng serve
 ```
 
 ---
+---
+
+# Screenshots
+
+## Login
+
+![Login Desktop](screenshots/login-desktop.png)
+
+---
+
+## Dashboard
+
+![Dashboard Desktop](screenshots/dashboard-desktop.png)
+
+---
+
+## Medications
+
+![Medications Desktop](screenshots/medications-desktop.png)
+
+---
+
+## Analytics
+
+![Analytics Desktop](screenshots/analytics-desktop.png)
+
+---
+
+## Mobile View
+
+![Dashboard Mobile](screenshots/dashboard-mobile.png)
+
+![Medications Mobile](screenshots/medications-mobile.png)
 
 # Status
 
