@@ -133,25 +133,25 @@ ng serve
 
 ## Login
 
-![Login Desktop](screenshots/login-desktop.png)
+![Login Desktop](screenshots/login-desktop.PNG)
 
 ---
 
 ## Dashboard
 
-![Dashboard Desktop](screenshots/dashboard-desktop.png)
+![Dashboard Desktop](screenshots/dashboard-desktop.PNG)
 
 ---
 
 ## Medications
 
-![Medications Desktop](screenshots/medications-desktop.png)
+![Medications Desktop](screenshots/medications-desktop.PNG)
 
 ---
 
 ## Analytics
 
-![Analytics Desktop](screenshots/analytics-desktop.png)
+![Analytics Desktop](screenshots/analytics-desktop.PNG)
 
 ---
 
