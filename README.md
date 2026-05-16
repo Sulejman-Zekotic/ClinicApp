@@ -157,11 +157,16 @@ ng serve
 
 ## Mobile View
 
-<p align="center">
-  <img src="screenshots/dashboard-mobile.png" width="260" alt="Dashboard Mobile" />
-  <img src="screenshots/medications-mobile.png" width="260" alt="Medications Mobile" />
-</p>
-
+<table>
+  <tr>
+    <td align="center">
+      <img src="screenshots/dashboard-mobile.png" width="220" alt="Dashboard Mobile" />
+    </td>
+    <td align="center">
+      <img src="screenshots/medications-mobile.png" width="220" alt="Medications Mobile" />
+    </td>
+  </tr>
+</table>
 # Status
 
 Project is actively being improved and expanded.
