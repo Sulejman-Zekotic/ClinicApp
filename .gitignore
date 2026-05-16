@@ -1,9 +1,37 @@
-.local-dotnet-sdks-9/ 
-*.log 
-*.zip 
-bin/ 
-obj/ 
-.vs/ 
-.vscode/ 
-node_modules/ 
-dist/ 
+# Build outputs
+bin/
+obj/
+dist/
+out/
+publish/
+
+# Logs
+*.log
+
+# IDE/editor
+.vs/
+.vscode/
+.idea/
+
+# Dependencies
+node_modules/
+
+# Environment/secrets
+.env
+.env.*
+appsettings.Development.json
+appsettings.Local.json
+
+# Archives/temp
+*.zip
+*.rar
+*.7z
+tmp/
+temp/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local SDK/cache
+.local-dotnet-sdks-9/
