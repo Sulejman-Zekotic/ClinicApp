@@ -1,0 +1,9 @@
+.local-dotnet-sdks-9/ 
+*.log 
+*.zip 
+bin/ 
+obj/ 
+.vs/ 
+.vscode/ 
+node_modules/ 
+dist/ 
