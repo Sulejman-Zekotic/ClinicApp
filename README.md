@@ -157,9 +157,10 @@ ng serve
 
 ## Mobile View
 
-![Dashboard Mobile](screenshots/dashboard-mobile.png)
-
-![Medications Mobile](screenshots/medications-mobile.png)
+<p align="center">
+  <img src="screenshots/dashboard-mobile.png" width="260" alt="Dashboard Mobile" />
+  <img src="screenshots/medications-mobile.png" width="260" alt="Medications Mobile" />
+</p>
 
 # Status
 
