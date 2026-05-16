@@ -39,13 +39,13 @@ export class AppLayoutComponent implements OnInit, OnDestroy {
   mobileNavOpen = false;
 
   readonly navItems: NavItem[] = [
-    { label: 'Dashboard', path: '/dashboard', icon: 'layout-dashboard' },
-    { label: 'Medications', path: '/medications', icon: 'pill' },
-    { label: 'History', path: '/history', icon: 'history' },
-    { label: 'Users', path: '/users', icon: 'users', adminOnly: true },
-    { label: 'Analytics', path: '/analytics', icon: 'chart-column-big' },
-    { label: 'Notifications', path: '/notifications', icon: 'bell', hidden: true },
-    { label: 'Account', path: '/account', icon: 'key-round', hidden: true }
+    { label: 'Kontrolna ploča', path: '/dashboard', icon: 'layout-dashboard' },
+    { label: 'Lijekovi', path: '/medications', icon: 'pill' },
+    { label: 'Historija', path: '/history', icon: 'history' },
+    { label: 'Korisnici', path: '/users', icon: 'users', adminOnly: true },
+    { label: 'Analitika', path: '/analytics', icon: 'chart-column-big' },
+    { label: 'Obavještenja', path: '/notifications', icon: 'bell', hidden: true },
+    { label: 'Račun', path: '/account', icon: 'key-round', hidden: true }
   ];
 
   get visibleNavItems(): NavItem[] {
@@ -53,7 +53,7 @@ export class AppLayoutComponent implements OnInit, OnDestroy {
   }
 
   get roleLabel(): string {
-    return this.isAdmin ? 'Super Admin' : 'Staff User';
+    return this.isAdmin ? 'Super administrator' : 'Korisnik osoblja';
   }
 
   ngOnInit(): void {
