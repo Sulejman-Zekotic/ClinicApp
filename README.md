@@ -167,6 +167,16 @@ ng serve
     </td>
   </tr>
 </table>
+
+## Authors
+
+- Sulejman Zekotic
+- Amina Ahmić
+
+## License
+
+This project is available for portfolio and educational purposes.
+
 # Status
 
 Project is actively being improved and expanded.
